@@ -410,14 +410,19 @@ sau
 ### Specificatiile masinii
 
 **CPU** : 4-8 procesoare
+
 **RAM** : 16-32 GB RAM
+
 **Stocare** : 250GB SSD
+
 **Retea** : viteza mare de net, conexiune de 1 Gbps
 
 ### Load-ul maxim
 
 **RPS** - intre minim 300, maxim 700
+
 **Utilizatori simultani** - 5000 de utilizatori simultani
+
 **Numar de tranzactii simultan** - minim 1000, maxim 3000
 
 
