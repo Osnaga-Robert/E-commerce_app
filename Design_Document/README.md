@@ -263,9 +263,53 @@ produse, folosind un **fisier csv**
 
 ### USER STORY #8 - Aplicarea de reduceri
 
+**Cumparatorul** vrea **sa adauge** unui
 
+**produs** sau mai **multor produse**
+
+**o reducere**
+
+**Criteriul de acceptare**
+
+**CA#1 - Selectarea produselor**
+
+**Vanzatorul** intra pe pagina de reduceri,
+
+**selecteaza** din lista sa de produse pe
+
+cele care vor urma sa aiba o reducere si introduce
+
+**procentajul**.
 
 ### USER STORY #9 - Aprobarea conturilor
+
+Ca **administrator**
+
+vrem sa acceptam unele cereri ale
+
+**vanzatorilor** pentru a vinde
+
+**Criteriul de acceptare**
+
+**CA#1 - Verificarea conturilor**
+
+**Administratorul** acceseaza pagina
+
+de **conturi noi inregistrate**
+
+si verifica **datele** introduse
+
+de catre vanzatori.
+
+**CA#2 - Acceptarea conturilor**
+
+**Administratorul** dupa pasul de la
+
+**CA#1** decide daca vanzatorul este eligibil
+
+pentru a vinde pe site, in contrar il va refuza,
+
+apasand pe butonul de **decline**
 
 ## Protocolul de comunicare
 
@@ -361,6 +405,20 @@ sau
 
 **{"accountId": "12345","approvalStatus": false}**
 
+## Consideratii de scalabilitate
+
+### Specificatiile masinii
+
+**CPU** : 4-8 procesoare
+**RAM** : 16-32 GB RAM
+**Stocare** : 250GB SSD
+**Retea** : viteza mare de net, conexiune de 1 Gbps
+
+### Load-ul maxim
+
+**RPS** - intre minim 300, maxim 700
+**Utilizatori simultani** - 5000 de utilizatori simultani
+**Numar de tranzactii simultan** - minim 1000, maxim 3000
 
 
 
