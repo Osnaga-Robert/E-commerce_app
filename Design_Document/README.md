@@ -425,5 +425,22 @@ sau
 
 **Numar de tranzactii simultan** - minim 1000, maxim 3000
 
+## Diagrama aplicatiei
+
+![App_Diagram](../Images/Design_Document/App_Diagram.png)
+
+## Diagrame UML
+
+### Creerea Catalogului
+
+![Categories](../Images/Design_Document/Singleton.png)
+
+### Notificarea cumparatorilor abonati
+
+![News](../Images/Design_Document/Observer.png)
+
+### Creerea conturilor
+
+![Register](../Images/Design_Document/Factory.png)
 
 
