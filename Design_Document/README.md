@@ -1,446 +1,443 @@
 # E-commerce app - Osnaga Robert Viorel
 
-## Introducere
+## Introduction
 
-In momentul actual, aplicatiile de e-commerce au devenit esentiale pentru afaceri cat si pentru consumatori. Aceste aplicatii sunt platforme online cu ajutorul carora vanzatorii isi pot pune in valoare produsele consumatorilor intr-un mod prin care pot fi vizualizate la un click distanta, de pe orice device.
-Utilitatea aplicatiilor de e-commerce:
- - **accesibilitate** - aplicatie disponibila non-stop, cumparatorii pot vizualiza si cumpara produsele la orice ora.
- - **piata extinsa** - aceasta aplicatie nu are o acoperire, ea poate fi vizualizata de oriunde, deci produsele au o acoperire globala
- - **eficienta dpdv economic** - aplicatie de e-commerce este mai ieftin de intretinut decat un magazin fizic
+Currently, e-commerce applications have become essential for businesses as well as for consumers. These applications are online platforms that allow sellers to showcase their products to consumers in a way that can be viewed with a click, from any device.
 
-Ne propunem sa dezvoltam o aplicatie de e-commerce prin care un vanzator isi poate expune produsele intr-un mod usor, prin care poate observa statistici asupra vanzarilor si produselor, iar cumparatorul sa aiba o interfata usor de folosit prin care isi poate gasi produsul dorit.
+The utility of e-commerce applications:
+- **Accessibility** - The application is available non-stop, allowing buyers to view and purchase products at any time.
+- **Extended market** - This application has no coverage limits; it can be accessed from anywhere, so products have a global reach.
+- **Cost efficiency** - An e-commerce application is cheaper to maintain than a physical store.
 
-## Tehnologii folosite:
+We aim to develop an e-commerce application through which a seller can easily showcase their products, observe statistics on sales and products, and where the buyer has an easy-to-use interface to find the desired product.
 
- - **front-end** - Angular
- - **back-end** - Java
- - **baza de date** - MySQL
+## Technologies used:
 
-## Functionalitatile aplicatiei
+- **Front-end** - Angular
+- **Back-end** - Java
+- **Database** - MySQL
 
-Atunci cand am intrat pentru prima data pe site, vom putea viziona produsele deja adaugate, fara a avea permisiunea de a cumpara sau a deveni un vanzator. Pentru aceste facilitati, trebuie sa ne cream un cont, astfel vor exista doua tipuri: un cont pentru un cumparator care poate fi creat imediat si un cont pentru vanzator care va dupa completarea campurilor obligatorii va trebui sa astepte un raspuns de accept sau refuz deoarece datele introduse trebuie verificate.
+## Application functionalities
 
-Astfel, vom avea 4 actori:
+When we first enter the site, we will be able to view the products already added without having permission to buy or become a seller. For these features, we need to create an account. There will be two types: a buyer's account that can be created immediately and a seller's account which, after completing the mandatory fields, will have to wait for an acceptance or rejection response because the entered data needs to be verified.
 
- - **vizitator** - actorul care poate doar sa vizioneze produsele
- - **cumparatorul** - actorul care poate viziona si cumpara produse
- - **vanzatorul** - actorul care listeaza produsele sale spre vanzare
- - **adminul** - actorul care gestioneaza problemele
+Thus, we will have four actors:
 
-Vizitatorul:
+- **Visitor** - the actor who can only view the products
+- **Buyer** - the actor who can view and purchase products
+- **Seller** - the actor who lists their products for sale
+- **Admin** - the actor who manages issues
 
- - vizionarea produselor: Vizitatorul poate explora si vedea detalii despre diverse produse disponibile pe site.
- - cautarea anumitor produse: Utilizatorul poate folosi bara de cautare pentru a gasi produse specifice dupa nume.
- - alegerea unei liste de produse in functie de categorie: Vizitatorul poate naviga prin diferite categorii pentru a gasi produsele dorite.
- - aplicarea de filtre pe o anumita categorie: Utilizatorul poate filtra produsele pe categorii dupa criterii precum pret, brand, rating etc.
- - cererea ajutorului unui administrator: Vizitatorul poate solicita asistenta sau informatii suplimentare de la un administrator al site-ului.
- - crearea unui cont sau inregistrarea: Vizitatorul are optiunea de a-si crea un cont pentru a beneficia de functionalitati suplimentare.
- - vizualizarea recenziilor: Vizitatorul poate citi recenzii si evaluari ale altor utilizatori pentru a afla mai multe despre produsele de interes.
- - acces la oferte si promotii: Vizitatorii pot vedea ofertele si promotiile curente disponibile pe site.
+Visitor:
 
-Cumparatorul (pe langa functionalitatile vizitatorului):
+- Viewing products: The visitor can explore and see details about various products available on the site.
+- Searching for specific products: The user can use the search bar to find specific products by name.
+- Selecting a list of products by category: The visitor can navigate through different categories to find the desired products.
+- Applying filters to a category: The user can filter products in categories by criteria such as price, brand, rating, etc.
+- Requesting help from an administrator: The visitor can request assistance or additional information from a site administrator.
+- Creating an account or registering: The visitor has the option to create an account to benefit from additional functionalities.
+- Viewing reviews: The visitor can read reviews and ratings from other users to learn more about products of interest.
+- Access to offers and promotions: Visitors can see current offers and promotions available on the site.
 
- - adaugarea produselor in cos: Cumparatorul poate adauga produse in cosul de cumparaturi pentru achizitie ulterioara.
- - finalizarea comenzilor: Utilizatorul poate finaliza procesul de cumparare prin plasarea unei comenzi.
- - plata online: Cumparatorul poate efectua plata pentru produsele comandate folosind diverse metode de plata online.
- - urmarirea comenzilor: Utilizatorul poate verifica statusul livrarii pentru comenzile plasate.
- - vizualizarea istoricului comenzilor: Cumparatorul poate vedea o lista a tuturor comenzilor anterioare.
- - scrierea de recenzii: Utilizatorul poate scrie si publica recenzii pentru produsele achizitionate.
- - notificari pe email: Cumparatorul poate primi notificari si actualizari prin email despre comenzile sale si alte activitati relevante.
- - salvarea produselor in lista de dorinte: Vizitatorul poate salva produsele preferate intr-o lista de dorinte pentru a le revizui sau cumpara mai tarziu.
+Buyer (in addition to visitor functionalities):
 
-Vanzator:
+- Adding products to the cart: The buyer can add products to the shopping cart for later purchase.
+- Completing orders: The user can complete the purchasing process by placing an order.
+- Online payment: The buyer can make payments for ordered products using various online payment methods.
+- Order tracking: The user can check the delivery status for placed orders.
+- Viewing order history: The buyer can see a list of all previous orders.
+- Writing reviews: The user can write and publish reviews for purchased products.
+- Email notifications: The buyer can receive notifications and updates via email about their orders and other relevant activities.
+- Saving products to the wish list: The visitor can save preferred products to a wish list for review or purchase later.
 
- - gestionarea inventarului: Vanzatorul poate monitoriza si actualiza stocurile disponibile.
- - adaugarea unui produs: Vanzatorul poate adauga noi produse in platforma de eCommerce.
- - modificarea caracteristicilor unui produs: Vanzatorul poate edita detaliile si specificatiile produselor existente.
- - aplicarea de reduceri: Vanzatorul poate seta reduceri si promotii pentru anumite produse.
- - analiza vanzarilor: Vanzatorul poate accesa rapoarte si statistici despre performanta vanzarilor.
- - gestionarea comenzilor si livrarilor: Vanzatorul poate urmari si administra comenzile primite si procesele de livrare.
- - accesarea suportului tehnic: Vanzatorul poate solicita ajutor tehnic pentru problemele intampinate pe platforma.
- - gestionarea feedback-ului: Vanzatorul poate vedea si raspunde la recenziile si feedback-ul lasat de clienti.
+Seller:
+
+- Inventory management: The seller can monitor and update available stock.
+- Adding a product: The seller can add new products to the eCommerce platform.
+- Modifying product characteristics: The seller can edit the details and specifications of existing products.
+- Applying discounts: The seller can set discounts and promotions for certain products.
+- Sales analysis: The seller can access reports and statistics about sales performance.
+- Managing orders and deliveries: The seller can track and manage received orders and delivery processes.
+- Accessing technical support: The seller can request technical help for issues encountered on the platform.
+- Managing feedback: The seller can view and respond to reviews and feedback left by customers.
+
 Administrator:
- - rezolvarea problemelor semnalate de cumparatori, vanzatori si vizitatori: Administratorul gestioneaza si solutioneaza orice probleme raportate de utilizatorii site-ului.
- - verificarea cererilor de creare pentru conturile de cumparatori: Administratorul valideaza si aproba cererile de inregistrare ale noilor cumparatori.
- - monitorizarea performantei: Administratorul supravegheaza performantele site-ului si ale utilizatorilor sai.
- - adaugarea de functionalitati: Administratorul poate implementa noi functionalitati si imbunatatiri pe platforma.
- - gestionarea continutului site-ului: Administratorul poate edita si actualiza continutul paginilor de produs, paginilor informative si altor sectiuni ale site-ului.
- - securitatea site-ului: Administratorul se asigura ca site-ul este protejat impotriva amenintarilor de securitate si gestioneaza permisiunile utilizatorilor.
+
+- Resolving issues reported by buyers, sellers, and visitors: The administrator manages and solves any problems reported by site users.
+- Verifying registration requests for buyer accounts: The administrator validates and approves registration requests from new buyers.
+- Monitoring performance: The administrator oversees the performance of the site and its users.
+- Adding functionalities: The administrator can implement new features and improvements on the platform.
+- Managing site content: The administrator can edit and update content on product pages, informational pages, and other sections of the site.
+- Site security: The administrator ensures the site is protected against security threats and manages user permissions.
 
 ## User stories
 
-### USER STORY #1 - Cautarea produselor
+### USER STORY #1 - Searching for products
 
-Ca **vizitator** sau **cumparator** 
+As a **visitor** or **buyer** 
 
-**Vreau sa** caut un anumit produs dupa nume
+**I want to** search for a specific product by name
 
-**Pentru a** gasi produsul dorit.
+**To** find the desired product.
 
-**Criteriul de acceptare:**
+**Acceptance criteria:**
 
-**CA#1 - Gasirea produselor dorite**
+**AC#1 - Finding desired products**
 
-In **bara de cautare** se tasteaza 
+In the **search bar**, type the 
 
-produsul dorit dupa care tasta **enter** 
+product and press **enter**, 
 
-iar produsele gasite sunt afisate.
+and the found products are displayed.
 
-**CA#2 - Produsul dorit nu exista**
+**AC#2 - The desired product does not exist**
 
-In **bara de cautare** se tasteaza 
+In the **search bar**, type the 
 
-produsul dorit dupa care tasta **enter**
+desired product and press **enter**, 
 
-si se va afisa o pagina goala, cu un mesaj aferent.
+and an empty page with an appropriate 
 
-### USER STORY #2 - Alegerea unei categorii de produse
+message is displayed.
 
-Ca **vizitator** sau **cumparator** 
+### USER STORY #2 - Selecting a product category
 
-**Vreau sa** caut un anumit produs dupa categorie
+As a **visitor** or **buyer** 
 
-**Pentru a** gasi produse din categoria dorita.
+**I want to** search for a specific product by category
 
-**Criteriul de acceptare:**
+**To** find products from the desired category.
 
-**CA#1 - Selectarea categoriei dorite**
+**Acceptance criteria:**
 
-In partea stanga a **paginii principale** exista o
+**AC#1 - Selecting the desired category**
 
-**coloana** cu toate **categoriile** disponibile din care
+On the left side of the **main page**, 
 
-**utiizatorul** isi poate alege.
+there is a **column** with all available 
 
-### USER STORY #3 - Inregistrare ca cumparator
+**categories** from which the **user** can choose.
 
-Ca **vizitator**
+### USER STORY #3 - Registering as a buyer
 
-Vreau sa creez **un cont**
+As a **visitor**
 
-Pentru a **cumpara** produse
+**I want to create** an account
 
-**Criteriul de acceptare:**
+**To** buy products.
 
-**CA#1 - Accesul paginii de inregistrare**
+**Acceptance criteria:**
 
-Ca **vizitator**
+**AC#1 - Accessing the registration page**
 
-Accesez pagina de **conectare**
+As a **visitor**, access the **login** page and click on the **Register** button.
 
-Si accesez butonul de **Register**
+**AC#2 - Registration form**
 
-**CA#2 - Formular inregistrare**
+After step **AC#1**, fill in the form below with the following **data**:
 
-Dupa pasul de la **AC#1**
+| **Field Name** | **Field Type** | **Mandatory/Optional** |
+| -------------- | -------------- | ---------------------- |
+| Name           | Free text <br> Min 6 characters <br> Max 20 characters | Mandatory |
+| First Name     | Free text <br> Min 6 characters <br> Max 20 characters | Mandatory |
+| Email          | Free text <br> Min 6 characters <br> Max 20 characters | Mandatory |  
+| Password       | Free text <br> Min 6 characters <br> Max 20 characters | Mandatory |
+| Repeat Password| Free text <br> Min 6 characters <br> Max 20 characters | Mandatory |
 
-Completez formularul de mai jos cu **datele** astfel:
+**Errors that may occur**
 
-|**Field Name** |**Field Type**         |**Mandatory/Optional**     |
-|---------------|-----------------------|---------------------------|
-|Nume           |Free text <br> Min 6 caractere <br> Max 20 de caracterte      |Mandatory                  |
-|Prenume        |Free text <br> Min 6 caractere <br> Max 20 de caracterte      |Mandatory                  |
-|email          |Free text <br> Min 6 caractere <br> Max 20 de caracterte      |Mandatory                  |  
-|Parola         |Free text <br> Min 6 caractere <br> Max 20 de caracterte      |Mandatory                  |
-|Repeta parola  |Free text <br> Min 6 caractere <br> Max 20 de caracterte      |Mandatory                  |
+**Error 1 - Incorrect email format**
 
-**Erori care pot sa apara**
+The **correct** form of an 
 
-**Eroarea 1 - Email-ul nu are formatul corect**
+**email** should be in the form 
 
-Forma **corecta** a unui **email** trebuie sa
+**firstname@example.com**
 
-fie de forma **firstname@example.com**
+**Error 2 - Not meeting minimum or maximum values**
 
-**Eroarea 2 - Nerespectarea valorilor minime sau maxima**
+**Completed fields** must contain 
 
-**Campurile completate** trebuie sa contina
-**minim** 6 caractere si **maxim** 20 de caractere
+**at least** 6 characters and 
 
-**Eroarea 3 - Parola si Repeta parola contin parole diferite**
+**at most** 20 characters
 
-Cele **doua campuri** trebuie sa contina **aceeasi parola**
+**Error 3 - Password and Repeat Password contain different passwords**
 
-**Eroarea 4 - Email folosit**
+The **two fields** must contain the **same password**
 
-**Email-ul** introdus este deja folosit deci
+**Error 4 - Email already used**
 
-**exista** deja un cont cu acel email
+The **email** entered is already 
 
-### USER STORY #4 - Adaugarea produselor in cos
+in use, so an account with that email **already exists**
 
-Ca **cumparator**
+### USER STORY #4 - Adding products to the cart
 
-**doresc** sa adaug produsele dorite
+As a **buyer**
 
-**in cosul de cumparaturi**
+**I want to** add desired products
 
-**Criteriul de acceptare:**
+**To** the shopping cart.
 
-**CA#1 - Adaugarea unui produs in cos**
+**Acceptance criteria:**
 
-**Cumparatorul** alege produsul, acceseaza
+**AC#1 - Adding a product to the cart**
 
-**pagina** lui si apasa pe butonul **Adauga in cos**
+**The buyer** selects the product, accesses 
 
-### USER STORY #5 - Scrierea unui review
+its **page**, and clicks on the **Add to cart** button.
 
-Ca **cumparator**
+### USER STORY #5 - Writing a review
 
-**doresc** sa scriu o parere
+As a **buyer**
 
-despre un produs **cumparat**
+**I want to** write a review
 
-**CA#1 - Scrierea de review**
+about a **purchased** product.
 
-**Cumparatorul** selecteaza pagina
+**AC#1 - Writing a review**
 
-**produsului** pe care l-a cumparat
+**The buyer** selects the product's **page** 
 
-**da un rating** produsului si suplimentar
+they purchased, **gives a rating** to the product, 
 
-**completeaza** o descriere
+and additionally **completes** a description.
 
-**Erori care pot sa apara**
+**Errors that may occur**
 
-**Eroarea 1 - Pagina produsului incorecta**
+**Error 1 - Incorrect product page**
 
-**Cumparatorul** poate accesa o pagina
+**The buyer** can access the page of
 
-a **altui produs** pe care nu l-a cumparat,
+**another product** they did not purchase, 
 
-acesta neavand accesul la a scrie un **review**
+not having access to write a **review**.
 
-### USER STORY #6 - Inregistrare ca vanzator
+### USER STORY #6 - Registering as a seller
 
-Ca **vizitator**
+As a **visitor**
 
-Vreau sa creez un **cont**
+**I want to create** an account
 
-pentru a **vinde** produsele proprii
+**To** sell my products.
 
-**Criteriul de acceptare:**
+**Acceptance criteria:**
 
-**CA#1 - Completarea datelor**
+**AC#1 - Completing data**
 
-**Vizitatorul**, dupa ce a accesat
+**The visitor**, after accessing the 
 
-**pagina de inregistrare** de pe
+**registration page** from the **main page**, 
 
-**pagina principala**, completeaza
+completes the necessary data, after which they 
 
-datele necesare, dupa care va primi
+will receive an email with the account acceptance or not.
 
-un mail cu acceptarea contului sau nu
+### USER STORY #7 - Adding products
 
-### USER STORY #7 - Adaugarea produselor
+**The seller** adds one or more products.
 
-**Vanzatorul** adauga unul
+**Acceptance criteria:**
 
-sau mai multe produse
+**AC#1 - Adding a single product**
 
-**Criteriul de acceptare:**
+**The seller** adds a single product 
 
-**CA#1 - Adaugarea unui singur produs**
+ completing the following **data**:
 
-**Vanzatorul** adauga un singur produs
+| **Field Name**  | **Field Type** |
+| --------------- | -------------- |
+| Product Name    | Free text |
+| Product Category| Free text |
+| Description     | Free text |
+| Specifications  | Free text |
 
-completand urmatoarele **date**:
+**AC#2 - Adding multiple products**
 
-|**Field Name** | **Field Type**    |
-|---------------|-------------------|
-|Nume produs    |Free text|
-|Categorie Produs|Free text|
-|Descriere|Free text|
-|Specificatii|Free text|
+**The seller** can add multiple products using a **csv file**.
 
-**CA#2 - Adaugarea mai multor produse**
+### USER STORY #8 - Applying discounts
 
-**Vanzatorul** poate sa adauge mai multe
+**The buyer** wants to **add** a **discount** to one or more products.
 
-produse, folosind un **fisier csv**
+**Acceptance criteria**
 
-### USER STORY #8 - Aplicarea de reduceri
+**AC#1 - Selecting products**
 
-**Cumparatorul** vrea **sa adauge** unui
+**The seller** goes to the discount page,
 
-**produs** sau mai **multor produse**
+**selects** from their product list the ones 
 
-**o reducere**
+that will have a discount, and enters the **percentage**.
 
-**Criteriul de acceptare**
+### USER STORY #9 - Approving accounts
 
-**CA#1 - Selectarea produselor**
+As an **administrator**, we want to approve 
 
-**Vanzatorul** intra pe pagina de reduceri,
+some requests from **sellers** to sell.
 
-**selecteaza** din lista sa de produse pe
+**Acceptance criteria**
 
-cele care vor urma sa aiba o reducere si introduce
+**AC#1 - Verifying accounts**
 
-**procentajul**.
+**The administrator** accesses the 
 
-### USER STORY #9 - Aprobarea conturilor
+**newly registered accounts** page and 
 
-Ca **administrator**
+verifies their correctness. If **everything** 
 
-vrem sa acceptam unele cereri ale
+is ok, they approve the **account**, 
 
-**vanzatorilor** pentru a vinde
+if not, they **deny** it.
 
-**Criteriul de acceptare**
+**AC#2 - Denial reasons**
 
-**CA#1 - Verificarea conturilor**
+**The administrator** can **add reasons** 
 
-**Administratorul** acceseaza pagina
+for which the **request** was **rejected**.
 
-de **conturi noi inregistrate**
+**AC#2 - Approving accounts**
 
-si verifica **datele** introduse
+**The administrator**, after the step in
 
-de catre vanzatori.
+**AC#1**, decides if the seller is eligible
 
-**CA#2 - Acceptarea conturilor**
+to sell on the site; otherwise, they will refuse the request
 
-**Administratorul** dupa pasul de la
+by clicking the **decline** button.
 
-**CA#1** decide daca vanzatorul este eligibil
+## Communication Protocol
 
-pentru a vinde pe site, in contrar il va refuza,
+### For client-server connection, we will use **HTTPS**
 
-apasand pe butonul de **decline**
+### For sending emails, we will use **SMTP**
 
-## Protocolul de comunicare
+## Message Flow
 
-### Pentru conexiune client-server de vom folosi de **HTTPS**
+### Visitor accesses the web page
 
-### Pentru trimiterea de mail-uri ne vom folosi de **SMTP**
+**GET** request that returns the main page **e-commerce.html**
 
-## Flow-ul mesajelor
+### Viewing a product
 
-### Vizitatorul acceseaza pagina web
+**The visitor** selects a product, a
 
-Cerere de tip **GET** care returneaza pagina principala **e-commerce.html**
+**GET /product/{product_id}** request is sent, and **the visitor**
 
-### Vizualizarea unui produs
-
-**Vizitatorul** selecteaza un produs, se trimite o cerere
-
-de tip **GET /product/{product_id}**, si **vizitatorul**
-
-primeste pagina produsului.
+receives the product page.
 
 ### Log in
 
-**Utilizatorul** introducele email-ul si parola, 
+**The user** enters their email and password,
 
-**browser-ul** trimite o cerere de tipul **POST /api/auth/login**,
+**the browser** sends a request of type **POST /api/auth/login**,
 
-cu urmatorul corp **{ "username": "user@example.com", "password": "password123" }**
+with the following body **{ "username": "user@example.com", "password": "password123" }**
 
-### Adaugarea produsului in cos
+### Adding a product to the cart
 
-**Cumparatorul** adauga produsul in cos,
+**The buyer** adds a product to the cart,
 
-**browser-ul** trimite o cerere de tipul
+**the browser** sends a request of type
 
-**POST /cart/add** cu **{ "productId": "{productID}", "quantity": 1 }**
+**POST /cart/add** with **{ "productId": "{productID}", "quantity": 1 }**
 
-### Finalizarea comenzii
+### Completing an order
 
-**Cumparatorul** completeaza procesul de checkout,
+**The buyer** completes the checkout process,
 
-**browser-ul** trimite o cerere de tipul
+**the browser** sends a request of type
 
-**POST /order/checkout** cu 
+**POST /order/checkout** with 
 
 **{ "userId": "67890", "cart": [...], "paymentMethod": "creditCard", "shippingAddress": {...} }**
 
-### Scrierea si trimiterea unei recenzii
+### Writing and submitting a review
 
-**Vizitatorul** scrie o recenzie la un produs cumparat,
+**The visitor** writes a review for a purchased product,
 
-**browser-ul** trimite o cerere de tipul
+**the browser** sends a request of type
 
-**POST /review/submit** cu
+**POST /review/submit** with
 
 **{ "productId": "12345", "userId": "67890", "rating": 5, "comment": "Recomand!" }**
 
-### Adaugarea unui produs de catre vanzator
+### Adding a product by the seller
 
-**Vanzatorul** intra pe pagina de adaugare produs,
+**The seller** goes to the add product page,
 
-completeaza **datele**, iar **browser-ul** trimite
+fills in the **details**, and **the browser** sends
 
-o cerere de tipul **POST /api/addProduct** cu
+a request of type **POST /api/addProduct** with
 
 **{"sellerId": "67890","productName": "Produs Nou","description": "Descriere detaliata a produsului","price": 100.0,"category": "Electronics","stock": 1500}**
 
-### Aplicarea de reduceri
+### Applying discounts
 
-**Vanzatorul** intra pe pagina de reduceri, selecteaza
+**The seller** goes to the discounts page, selects
 
-**produsele** pe care aplica o **reducere**, iar
+**the products** to which a **discount** is applied, and
 
-**browser-ul** trimite o cerere de tipul
+**the browser** sends a request of type
 
-**POST /discount/apply** cu
+**POST /discount/apply** with
 
 **{"productIds": [1,2,3,4],"sellerId": "67890","discountPercentage": 20,"duration": 7}**
 
-### Aprobarea conturilor
+### Approving accounts
 
-**Administratorul** intra pe pagina de conturi in asteptare,
+**The administrator** goes to the pending accounts page,
 
-verifica datele trimise de vanzator si accepta sau respinge cererea,
+checks the details submitted by the seller, and approves or rejects the request,
 
-**browser-ul** trimite o cerere de tipul
+**the browser** sends a request of type
 
-**POST /account/approve** cu
+**POST /account/approve** with
 
 **{"accountId": "12345","approvalStatus": true}**
 
-sau
+or
 
 **{"accountId": "12345","approvalStatus": false}**
 
-## Consideratii de scalabilitate
+## Scalability Considerations
 
-### Specificatiile masinii
+### Machine specifications
 
-**CPU** : 4-8 procesoare
+**CPU** : 4-8 processors
 
 **RAM** : 16-32 GB RAM
 
-**Stocare** : 250GB SSD
+**Storage** : 250GB SSD
 
-**Retea** : viteza mare de net, conexiune de 1 Gbps
+**Network** : high-speed internet connection, 1 Gbps
 
-### Load-ul maxim
+### Maximum load
 
-**RPS** - intre minim 300, maxim 700
+**RPS** - between a minimum of 300 and a maximum of 700
 
-**Utilizatori simultani** - 5000 de utilizatori simultani
+**Simultaneous users** - 5000 simultaneous users
 
-**Numar de tranzactii simultan** - minim 1000, maxim 3000
+**Number of simultaneous transactions** - minimum 1000, maximum 3000
 
-## Diagrama aplicatiei
+## Application Diagram
 
 ![App_Diagram](../Images/Design_Document/App_Diagram.png)
 
-## Diagrame UML
+## UML Diagrams
 
-### Creerea Catalogului
+### Create Catalog
 
 ![Categories](../Images/Design_Document/Singleton.png)
 
-### Notificarea cumparatorilor abonati
+### Notifying subscribed buyers
 
 ![News](../Images/Design_Document/Observer.png)
 
-### Creerea conturilor
+### Create Account
 
 ![Register](../Images/Design_Document/Factory.png)
+
 
 
