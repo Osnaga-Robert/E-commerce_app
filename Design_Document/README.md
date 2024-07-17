@@ -441,3 +441,248 @@ or
 
 
 
+## Prototype
+
+### Main page
+
+![Main_page](../Images/Design_Document/Main%20Page%20-%20Desktop.png)
+
+Main page of the buyer and visitor accounts, where you can see the categories that the website are sellings and some of the best sellers
+
+- Search bar - you can type for a product
+- SHOP4ALL - press to come back to main page
+- Category buttons - press to go to a category of products
+- the favorites button, leads you to the favorites page if you are logged in, otherwise it opens the log in page
+- cart button - press to go a the cart page if you are logged in, otherwise it opens the log in page
+- account button - press to see information about the account if you are looged in, otherwise it opnes the log in page
+- Image, Product Name, Price - type on one of those to open a product's page
+
+### Product page
+
+![Product_page](../Images/Design_Document/Product%20-%20link.png)
+
+The product page contains the images of the product, the price and the description about his functionalities. Reviews are written by the persons who bought this item
+
+- Search bar - you can type for a product
+- SHOP4ALL - press to come back to main page
+- the favorites button, leads you to the favorites page if you are logged in, otherwise it opens the log in page
+- cart button - press to go a the cart page if you are logged in, otherwise it opens the log in page
+- account button - press to see information about the account if you are looged in, otherwise it opens the log in page
+- description button - press to view the product's description
+- review button - press to view reviews from buyers
+- add to cart button - press to add the product to cart if you are logged in, otherwise it opens the log in page
+
+### Cart
+
+![Cart](../Images/Design_Document/Cart.png)
+
+The cart is the page where all the products that a buyer added to cart can see and place the order
+
+- Search bar - you can type for a product
+- SHOP4ALL - press to come back to main page
+- the favorites button, leads you to the favorites page if you are logged in, otherwise it opens the log in page
+- cart button - press to go a the cart page if you are logged in, otherwise it opens the log in page
+- account button - press to see information about the account if you are looged in, otherwise it opens the log in page
+- Quantity button - show your quantity and ce be modified
+- Delete from cart - Delte the product from the cart
+- Image button - Press to go to the product's page
+- Place the order button - used to go to the order details
+
+### Order details
+
+![Order_details](../Images/Design_Document/Delivery%20Info.png)
+
+Order details page consists of filling in some billing and deliveery data
+
+- Search bar - you can type for a product
+- SHOP4ALL - press to come back to main page
+- the favorites button, leads you to the favorites page if you are logged in, otherwise it opens the log in page
+- cart button - press to go a the cart page if you are logged in, otherwise it opens the log in page
+- account button - press to see information about the account if you are looged in, otherwise it opens the log in page
+- Select county - select a county from a list
+- Type your city - The city where your order should come
+- Type street - The street where your order should come
+- Type address - The address your order should come
+- Type phone - The phone number for the delivery team
+- Comple the order button - Button to finish the order
+
+### Log in
+
+![Log_in](../Images/Design_Document/Log%20In.png)
+
+The log in page where the user need to complete the email address and password to be a buyer ir a seller based on his type of account
+
+- Search bar - you can type for a product
+- SHOP4ALL - press to come back to main page
+- the favorites button, leads you to the favorites page if you are logged in, otherwise it opens the log in page
+- cart button - press to go a the cart page if you are logged in, otherwise it opens the log in page
+- account button - press to see information about the account if you are looged in, otherwise it opens the log in page
+- Type your email - The email used to register on the website
+- Type your password - The password used to register on the website
+- Connect button - used to connect to the account, if it correct it will goo to the main page, if not an error message will appear
+
+### Register buyers
+
+![Register_buyers](../Images/Design_Document/Register%20-%20Buyer.png)
+
+A page where the viewer need to complete some datas to be a buyer
+
+- Search bar - you can type for a product
+- SHOP4ALL - press to come back to main page
+- the favorites button, leads you to the favorites page if you are logged in, otherwise it opens the log in page
+- cart button - press to go a the cart page if you are logged in, otherwise it opens the log in page
+- account button - press to see information about the account if you are looged in, otherwise it opens the log in page
+- Type your First Name - client's first name
+- Type your Last Name - client's last name
+- Type your email - client's email to log in to the website and receive mails
+- Type your password - client's password to log in to the website
+- Type your password - as above, the two passwords must be identical
+- Create account button - button to confirm your data, if everything is alright the client is redirected to the main page, otherwise something is wrong and an error message will appear
+
+### Register seller
+
+![Register_seller](../Images/Design_Document/Register%20-%20Seller.png)
+
+A page where the viewer need to complete some datas to be a seller. Also the seller nee to wait some time to be accepted.
+
+- Search bar - you can type for a product
+- SHOP4ALL - press to come back to main page
+- the favorites button, leads you to the favorites page if you are logged in, otherwise it opens the log in page
+- cart button - press to go a the cart page if you are logged in, otherwise it opens the log in page
+- account button - press to see information about the account if you are looged in, otherwise it opens the log in page
+- Type your first name - seller's first name
+- Type your last name - seller's last name
+- Type Comapany Name - seller's company name
+- Type your email - seller's email to log in
+- Type your email - seller's email to log in to the website and receive mails
+- Type your password - seller's password to log in to the website
+- Type your password - as above, the two passwords must be identical
+- Type a short description about the products - the seller must give us some examples of the products to see if they fit the requirements of our site
+- Create account button - button to confirm your data, if everything is alright the seller is redirected to the main page, otherwise something is wrong and an error message will appear
+
+### Dashboard
+
+![Dashboard](../Images/Design_Document/Dashboard.png)
+
+The main page of the seller, where he can see some statistics
+about his total sales and sales on a week and total customers of all time and of a week.
+
+Also, he can see the monthly sales on a chart and best selling products
+
+- SHOP4ALL - button to go back to dashboard
+- Add product button - go to add product page
+- Reports button - go to reports page
+- Discounts button - go to discounts page
+- Reviews button - go to reviews page
+- Products button - go to products page
+- Log out - log out from the seller account
+
+### Add product
+
+![Add_products](../Images/Design_Document/Add%20product.png)
+
+Add products page where the seller can add a new product based on the left panel from the left or he can add multiple products using a csv file based on the information from the right panel.
+
+- SHOP4ALL - button to go back to dashboard
+- Add product button - go to add product page
+- Reports button - go to reports page
+- Discounts button - go to discounts page
+- Reviews button - go to reviews page
+- Products button - go to products page
+- Log out - log out from the seller account
+- Type your product name - the new product's name
+- Select category - select a category in which the product falls
+- Select subcategory - select a subcategory in which the product falls
+- Add Price - price for the product
+- Add Stock - the number of products you can sell
+- Add a description about your product - The description that will see the buyers
+- Add products button - add the product
+- Upload csv file - a button to upload a csv file based on the information bellow
+- Add products button - add the products from the csv file
+
+### Reports
+
+![Reports](../Images/Design_Document/Reports.png)
+
+The chart page displays information about products and customers to the seller in order to better manage the customers and products they want to continue with.
+
+- SHOP4ALL - button to go back to dashboard
+- Add product button - go to add product page
+- Reports button - go to reports page
+- Discounts button - go to discounts page
+- Reviews button - go to reviews page
+- Products button - go to products page
+- Log out - log out from the seller account
+- Per week buttons - We can choose for the charts to be per days, weeks, months or years
+
+### Orders
+
+![Orders](../Images/Design_Document/Orders.png)
+
+The order page contains all the orders made by clients at a specific seller. The seller need to confirm that the order is on delivery, he also can speak with the client and drop the order if something happened.
+
+- SHOP4ALL - button to go back to dashboard
+- Add product button - go to add product page
+- Reports button - go to reports page
+- Discounts button - go to discounts page
+- Reviews button - go to reviews page
+- Products button - go to products page
+- Log out - log out from the seller account
+- Confirm the order button - a button that will send an email to the buyer about the delivery of the command
+- Speak with the client button - seller can speak with the buyer about informations about his order details
+- Drop the order button - seller can reject orders
+
+### Discounts
+
+![Discounts](../Images/Design_Document/Discounts.png)
+
+The purpose of the discount page is to add a new offer of a product or an entire category. The seller can also extend the campaign or remove it.
+
+- SHOP4ALL - button to go back to dashboard
+- Add product button - go to add product page
+- Reports button - go to reports page
+- Discounts button - go to discounts page
+- Reviews button - go to reviews page
+- Products button - go to products page
+- Log out - log out from the seller account
+- < Select from here > - choose a product or a category
+- ___ % - complete with the discount percentage
+- From ____ To ____ - complete the start and the finish of the discount
+- Add to list - button to add the discount to the right panel
+- Apply discounts - button to confirm the discounts
+- Extend the offer - button to extend the discount of a product/category
+- Delete discount - finish the discount time earlier
+
+### Reviews
+
+The purpose of the review page is to display feedback from customers, how satisfied they are with the product. The seller can respond to these reviews or can remove this review notice from his page
+
+![Reviews](../Images/Design_Document/Reviews.png)
+
+- SHOP4ALL - button to go back to dashboard
+- Add product button - go to add product page
+- Reports button - go to reports page
+- Discounts button - go to discounts page
+- Reviews button - go to reviews page
+- Products button - go to products page
+- Log out - log out from the seller account
+- Comment button - seller can speak with the buyer
+- mark as seen button - seller can delete the message from the review page
+
+### Products
+
+![Products](../Images/Design_Document/Products.png)
+
+
+The product page shows the seller all the products he has for sale as well as the description, price and stock. He can modify all the mentioned or remove the product if it is no longer in stock or it no longer makes sense to continue with it.
+
+- SHOP4ALL - button to go back to dashboard
+- Add product button - go to add product page
+- Reports button - go to reports page
+- Discounts button - go to discounts page
+- Reviews button - go to reviews page
+- Products button - go to products page
+- Log out - log out from the seller account
+- Add stock button - the seller can introduce more stock to a products
+- Change characteristics - the seller can change the name, the description of the product or the price
+- Delete the products - the seller can delete the product
