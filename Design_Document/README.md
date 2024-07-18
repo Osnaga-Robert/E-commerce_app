@@ -9,13 +9,13 @@ The utility of e-commerce applications:
 - **Extended market** - This application has no coverage limits; it can be accessed from anywhere, so products have a global reach.
 - **Cost efficiency** - An e-commerce application is cheaper to maintain than a physical store.
 
-We aim to develop an e-commerce application through which a seller can easily showcase their products, observe statistics on sales and products, and where the buyer has an easy-to-use interface to find the desired product.
+We aim to develop an e-commerce **web application** through which a seller can easily showcase their products, observe statistics on sales and products, and where the buyer has an easy-to-use interface to find the desired product.
 
 ## Technologies used:
 
-- **Front-end** - Angular
-- **Back-end** - Java
-- **Database** - MySQL
+- **Front-end** - Angular 18.0.1 + TypeScript 5.4.0 and Node.js 20.15.1
+- **Back-end** - Java 19 + Spring Boot 3.3.1
+- **Database** - MySQL 8.0.34
 
 ## Application functionalities
 
@@ -30,45 +30,45 @@ Thus, we will have four actors:
 
 Visitor:
 
-- Viewing products: The visitor can explore and see details about various products available on the site.
-- Searching for specific products: The user can use the search bar to find specific products by name.
-- Selecting a list of products by category: The visitor can navigate through different categories to find the desired products.
-- Applying filters to a category: The user can filter products in categories by criteria such as price, brand, rating, etc.
-- Requesting help from an administrator: The visitor can request assistance or additional information from a site administrator.
-- Creating an account or registering: The visitor has the option to create an account to benefit from additional functionalities.
-- Viewing reviews: The visitor can read reviews and ratings from other users to learn more about products of interest.
-- Access to offers and promotions: Visitors can see current offers and promotions available on the site.
+- **Viewing products**: The visitor can explore and see details about various products available on the site.
+- **Searching for specific products**: The user can use the search bar to find specific products by name.
+- **Selecting a list of products by category**: The visitor can navigate through different categories to find the desired products.
+- **Applying filters to a category**: The user can filter products in categories by criteria such as price, brand, rating, etc.
+- **Requesting help from an administrator**: The visitor can request assistance or additional information from a site administrator.
+- **Creating an account or registering**: The visitor has the option to create an account to benefit from additional functionalities.
+- **Viewing reviews**: The visitor can read reviews and ratings from other users to learn more about products of interest.
+- **Access to offers and promotions**: Visitors can see current offers and promotions available on the site.
 
 Buyer (in addition to visitor functionalities):
 
-- Adding products to the cart: The buyer can add products to the shopping cart for later purchase.
-- Completing orders: The user can complete the purchasing process by placing an order.
-- Online payment: The buyer can make payments for ordered products using various online payment methods.
-- Order tracking: The user can check the delivery status for placed orders.
-- Viewing order history: The buyer can see a list of all previous orders.
-- Writing reviews: The user can write and publish reviews for purchased products.
-- Email notifications: The buyer can receive notifications and updates via email about their orders and other relevant activities.
-- Saving products to the wish list: The visitor can save preferred products to a wish list for review or purchase later.
+- **Adding products to the cart**: The buyer can add products to the shopping cart for later purchase.
+- **Completing orders**: The user can complete the purchasing process by placing an order.
+- **Online payment**: The buyer can make payments for ordered products using various online payment methods.
+- **Order tracking**: The user can check the delivery status for placed orders.
+- **Viewing order history**: The buyer can see a list of all previous orders.
+- **Writing reviews**: The user can write and publish reviews for purchased products.
+- **Email notifications**: The buyer can receive notifications and updates via email about their orders and other relevant activities.
+- **Saving products to the wish list**: The visitor can save preferred products to a wish list for review or purchase later.
 
 Seller:
 
-- Inventory management: The seller can monitor and update available stock.
-- Adding a product: The seller can add new products to the eCommerce platform.
-- Modifying product characteristics: The seller can edit the details and specifications of existing products.
-- Applying discounts: The seller can set discounts and promotions for certain products.
-- Sales analysis: The seller can access reports and statistics about sales performance.
-- Managing orders and deliveries: The seller can track and manage received orders and delivery processes.
-- Accessing technical support: The seller can request technical help for issues encountered on the platform.
-- Managing feedback: The seller can view and respond to reviews and feedback left by customers.
+- **Inventory management**: The seller can monitor and update available stock.
+- **Adding a product**: The seller can add new products to the eCommerce platform.
+- **Modifying product characteristics**: The seller can edit the details and specifications of existing products.
+- **Applying discounts**: The seller can set discounts and promotions for certain products.
+- **Sales analysis**: The seller can access reports and statistics about sales performance.
+- **Managing orders and deliveries**: The seller can track and manage received orders and delivery processes.
+- **Accessing technical support**: The seller can request technical help for issues encountered on the platform.
+- **Managing feedback**: The seller can view and respond to reviews and feedback left by customers.
 
 Administrator:
 
-- Resolving issues reported by buyers, sellers, and visitors: The administrator manages and solves any problems reported by site users.
-- Verifying registration requests for buyer accounts: The administrator validates and approves registration requests from new buyers.
-- Monitoring performance: The administrator oversees the performance of the site and its users.
-- Adding functionalities: The administrator can implement new features and improvements on the platform.
-- Managing site content: The administrator can edit and update content on product pages, informational pages, and other sections of the site.
-- Site security: The administrator ensures the site is protected against security threats and manages user permissions.
+- **Resolving issues reported by buyers, sellers, and visitors**: The administrator manages and solves any problems reported by site users.
+- **Verifying registration requests for buyer accounts**: The administrator validates and approves registration requests from new buyers.
+- **Monitoring performance**: The administrator oversees the performance of the site and its users.
+- **Adding functionalities**: The administrator can implement new features and improvements on the platform.
+- **Managing site content**: The administrator can edit and update content on product pages, informational pages, and other sections of the site.
+- **Site security**: The administrator ensures the site is protected against security threats and manages user permissions.
 
 ## User stories
 
@@ -141,8 +141,8 @@ After step **AC#1**, fill in the form below with the following **data**:
 | Name           | Free text <br> Min 6 characters <br> Max 20 characters | Mandatory |
 | First Name     | Free text <br> Min 6 characters <br> Max 20 characters | Mandatory |
 | Email          | Free text <br> Min 6 characters <br> Max 20 characters | Mandatory |  
-| Password       | Free text <br> Min 6 characters <br> Max 20 characters | Mandatory |
-| Repeat Password| Free text <br> Min 6 characters <br> Max 20 characters | Mandatory |
+| Password       | Free text <br> Min 6 characters <br> Max 20 characters <br> The password will require to be as next regex <br> ^(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{6,}$ | Mandatory |
+| Repeat Password|  Free text <br> Min 6 characters <br> Max 20 characters <br> The password will require to be as next regex <br> ^(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{6,}$ | Mandatory |
 
 **Errors that may occur**
 
