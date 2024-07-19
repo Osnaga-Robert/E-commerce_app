@@ -74,67 +74,83 @@ Administrator:
 
 ### USER STORY #1 - Searching for products
 
-As a **visitor** or **buyer** 
+**As** a visitor or buyer
 
 **I want to** search for a specific product by name
 
-**To** find the desired product.
+**So that** I can find the desired product.
 
 **Acceptance criteria:**
 
-**AC#1 - Finding desired products**
+**AC#1**
 
-In the **search bar**, type the 
+**Scenario**: Finding desired products
 
-product and press **enter**, 
+**Given** the user is on the main page,
 
-and the found products are displayed.
+**When** they type the product name in the search bar and press enter,
 
-**AC#2 - The desired product does not exist**
+**Then** the found products are displayed.
 
-In the **search bar**, type the 
+**AC#2**
 
-desired product and press **enter**, 
+**Scenario**: The desired product does not exist
 
-and an empty page with an appropriate 
+**Given** the user is on the main page,
 
-message is displayed.
+**When** they type the product name in the search bar and press enter,
+
+**Then** an empty page with an appropriate message is displayed.
 
 ### USER STORY #2 - Selecting a product category
 
-As a **visitor** or **buyer** 
+**As a** visitor or buyer
 
 **I want to** search for a specific product by category
 
-**To** find products from the desired category.
+**So that** I can find products from the desired category.
 
 **Acceptance criteria:**
 
-**AC#1 - Selecting the desired category**
+**AC#1**
 
-On the left side of the **main page**, 
+**Sceanrio**: Selecting the desired category
 
-there is a **column** with all available 
+**Given** the user is on the main page,
 
-**categories** from which the **user** can choose.
+**When** they look at the left side of the main page,
+
+**Then** they see a column with all available categories from which they can choose.
 
 ### USER STORY #3 - Registering as a buyer
 
-As a **visitor**
+**As a** visitor
 
-**I want to create** an account
+**I want to** create an account
 
-**To** buy products.
+**So that** I can buy products.
 
 **Acceptance criteria:**
 
-**AC#1 - Accessing the registration page**
+**AC#1** 
 
-As a **visitor**, access the **login** page and click on the **Register** button.
+**Scenario**: Accessing the registration page
 
-**AC#2 - Registration form**
+**Given** the user is on the login page,
 
-After step **AC#1**, fill in the form below with the following **data**:
+**When** they click on the Register button,
+
+**Then** they are taken to the registration page.
+
+**AC#2** 
+
+**Scenario**:Registration form
+
+**Given** the user is on the registration page,
+
+**When** they fill in the form with the required data,
+
+**Then** they can submit the form to create an account.
 
 | **Field Name** | **Field Type** | **Mandatory/Optional** |
 | -------------- | -------------- | ---------------------- |
@@ -146,31 +162,45 @@ After step **AC#1**, fill in the form below with the following **data**:
 
 **Errors that may occur**
 
-**Error 1 - Incorrect email format**
+**Error 1**
 
-The **correct** form of an 
+**Scenario**: Incorrect email format
 
-**email** should be in the form 
+**Given** the user is filling the registration form,
 
-**firstname@example.com**
+**When** they enter an incorrect email format,
 
-**Error 2 - Not meeting minimum or maximum values**
+**Then** an error message is displayed indicating the correct format (firstname@example.com).
 
-**Completed fields** must contain 
+**Error 2**
 
-**at least** 6 characters and 
+**Scenario**: Not meeting minimum or maximum values
 
-**at most** 20 characters
+**Given** the user is filling the registration form,
 
-**Error 3 - Password and Repeat Password contain different passwords**
+**When** they enter values not meeting the minimum (6 characters) or maximum (20 characters),
 
-The **two fields** must contain the **same password**
+**Then** an error message is displayed.
 
-**Error 4 - Email already used**
+**Error 3**
 
-The **email** entered is already 
+**Scenario**: Password and Repeat Password contain different passwords
 
-in use, so an account with that email **already exists**
+**Given** the user is filling the registration form,
+
+**When** the passwords in the Password and Repeat Password fields do not match,
+
+**Then** an error message is displayed.
+
+**Error 4**
+
+**Scenario**: Email already used
+
+**Given** the user is filling the registration form,
+
+**When** the entered email is already in use,
+
+**Then** an error message is displayed indicating the email is already associated with an account.
 
 ### USER STORY #4 - Adding products to the cart
 
@@ -182,69 +212,83 @@ As a **buyer**
 
 **Acceptance criteria:**
 
-**AC#1 - Adding a product to the cart**
+**AC#1**
 
-**The buyer** selects the product, accesses 
+**Scenario**: Adding a product to the cart
 
-its **page**, and clicks on the **Add to cart** button.
+**Given** the buyer is on the product page,
+
+**When** they click the Add to cart button,
+
+**Then** the product is added to their shopping cart.
 
 ### USER STORY #5 - Writing a review
 
-As a **buyer**
+**As** a buyer
 
 **I want to** write a review
 
-about a **purchased** product.
+**So that** I can share my experience about a purchased product.
 
-**AC#1 - Writing a review**
+**Acceptance criteria:**
 
-**The buyer** selects the product's **page** 
+**AC#1**
 
-they purchased, **gives a rating** to the product, 
+**Scenario**: Writing a review
 
-and additionally **completes** a description.
+**Given** the buyer is on the product page of a purchased product,
+
+**When** they give a rating and complete a description,
+
+**Then** they can submit their review.
 
 **Errors that may occur**
 
-**Error 1 - Incorrect product page**
+**Error 1**
 
-**The buyer** can access the page of
+**Scneario**: Incorrect product page
 
-**another product** they did not purchase, 
+**Given** the buyer is on the product page,
 
-not having access to write a **review**.
+**When** they access a product they did not purchase,
+
+**Then** they do not have access to write a review.
 
 ### USER STORY #6 - Registering as a seller
 
-As a **visitor**
+**As a** visitor
 
-**I want to create** an account
+**I want to** create an account
 
-**To** sell my products.
+**So that** I can sell my products.
 
 **Acceptance criteria:**
 
-**AC#1 - Completing data**
+**AC#1** 
 
-**The visitor**, after accessing the 
+**Scneario**: Completing data
 
-**registration page** from the **main page**, 
+**Given** the visitor is on the registration page,
 
-completes the necessary data, after which they 
+**When** they complete the necessary data,
 
-will receive an email with the account acceptance or not.
+**Then** they will receive an email with the account acceptance or rejection.
 
 ### USER STORY #7 - Adding products
 
-**The seller** adds one or more products.
+**As a** seller
 
-**Acceptance criteria:**
+**I want to** add one or more products
 
-**AC#1 - Adding a single product**
+**So that** they are available for sale.
 
-**The seller** adds a single product 
+**AC#1**
 
- completing the following **data**:
+**Given** the seller is on the add product page,
+
+**When** they complete the product details,
+
+**Then** they can submit the form to add the product.
 
 | **Field Name**  | **Field Type** |
 | --------------- | -------------- |
@@ -253,59 +297,73 @@ will receive an email with the account acceptance or not.
 | Description     | Free text |
 | Specifications  | Free text |
 
-**AC#2 - Adding multiple products**
+**AC#2**
 
-**The seller** can add multiple products using a **csv file**.
+**Given** the seller is on the add product page,
+
+**When** they upload a CSV file with product details,
+
+**Then** multiple products are added to their inventory.
 
 ### USER STORY #8 - Applying discounts
 
-**The buyer** wants to **add** a **discount** to one or more products.
+**As a** seller
+
+**I want to** add a discount to one or more products
+
+**So that** I can offer promotions.
 
 **Acceptance criteria**
 
-**AC#1 - Selecting products**
+**AC#1** 
 
-**The seller** goes to the discount page,
+**Scenario**: Selecting products
 
-**selects** from their product list the ones 
+**Given** the seller is on the discount page,
 
-that will have a discount, and enters the **percentage**.
+**When** they select products from their list and enter the discount percentage,
+
+**Then** the discount is applied to the selected products.
 
 ### USER STORY #9 - Approving accounts
 
-As an **administrator**, we want to approve 
+**As an** administrator
 
-some requests from **sellers** to sell.
+**I want to** approve some requests from sellers
+
+**So that** they can sell on the platform.
 
 **Acceptance criteria**
 
-**AC#1 - Verifying accounts**
+**AC#1** 
 
-**The administrator** accesses the 
+**Scenario**: Verifying accounts
 
-**newly registered accounts** page and 
+**Given** the administrator is on the newly registered accounts page,
 
-verifies their correctness. If **everything** 
+**When** they verify the account details,
 
-is ok, they approve the **account**, 
+**Then** they can approve or deny the account.
 
-if not, they **deny** it.
+**AC#2** 
 
-**AC#2 - Denial reasons**
+**Scenario**: Denial reasons
 
-**The administrator** can **add reasons** 
+**Given** the administrator is verifying an account,
 
-for which the **request** was **rejected**.
+**When** they decide to reject the account,
 
-**AC#2 - Approving accounts**
+**Then** they can add reasons for the rejection.
 
-**The administrator**, after the step in
+**AC#3** 
 
-**AC#1**, decides if the seller is eligible
+**Scenario** - Approving accounts
 
-to sell on the site; otherwise, they will refuse the request
+**Given** the administrator is verifying an account,
 
-by clicking the **decline** button.
+**When** the account details are correct,
+
+**Then** they can approve the account by clicking the approve button.
 
 ## Communication Protocol
 
