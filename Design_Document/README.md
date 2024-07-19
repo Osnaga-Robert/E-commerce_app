@@ -5,11 +5,11 @@
 Currently, e-commerce applications have become essential for businesses as well as for consumers. These applications are online platforms that allow sellers to showcase their products to consumers in a way that can be viewed with a click, from any device.
 
 The utility of e-commerce applications:
-- **Accessibility** - The application is available non-stop, allowing buyers to view and purchase products at any time.
+- **Accessibility** - The application is available 24/7, allowing buyers to view and purchase products at any time.
 - **Extended market** - This application has no coverage limits; it can be accessed from anywhere, so products have a global reach.
 - **Cost efficiency** - An e-commerce application is cheaper to maintain than a physical store.
 
-We aim to develop an e-commerce **web application** through which a seller can easily showcase their products, observe statistics on sales and products, and where the buyer has an easy-to-use interface to find the desired product.
+The aim is to develop an e-commerce **web application** through which a seller can easily showcase their products, observe statistics on sales and products, and where the buyer has an easy-to-use interface to find the desired product.
 
 ## Technologies used:
 
@@ -19,9 +19,9 @@ We aim to develop an e-commerce **web application** through which a seller can e
 
 ## Application functionalities
 
-When we first enter the site, we will be able to view the products already added without having permission to buy or become a seller. For these features, we need to create an account. There will be two types: a buyer's account that can be created immediately and a seller's account which, after completing the mandatory fields, will have to wait for an acceptance or rejection response because the entered data needs to be verified.
+When the viewer first enter the site, he will be able to view the products already added without having permission to buy or become a seller. For these features, we need to create an account. There will be two types: a buyer's account that can be created immediately and a seller's account which, after completing the mandatory fields,they will have to wait for an acceptance or rejection response because the entered data needs to be verified.
 
-Thus, we will have four actors:
+So, there will be four actors:
 
 - **Visitor** - the actor who can only view the products
 - **Buyer** - the actor who can view and purchase products
@@ -309,15 +309,19 @@ by clicking the **decline** button.
 
 ## Communication Protocol
 
-### For client-server connection, we will use **HTTPS**
+### For client-server connection, the application will use **HTTPS**
 
-### For sending emails, we will use **SMTP**
+### For sending emails, the application will use **SMTP**
 
 ## Message Flow
 
 ### Visitor accesses the web page
 
-**GET** request that returns the main page **e-commerce.html**
+**GET** request that returns the main page 
+
+**/e-commerce.html**
+
+**Expected Response**: HTTP 200 OK with the main page content
 
 ### Viewing a product
 
@@ -327,13 +331,26 @@ by clicking the **decline** button.
 
 receives the product page.
 
+**Expected Response**: HTTP 200 OK with the product page content
+
 ### Log in
 
 **The user** enters their email and password,
 
-**the browser** sends a request of type **POST /api/auth/login**,
+**the browser** sends a request of type 
 
-with the following body **{ "username": "user@example.com", "password": "password123" }**
+**POST /api/auth/login**,
+
+**Request Body**: 
+
+    {
+    "username": "user@example.com", 
+    "password": "password123"
+    }
+
+**Headers**: Content-Type: application/json
+
+**Expected Response**: HTTP 200 OK with authentification token
 
 ### Adding a product to the cart
 
@@ -341,7 +358,18 @@ with the following body **{ "username": "user@example.com", "password": "passwor
 
 **the browser** sends a request of type
 
-**POST /cart/add** with **{ "productId": "{productID}", "quantity": 1 }**
+**POST /cart/add** 
+
+**Request Body**: 
+
+    {
+    "productId": "{productID}", 
+    "quantity": 1
+    }
+
+**Headers**: Content-Type: application/json
+
+**Expected Response**: HTTP 200 OK with updated cart details
 
 ### Completing an order
 
@@ -349,9 +377,20 @@ with the following body **{ "username": "user@example.com", "password": "passwor
 
 **the browser** sends a request of type
 
-**POST /order/checkout** with 
+**POST /order/checkout**
 
-**{ "userId": "67890", "cart": [...], "paymentMethod": "creditCard", "shippingAddress": {...} }**
+**Request Body**:
+
+    {
+    "userId": "67890", 
+    "cart": [...], 
+    "paymentMethod": "creditCard", 
+    "shippingAddress": {...}
+    }
+
+**Headers**: Content-Type: application/json
+
+**Expected Response**: HTTP 200 OK with order confirmation details
 
 ### Writing and submitting a review
 
@@ -359,9 +398,20 @@ with the following body **{ "username": "user@example.com", "password": "passwor
 
 **the browser** sends a request of type
 
-**POST /review/submit** with
+**POST /review/submit**
 
-**{ "productId": "12345", "userId": "67890", "rating": 5, "comment": "Recomand!" }**
+**Reqeust Body**:
+
+    {
+    "productId": "12345",
+    "userId": "67890",
+    "rating": 5,
+    "comment": "Good!" 
+    }
+
+**Headers**: Content-Type: application/json
+
+**Expected Response**: HTTP 200 OK with confirmation of review submission
 
 ### Adding a product by the seller
 
@@ -369,9 +419,22 @@ with the following body **{ "username": "user@example.com", "password": "passwor
 
 fills in the **details**, and **the browser** sends
 
-a request of type **POST /api/addProduct** with
+a request of type **POST /api/addProduct**
 
-**{"sellerId": "67890","productName": "Produs Nou","description": "Descriere detaliata a produsului","price": 100.0,"category": "Electronics","stock": 1500}**
+**Request Body**:
+
+    {
+    "sellerId": "67890",
+    "productName": "New product",
+    "description": "Description about the product",
+    "price": 100.0,
+    "category": "Electronics",
+    "stock": 1500
+    }
+
+**Headers**: Content-Type: application/json
+
+**Expected Response**: HTTP 200 OK with confirmation of product addition
 
 ### Applying discounts
 
@@ -381,9 +444,20 @@ a request of type **POST /api/addProduct** with
 
 **the browser** sends a request of type
 
-**POST /discount/apply** with
+**POST /discount/apply**
 
-**{"productIds": [1,2,3,4],"sellerId": "67890","discountPercentage": 20,"duration": 7}**
+**Request Body**:
+
+    {
+    "productIds": [1,2,3,4],
+    "sellerId": "67890",
+    "discountPercentage": 20,
+    "duration": 7
+    }
+
+**Headers**: Content-Type: application/json
+
+**Expected Response**: HTTP 200 OK with confirmation of discount application
 
 ### Approving accounts
 
@@ -393,13 +467,25 @@ checks the details submitted by the seller, and approves or rejects the request,
 
 **the browser** sends a request of type
 
-**POST /account/approve** with
+**POST /account/approve**
 
-**{"accountId": "12345","approvalStatus": true}**
+**Request Body**:
+
+    {
+    "accountId": "12345",
+    "approvalStatus": true
+    }
 
 or
 
-**{"accountId": "12345","approvalStatus": false}**
+    {
+    "accountId": "12345",
+    "approvalStatus": false
+    }
+
+**Headers**: Content-Type: application/json
+
+Expected Response: HTTP 200 OK with confirmation of account approval or rejection
 
 ## Scalability Considerations
 
