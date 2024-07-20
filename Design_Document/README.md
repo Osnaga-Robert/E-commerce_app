@@ -13,9 +13,38 @@ The aim is to develop an e-commerce **web application** through which a seller c
 
 ## Technologies used:
 
-- **Front-end** - Angular 18.0.1 + TypeScript 5.4.0 and Node.js 20.15.1
-- **Back-end** - Java 19 + Spring Boot 3.3.1
-- **Database** - MySQL 8.0.34
+- **Front-end** - Angular 18.0.1 + TypeScript 5.4.0 and Node.js 20.15.1 - **port**: 4200 (for Angular)
+- **Back-end** - Java 19 + Spring Boot 3.3.1 - **port** - 443 (for HTTPS)
+- **Database** - MySQL 8.0.34 - **port** - 3306
+- **OS** - Windows 10
+
+**Angular** is the ideal front-end framework for developing modern web applications that businesses seek. It meets key characteristics such as automation, high performance, flexibility, scalability, and rapid development, making it well-suited for contemporary web application needs.
+
+**Spring Boot** simplifies the development of production-ready applications by providing a set of conventions and default configurations. It offers comprehensive support for RESTful APIs, security, data access, and more, making it an ideal choice for modern backend development.
+
+**MySQL** is a reliable and widely-adopted relational database management system known for its performance, scalability, and ease of use.
+
+
+
+### Setup
+
+#### Front-End Setup
+
+**Step 1** - Download and install [Node.js](https://nodejs.org/en) version 20.15.1 from the official website.
+**Step 2**: Install Angular CLI - open the PowerShell and run the following command:
+
+    npm install -g @angular/cli@18.0.1
+
+#### Back-end Setup
+
+**Step 1**: Install Java - Download  [Java 19](https://www.oracle.com/java/technologies/javase/jdk19-archive-downloads.html)
+
+**Step 2**: Set Up Spring Boot Project - Use **Spring Initializr** to create a new Spring Boot project with the necessary dependencies.
+
+#### Database Setup
+
+**Step 1**: Install MySQL - Download [MySQL 8.0.34](https://dev.mysql.com/downloads/mysql/)
+
 
 ## Application functionalities
 
@@ -69,6 +98,19 @@ Administrator:
 - **Adding functionalities**: The administrator can implement new features and improvements on the platform.
 - **Managing site content**: The administrator can edit and update content on product pages, informational pages, and other sections of the site.
 - **Site security**: The administrator ensures the site is protected against security threats and manages user permissions.
+
+### HTTPS implementation
+
+- **Step 1**: Create Self-Signed Certificate
+  - keytool -genkey -alias <alias> -storetype <storetype> -keyalg <keyalg> -keysize <keysize> -keystore <keystore> -validity <validity>
+- **Step 2**: Updating Application properties
+
+### SMTP implementation
+
+- **Step 1**: Adding the spring-boot-starter-mail dependency
+- **Step 2**: Setting up Application Properties for Gmail SMTP Server
+- **Step 3**: Creating EmailDetails Class
+- **Step 4**: Creating EmailService Interface and EmailServiceImpl Class
 
 ## User stories
 
@@ -545,7 +587,7 @@ or
 
 Expected Response: HTTP 200 OK with confirmation of account approval or rejection
 
-## Scalability Considerations
+## Scalability and Securiy Considerations
 
 ### Machine specifications
 
@@ -564,6 +606,29 @@ Expected Response: HTTP 200 OK with confirmation of account approval or rejectio
 **Simultaneous users** - 5000 simultaneous users
 
 **Number of simultaneous transactions** - minimum 1000, maximum 3000
+
+### Security measures
+
+**HTTPS** - The communications between clients and servers will be encrypted using HTTPS
+
+**Authentification and Authorization**
+
+- **JWT** for secure token-based authentication.
+- **OAuth2** for third-party authentication to allow users to register and log in using accounts from Google, Facebook, etc.
+
+**Data Encryption** - Encrypt sensitive data
+
+**Input Validation and Sanitization** - Validate and sanitize all user inputs to prevent SQL injection.
+
+**Access Control** - Spring Security in the backend to define roles and permissions
+
+## Use case diagram
+
+![Use_case_diagram](../Images/Design_Document/Use_Case_diagram.png)
+
+## Databse design
+
+![Database_design](../Images/Design_Document/Database_Design.png)
 
 ## Application Diagram
 
