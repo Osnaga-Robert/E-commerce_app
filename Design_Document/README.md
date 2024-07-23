@@ -1,5 +1,69 @@
 # E-commerce app - Osnaga Robert Viorel
 
+## Table of Contents 
+
+- [E-commerce app - Osnaga Robert Viorel](#e-commerce-app---osnaga-robert-viorel)
+  - [Table of Contents](#table-of-contents)
+  - [Introduction](#introduction)
+  - [Technologies used](#technologies-used)
+    - [Setup](#setup)
+      - [Required apps](#required-apps)
+      - [Clone the repo](#clone-the-repo)
+      - [Configure MySQL:](#configure-mysql)
+      - [Configure backend](#configure-backend)
+      - [Configure frontend](#configure-frontend)
+  - [Application functionalities](#application-functionalities)
+  - [User stories](#user-stories)
+    - [USER STORY #1 - Searching for products](#user-story-1---searching-for-products)
+    - [USER STORY #2 - Selecting a product category](#user-story-2---selecting-a-product-category)
+    - [USER STORY #3 - Registering as a buyer](#user-story-3---registering-as-a-buyer)
+    - [USER STORY #4 - Adding products to the cart](#user-story-4---adding-products-to-the-cart)
+    - [USER STORY #5 - Writing a review](#user-story-5---writing-a-review)
+    - [USER STORY #6 - Registering as a seller](#user-story-6---registering-as-a-seller)
+    - [USER STORY #7 - Adding products](#user-story-7---adding-products)
+    - [USER STORY #8 - Applying discounts](#user-story-8---applying-discounts)
+    - [USER STORY #9 - Approving accounts](#user-story-9---approving-accounts)
+  - [Communication Protocol](#communication-protocol)
+    - [For client-server connection, the application will use **HTTPS**](#for-client-server-connection-the-application-will-use-https)
+    - [For sending emails, the application will use **SMTP**](#for-sending-emails-the-application-will-use-smtp)
+  - [Message Flow](#message-flow)
+    - [Visitor accesses the web page](#visitor-accesses-the-web-page)
+    - [Viewing a product](#viewing-a-product)
+    - [Log in](#log-in)
+    - [Adding a product to the cart](#adding-a-product-to-the-cart)
+    - [Completing an order](#completing-an-order)
+    - [Writing and submitting a review](#writing-and-submitting-a-review)
+    - [Adding a product by the seller](#adding-a-product-by-the-seller)
+    - [Applying discounts](#applying-discounts)
+    - [Approving accounts](#approving-accounts)
+  - [Scalability and Securiy Considerations](#scalability-and-securiy-considerations)
+    - [Machine specifications](#machine-specifications)
+    - [Maximum load](#maximum-load)
+    - [Security measures](#security-measures)
+  - [Use case diagram](#use-case-diagram)
+  - [Databse design](#databse-design)
+  - [Application Diagram](#application-diagram)
+  - [UML Diagrams](#uml-diagrams)
+    - [Create Catalog(Singleton Pattern)](#create-catalogsingleton-pattern)
+    - [Notifying subscribed buyers(Observer pattern)](#notifying-subscribed-buyersobserver-pattern)
+    - [Create Account(Factory pattern)](#create-accountfactory-pattern)
+  - [Prototype](#prototype)
+    - [Main page](#main-page)
+    - [Product page](#product-page)
+    - [Cart](#cart)
+    - [Order details](#order-details)
+    - [Log in](#log-in-1)
+    - [Register buyers](#register-buyers)
+    - [Register seller](#register-seller)
+    - [Dashboard](#dashboard)
+    - [Add product](#add-product)
+    - [Reports](#reports)
+    - [Orders](#orders)
+    - [Discounts](#discounts)
+    - [Reviews](#reviews)
+    - [Products](#products)
+
+
 ## Introduction
 
 Currently, e-commerce applications have become essential for businesses as well as for consumers. These applications are online platforms that allow sellers to showcase their products to consumers in a way that can be viewed with a click, from any device.
@@ -11,7 +75,7 @@ The utility of e-commerce applications:
 
 The aim is to develop an e-commerce **web application** through which a seller can easily showcase their products, observe statistics on sales and products, and where the buyer has an easy-to-use interface to find the desired product.
 
-## Technologies used:
+## Technologies used
 
 - **Front-end** - Angular 18.0.1 + TypeScript 5.4.0 and Node.js 20.15.1 - **port**: 4200 (for Angular)
 - **Back-end** - Java 19 + Spring Boot 3.3.1 - **port** - 443 (for HTTPS)
@@ -24,26 +88,51 @@ The aim is to develop an e-commerce **web application** through which a seller c
 
 **MySQL** is a reliable and widely-adopted relational database management system known for its performance, scalability, and ease of use.
 
-
-
 ### Setup
 
-#### Front-End Setup
+#### Required apps
 
-**Step 1** - Download and install [Node.js](https://nodejs.org/en) version 20.15.1 from the official website.
-**Step 2**: Install Angular CLI - open the PowerShell and run the following command:
+- Install [Node.js](https://nodejs.org/en) version 20.15.1
+- Install Angular CLI - open the PowerShell and run the following command:
 
-    npm install -g @angular/cli@18.0.1
+        npm install -g @angular/cli@18.0.1
+-  Download  [Java 19](https://www.oracle.com/java/technologies/javase/jdk19-archive-downloads.html)
+-  Download [IntelIJ](https://www.jetbrains.com/idea/download/?section=windows)
+-  Download [MySQL 8.0.34](https://dev.mysql.com/downloads/mysql/)
 
-#### Back-end Setup
 
-**Step 1**: Install Java - Download  [Java 19](https://www.oracle.com/java/technologies/javase/jdk19-archive-downloads.html)
+#### Clone the repo
 
-**Step 2**: Set Up Spring Boot Project - Use **Spring Initializr** to create a new Spring Boot project with the necessary dependencies.
+- open powershell
+- go to a directory to save the project
+- clone the repo
 
-#### Database Setup
+        git clone https://github.com/Osnaga-Robert/E-commerce_app.git
 
-**Step 1**: Install MySQL - Download [MySQL 8.0.34](https://dev.mysql.com/downloads/mysql/)
+#### Configure MySQL:
+
+- open MySQL Workbench
+- make a new connection (from +)
+- add a name
+- be sure to be on port 3306
+- use the query for the following command
+    
+        CREATE TABLE SHOP4ALL;
+- execute the command
+
+#### Configure backend
+
+- open the directory shop4all-backend using intelij
+- run the program(SHIFT + F10)
+
+#### Configure frontend
+
+- open windows powershell
+- change directory until shop4all-frontend
+- use the command:
+    
+        ng serve --open
+
 
 
 ## Application functionalities
@@ -57,7 +146,7 @@ So, there will be four actors:
 - **Seller** - the actor who lists their products for sale
 - **Admin** - the actor who manages issues
 
-Visitor:
+**Visitor**:
 
 - **Viewing products**: The visitor can explore and see details about various products available on the site.
 - **Searching for specific products**: The user can use the search bar to find specific products by name.
@@ -68,7 +157,7 @@ Visitor:
 - **Viewing reviews**: The visitor can read reviews and ratings from other users to learn more about products of interest.
 - **Access to offers and promotions**: Visitors can see current offers and promotions available on the site.
 
-Buyer (in addition to visitor functionalities):
+**Buyer** (in addition to visitor functionalities):
 
 - **Adding products to the cart**: The buyer can add products to the shopping cart for later purchase.
 - **Completing orders**: The user can complete the purchasing process by placing an order.
@@ -79,7 +168,7 @@ Buyer (in addition to visitor functionalities):
 - **Email notifications**: The buyer can receive notifications and updates via email about their orders and other relevant activities.
 - **Saving products to the wish list**: The visitor can save preferred products to a wish list for review or purchase later.
 
-Seller:
+**Seller**:
 
 - **Inventory management**: The seller can monitor and update available stock.
 - **Adding a product**: The seller can add new products to the eCommerce platform.
@@ -90,7 +179,7 @@ Seller:
 - **Accessing technical support**: The seller can request technical help for issues encountered on the platform.
 - **Managing feedback**: The seller can view and respond to reviews and feedback left by customers.
 
-Administrator:
+**Administrator**:
 
 - **Resolving issues reported by buyers, sellers, and visitors**: The administrator manages and solves any problems reported by site users.
 - **Verifying registration requests for buyer accounts**: The administrator validates and approves registration requests from new buyers.
@@ -98,19 +187,6 @@ Administrator:
 - **Adding functionalities**: The administrator can implement new features and improvements on the platform.
 - **Managing site content**: The administrator can edit and update content on product pages, informational pages, and other sections of the site.
 - **Site security**: The administrator ensures the site is protected against security threats and manages user permissions.
-
-### HTTPS implementation
-
-- **Step 1**: Create Self-Signed Certificate
-  - keytool -genkey -alias <alias> -storetype <storetype> -keyalg <keyalg> -keysize <keysize> -keystore <keystore> -validity <validity>
-- **Step 2**: Updating Application properties
-
-### SMTP implementation
-
-- **Step 1**: Adding the spring-boot-starter-mail dependency
-- **Step 2**: Setting up Application Properties for Gmail SMTP Server
-- **Step 3**: Creating EmailDetails Class
-- **Step 4**: Creating EmailService Interface and EmailServiceImpl Class
 
 ## User stories
 
@@ -411,7 +487,16 @@ As a **buyer**
 
 ### For client-server connection, the application will use **HTTPS**
 
+- **Step 1**: Create Self-Signed Certificate
+  - keytool -genkey -alias <alias> -storetype <storetype> -keyalg <keyalg> -keysize <keysize> -keystore <keystore> -validity <validity>
+- **Step 2**: Updating Application properties
+
 ### For sending emails, the application will use **SMTP**
+
+- **Step 1**: Adding the spring-boot-starter-mail dependency
+- **Step 2**: Setting up Application Properties for Gmail SMTP Server
+- **Step 3**: Creating EmailDetails Class
+- **Step 4**: Creating EmailService Interface and EmailServiceImpl Class
 
 ## Message Flow
 
@@ -636,15 +721,15 @@ Expected Response: HTTP 200 OK with confirmation of account approval or rejectio
 
 ## UML Diagrams
 
-### Create Catalog
+### Create Catalog(Singleton Pattern)
 
 ![Categories](../Images/Design_Document/Singleton.png)
 
-### Notifying subscribed buyers
+### Notifying subscribed buyers(Observer pattern)
 
 ![News](../Images/Design_Document/Observer.png)
 
-### Create Account
+### Create Account(Factory pattern)
 
 ![Register](../Images/Design_Document/Factory.png)
 
