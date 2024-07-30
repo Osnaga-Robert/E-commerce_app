@@ -1,7 +1,7 @@
 package com.example.shop4All_backend.Controller;
 
-import com.example.shop4All_backend.Entity.JwtRequest;
-import com.example.shop4All_backend.Entity.JwtResponse;
+import com.example.shop4All_backend.DTO.JwtRequest;
+import com.example.shop4All_backend.DTO.JwtResponse;
 import com.example.shop4All_backend.Service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;

@@ -52,17 +52,11 @@ public class WebSecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 // Configure authorization rules for different endpoints
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/").permitAll();
-                    auth.requestMatchers("/registerNewSeller").permitAll();
-                    auth.requestMatchers("/authenticate").permitAll();
-                    auth.requestMatchers("/login").permitAll();
+                    auth.requestMatchers("/registerNewSeller","/registerNewBuyer","/authenticate","/login","/").permitAll();
                     auth.anyRequest().authenticated();
                 })
                 .exceptionHandling((exceptions) -> exceptions
                         .authenticationEntryPoint(jwtAuthentificationEntryPoint)
-                )
-                .sessionManagement((session) -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .formLogin(withDefaults())
                 // Add JWT filter before the UsernamePasswordAuthenticationFilter

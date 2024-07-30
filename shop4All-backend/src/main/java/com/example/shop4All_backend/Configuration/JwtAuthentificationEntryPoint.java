@@ -13,8 +13,8 @@ import java.io.IOException;
 public class JwtAuthentificationEntryPoint implements AuthenticationEntryPoint {
 
 
-    @Override
     // Handle unauthorized access attempts
+    @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         // Send a 401 Unauthorized error response with a custom message
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");

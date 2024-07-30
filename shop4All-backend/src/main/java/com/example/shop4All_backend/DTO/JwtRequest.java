@@ -1,4 +1,4 @@
-package com.example.shop4All_backend.Entity;
+package com.example.shop4All_backend.DTO;
 
 public class JwtRequest {
 
