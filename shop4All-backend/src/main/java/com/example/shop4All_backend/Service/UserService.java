@@ -1,9 +1,13 @@
 package com.example.shop4All_backend.Service;
 
 import com.example.shop4All_backend.Entity.Role;
-import com.example.shop4All_backend.Entity.User;
+import com.example.shop4All_backend.Entity.UserFactory.Admin;
+import com.example.shop4All_backend.Entity.UserFactory.Buyer;
+import com.example.shop4All_backend.Entity.UserFactory.Seller;
+import com.example.shop4All_backend.Repository.AdminRepo;
+import com.example.shop4All_backend.Repository.BuyerRepo;
 import com.example.shop4All_backend.Repository.RoleRepo;
-import com.example.shop4All_backend.Repository.UserRepo;
+import com.example.shop4All_backend.Repository.SellerRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,7 +22,13 @@ import java.util.Set;
 public class UserService {
 
     @Autowired
-    private UserRepo userRepo;
+    private SellerRepo sellerRepo;
+
+    @Autowired
+    private BuyerRepo buyerRepo;
+
+    @Autowired
+    private AdminRepo adminRepo;
 
     @Autowired
     private RoleRepo roleRepo;
@@ -26,25 +36,52 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    //user registration(seller in this case)
-    public User registernewSeller(User user) throws Exception{
-        Optional<User> existingUser = userRepo.findById(user.getUserEmail());
+    //seller registration
+    public Seller registerNewSeller(Seller seller) throws Exception{
+        Optional<Seller> existingUser = sellerRepo.findById(seller.getUserEmail());
         if (existingUser.isPresent()) {
-            System.out.println("DSADASDa");
-            // Handle the case where the user already exists
             throw new ResponseStatusException(HttpStatus.CONFLICT, "User with this email already exists");
         }
 
         Role role = roleRepo.findById("Seller").orElseThrow(() -> new RuntimeException("Role not found"));
         Set<Role> roles = new HashSet<>();
         roles.add(role);
-        user.setRole(roles);
+        seller.setRole(roles);
+        seller.setUserIsValid(false);
 
-        user.setUserPassword(getEncodedPassword(user.getUserPassword()));
-        return userRepo.save(user);
+        seller.setUserPassword(getEncodedPassword(seller.getUserPassword()));
+        return sellerRepo.save(seller);
     }
 
+    //buyer registration
+    public Buyer registernewBuyer(Buyer buyer) {
+        Optional<Buyer> existingUser = buyerRepo.findById(buyer.getUserEmail());
+        if (existingUser.isPresent()) {
+            // Handle the case where the user already exists
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "User with this email already exists");
+        }
 
+        Role role = roleRepo.findById("Buyer").orElseThrow(() -> new RuntimeException("Role not found"));
+        Set<Role> roles = new HashSet<>();
+        roles.add(role);
+        buyer.setRole(roles);
+
+        buyer.setUserPassword(getEncodedPassword(buyer.getUserPassword()));
+        return buyerRepo.save(buyer);
+    }
+
+    //activate seller's account
+    public boolean activateAccount(String email){
+        Seller seller = sellerRepo.findById(email).orElseThrow(() -> new RuntimeException("User not found"));
+        if (seller.isUserIsValid() == false){
+            seller.setUserIsValid(true);
+            sellerRepo.save(seller);
+            return true;
+        }
+        return false;
+    }
+
+    //demo for roles and an admin
     public void initRolesandUser(){
         Role adminRole = new Role();
         adminRole.setRoleName("admin");
@@ -56,15 +93,18 @@ public class UserService {
         sellerRole.setRoleDescription("Seller role");
         roleRepo.save(sellerRole);
 
-        User adminUser = new User();
+        Role buyerRole = new Role();
+        buyerRole.setRoleName("buyer");
+        buyerRole.setRoleDescription("Buyer role");
+        roleRepo.save(buyerRole);
+
+        Admin adminUser = new Admin();
         adminUser.setUserEmail("admin@gmail.com");
-        adminUser.setUserFirstName("admin");
-        adminUser.setUserLastName("admin");
         adminUser.setUserPassword(getEncodedPassword("admin"));
         Set<Role> adminRoles = new HashSet<>();
         adminRoles.add(adminRole);
         adminUser.setRole(adminRoles);
-        userRepo.save(adminUser);
+        adminRepo.save(adminUser);
 
 
     }
@@ -72,5 +112,6 @@ public class UserService {
     public String getEncodedPassword(String password) {
         return passwordEncoder.encode(password);
     }
+
 
 }

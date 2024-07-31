@@ -14,6 +14,7 @@ public class CorsConfiguration {
     private static final String DELETE = "DELETE";
 
     // Configure CORS settings for the application
+    @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override

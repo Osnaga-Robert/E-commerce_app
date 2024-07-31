@@ -1,6 +1,6 @@
 package com.example.shop4All_backend.DTO;
 
-import com.example.shop4All_backend.Entity.User;
+import com.example.shop4All_backend.Entity.UserFactory.User;
 
 public class JwtResponse {
 

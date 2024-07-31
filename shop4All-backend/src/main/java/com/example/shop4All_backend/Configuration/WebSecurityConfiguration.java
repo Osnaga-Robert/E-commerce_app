@@ -46,7 +46,7 @@ public class WebSecurityConfiguration {
 
     // Configure security settings including OAuth2 and JWT authentication
     @Bean
-    public SecurityFilterChain configure(HttpSecurity http, CorsConfiguration corsConfiguration) throws Exception {
+    public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         return http
                 // Disable CSRF protection
                 .csrf(AbstractHttpConfigurer::disable)
@@ -58,7 +58,9 @@ public class WebSecurityConfiguration {
                 .exceptionHandling((exceptions) -> exceptions
                         .authenticationEntryPoint(jwtAuthentificationEntryPoint)
                 )
-                .formLogin(withDefaults())
+                .sessionManagement((session) -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
                 // Add JWT filter before the UsernamePasswordAuthenticationFilter
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
