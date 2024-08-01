@@ -1,7 +1,6 @@
-package com.example.shop4All_backend.Demo;
+package com.example.shop4All_backend.demo;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController

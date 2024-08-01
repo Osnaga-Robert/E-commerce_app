@@ -1,4 +1,4 @@
-package com.example.shop4All_backend.Configuration;
+package com.example.shop4All_backend.configuration;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,7 +11,6 @@ import java.io.IOException;
 
 @Component
 public class JwtAuthentificationEntryPoint implements AuthenticationEntryPoint {
-
 
     // Handle unauthorized access attempts
     @Override

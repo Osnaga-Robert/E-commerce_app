@@ -1,4 +1,4 @@
-package com.example.shop4All_backend.Util;
+package com.example.shop4All_backend.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -53,7 +53,6 @@ public class JwtUtil {
     // Generate a new JWT token for the given user details
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
-
         return Jwts
                 .builder()
                 .setClaims(claims)

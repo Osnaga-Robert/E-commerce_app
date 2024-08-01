@@ -1,4 +1,4 @@
-package com.example.shop4All_backend.Configuration;
+package com.example.shop4All_backend.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,8 +28,7 @@ public class CorsConfiguration {
                         // Allow all origin patterns
                         .allowedOriginPatterns("*")
                         // Allow credentials (cookies, authorization headers, etc.)
-                        .allowCredentials(true)
-                ;
+                        .allowCredentials(true);
             }
         };
     }

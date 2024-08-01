@@ -1,37 +1,29 @@
-package com.example.shop4All_backend.Entity.UserFactory;
+package com.example.shop4All_backend.entity;
 
-import com.example.shop4All_backend.Entity.Role;
-import jakarta.persistence.*;
-
-import java.util.Set;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import lombok.Setter;
 
 @Entity
-public class Seller implements User{
+public class User {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @Setter
     private String userEmail;
     private String userFirstName;
     private String userLastName;
     private String userPassword;
     private String userCompanyName;
     private String userCompanyDesciption;
+    private Role role;
     private boolean userIsValid;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "USER_ROLE_SELLER",
-            joinColumns = {
-                    @JoinColumn(name = "USER_ID")
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(name = "ROLE_ID")
-            }
-    )
-    private Set<Role> role;
 
     public String getUserEmail() {
         return userEmail;
-    }
-
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
     }
 
     public String getUserFirstName() {
@@ -58,14 +50,6 @@ public class Seller implements User{
         this.userPassword = userPassword;
     }
 
-    public Set<Role> getRole() {
-        return role;
-    }
-
-    public void setRole(Set<Role> role) {
-        this.role = role;
-    }
-
     public String getUserCompanyName() {
         return userCompanyName;
     }
@@ -80,6 +64,14 @@ public class Seller implements User{
 
     public void setUserCompanyDesciption(String userCompanyDesciption) {
         this.userCompanyDesciption = userCompanyDesciption;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public boolean isUserIsValid() {

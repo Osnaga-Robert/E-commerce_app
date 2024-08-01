@@ -1,7 +1,7 @@
-package com.example.shop4All_backend.Configuration;
+package com.example.shop4All_backend.configuration;
 
-import com.example.shop4All_backend.Service.JwtService;
-import com.example.shop4All_backend.Util.JwtUtil;
+import com.example.shop4All_backend.service.JwtService;
+import com.example.shop4All_backend.util.JwtUtil;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
