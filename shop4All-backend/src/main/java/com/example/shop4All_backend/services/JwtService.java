@@ -1,12 +1,11 @@
-package com.example.shop4All_backend.service;
+package com.example.shop4All_backend.services;
 
-import com.example.shop4All_backend.dto.JwtRequest;
-import com.example.shop4All_backend.dto.JwtResponse;
-import com.example.shop4All_backend.entity.Role;
-import com.example.shop4All_backend.entity.User;
-import com.example.shop4All_backend.exceptions.ActivateAccountException;
-import com.example.shop4All_backend.exceptions.LogInException;
-import com.example.shop4All_backend.repository.UserRepo;
+import com.example.shop4All_backend.dtos.JwtRequest;
+import com.example.shop4All_backend.dtos.JwtResponse;
+import com.example.shop4All_backend.entities.Role;
+import com.example.shop4All_backend.entities.User;
+import com.example.shop4All_backend.exceptions.RequestException;
+import com.example.shop4All_backend.repositories.UserRepo;
 import com.example.shop4All_backend.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,7 +19,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import javax.xml.bind.ValidationException;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -38,7 +36,7 @@ public class JwtService implements UserDetailsService {
     private AuthenticationManager authenticationManager;
 
     // Create JWT token for authenticated user
-    public JwtResponse createJwtToken(JwtRequest jwtRequest) throws AuthenticationException {
+    public JwtResponse createJwtToken(JwtRequest jwtRequest) {
         String userEmail = jwtRequest.getUserEmail();
         String userPassword = jwtRequest.getUserPassword();
         authenticate(userEmail, userPassword);
@@ -49,11 +47,12 @@ public class JwtService implements UserDetailsService {
             user = userOptional.get();
         }
         else{
+            System.out.println("---------");
             throw new UsernameNotFoundException("User not found");
         }
 
         if (user.getRole() == Role.SELLER && !user.isUserIsValid())
-            throw new ActivateAccountException("Account was not validate by the admin");
+            throw new RequestException("Account was not validate by the admin");
 
         final UserDetails userDetails = loadUserByUsername(userEmail);
         String newGeneratedToken = jwtUtil.generateToken(userDetails);
@@ -70,7 +69,7 @@ public class JwtService implements UserDetailsService {
                     user.getUserEmail(), user.getUserPassword(), getAuthorities(user)
             );
         } else {
-            throw new LogInException("User not found");
+            throw new RequestException("User not found");
         }
     }
 
@@ -78,23 +77,23 @@ public class JwtService implements UserDetailsService {
     private Set getAuthorities(User user) {
         Set<SimpleGrantedAuthority> authorities = new HashSet<>();
         Role role = user.getRole();
-        authorities.add(new SimpleGrantedAuthority("ROLE_" + role.name()));
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + role.toString()));
         return authorities;
     }
 
-
     // Authenticate user credentials
-    private void authenticate(String userEmail, String userPassword) throws AuthenticationException {
+    private void authenticate(String userEmail, String userPassword){
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userEmail, userPassword));
         } catch (DisabledException e) {
-            throw new LogInException("User is disabled");
+            System.out.println("1");
+            throw new RequestException("User is disabled");
         } catch (BadCredentialsException e) {
-            throw new LogInException("Bad credentials for user");
+            System.out.println("2");
+            throw new RequestException("Bad credentials for user");
         } catch (AuthenticationException e) {
-            throw new LogInException("Authentication failed");
+            System.out.println("3");
+            throw new RequestException("Authentication failed");
         }
     }
-
-
 }

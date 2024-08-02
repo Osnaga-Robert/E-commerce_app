@@ -1,6 +1,6 @@
-package com.example.shop4All_backend.repository;
+package com.example.shop4All_backend.repositories;
 
-import com.example.shop4All_backend.entity.User;
+import com.example.shop4All_backend.entities.User;
 import org.springframework.data.repository.CrudRepository;
 import java.util.Optional;
 

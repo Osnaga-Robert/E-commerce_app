@@ -1,14 +1,13 @@
-package com.example.shop4All_backend.controller;
+package com.example.shop4All_backend.controllers;
 
-import com.example.shop4All_backend.entity.User;
-import com.example.shop4All_backend.service.UserService;
+import com.example.shop4All_backend.entities.User;
+import com.example.shop4All_backend.services.UserService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 public class UserController {
@@ -25,27 +24,15 @@ public class UserController {
     // Handle POST requests to /registerNewSeller to register a new seller
     @PostMapping("/registerNewSeller")
     public ResponseEntity<User> registerNewSeller(@RequestBody User seller) {
-        try {
-            User registeredNewSeller = userService.registerNewSeller(seller);
-            return new ResponseEntity<>(registeredNewSeller, HttpStatus.CREATED);
-        } catch (ResponseStatusException ex) {
-            return new ResponseEntity<>(null, ex.getStatusCode());
-        } catch (Exception ex) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        User registeredNewSeller = userService.registerNewSeller(seller);
+        return new ResponseEntity<>(registeredNewSeller, HttpStatus.CREATED);
     }
 
     // Handle POST requests to /registerNewBuyer to register a new buyer
     @PostMapping("/registerNewBuyer")
     public ResponseEntity<User> registerNewBuyer(@RequestBody User buyer) {
-        try {
-            User registeredUser = userService.registernewBuyer(buyer);
-            return new ResponseEntity<>(registeredUser, HttpStatus.CREATED);
-        } catch (ResponseStatusException ex) {
-            return new ResponseEntity<>(null, ex.getStatusCode());
-        } catch (Exception ex) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        User registeredUser = userService.registernewBuyer(buyer);
+        return new ResponseEntity<>(registeredUser, HttpStatus.CREATED);
     }
 
     // Handle GET requests to /forAdmin to provide content for admins

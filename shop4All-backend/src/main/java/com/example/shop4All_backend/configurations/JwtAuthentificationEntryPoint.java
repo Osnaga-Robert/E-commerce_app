@@ -1,4 +1,4 @@
-package com.example.shop4All_backend.configuration;
+package com.example.shop4All_backend.configurations;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,5 +18,4 @@ public class JwtAuthentificationEntryPoint implements AuthenticationEntryPoint {
         // Send a 401 Unauthorized error response with a custom message
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
     }
-
 }

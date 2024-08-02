@@ -1,4 +1,4 @@
-package com.example.shop4All_backend.configuration;
+package com.example.shop4All_backend.configurations;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

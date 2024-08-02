@@ -1,4 +1,4 @@
-package com.example.shop4All_backend.dto;
+package com.example.shop4All_backend.dtos;
 
 public class JwtRequest {
 

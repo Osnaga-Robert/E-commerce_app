@@ -1,8 +1,8 @@
-package com.example.shop4All_backend.controller;
+package com.example.shop4All_backend.controllers;
 
-import com.example.shop4All_backend.dto.JwtRequest;
-import com.example.shop4All_backend.dto.JwtResponse;
-import com.example.shop4All_backend.service.JwtService;
+import com.example.shop4All_backend.dtos.JwtRequest;
+import com.example.shop4All_backend.dtos.JwtResponse;
+import com.example.shop4All_backend.services.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,7 @@ public class JwtController {
 
     // Handle POST requests to /authenticate to create a JWT token
     @PostMapping("/authenticate")
-    public ResponseEntity<JwtResponse> createJwtToken(@RequestBody JwtRequest jwtRequest) throws Exception {
+    public ResponseEntity<JwtResponse> createJwtToken(@RequestBody JwtRequest jwtRequest) {
         return new ResponseEntity<>(jwtService.createJwtToken(jwtRequest), HttpStatus.CREATED);
     }
 }
