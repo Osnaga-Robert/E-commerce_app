@@ -15,7 +15,5 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="shop4All-backend" options="-parameters" />
     </option>
-    </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="shop4All-backend" target="17" />
-    </bytecodeTargetLevel>
+  </component>
+</project>
