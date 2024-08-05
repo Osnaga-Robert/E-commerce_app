@@ -31,7 +31,7 @@ public class UserController {
     // Handle POST requests to /registerNewBuyer to register a new buyer
     @PostMapping("/registerNewBuyer")
     public ResponseEntity<User> registerNewBuyer(@RequestBody User buyer) {
-        User registeredUser = userService.registernewBuyer(buyer);
+        User registeredUser = userService.registerBuyer(buyer);
         return new ResponseEntity<>(registeredUser, HttpStatus.CREATED);
     }
 

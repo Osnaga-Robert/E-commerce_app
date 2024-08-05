@@ -5,31 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e15411d5-a823-4260-912e-5737099bfb13" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/entities/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/exceptions/RegisterException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/configuration/CorsConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/configurations/CorsConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/configuration/JwtAuthentificationEntryPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/configurations/JwtAuthentificationEntryPoint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/configuration/JwtRequestFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/configurations/JwtRequestFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/configuration/WebSecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/configurations/WebSecurityConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/controller/JwtController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/controller/UserController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/dto/JwtRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/dtos/JwtRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/dto/JwtResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/dtos/JwtResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/entity/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/entities/Role.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/entity/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/exceptions/ActivateAccountException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/exceptions/LogInException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/exceptions/RegisterException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/repository/UserRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/repositories/UserRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/service/JwtService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/services/JwtService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/services/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/shop4All_backend/Configuration/WebSecurityConfiguration.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/shop4All_backend/Controller/UserController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/shop4All_backend/Demo/Demo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/shop4All_backend/Entity/Role.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/shop4All_backend/Service/UserService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/shop4All_backend/Shop4AllBackendApplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/configurations/JwtRequestFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/configurations/JwtRequestFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/controllers/JwtController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/controllers/JwtController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/controllers/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/entities/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/entities/Role.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/exceptions/ExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/exceptions/ExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/exceptions/RequestException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/services/JwtService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/services/JwtService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/services/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/util/JwtUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/util/JwtUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,7 +146,12 @@
       <workItem from="1722351409077" duration="1056000" />
       <workItem from="1722371525902" duration="6688000" />
       <workItem from="1722416806236" duration="1907000" />
-      <workItem from="1722448718150" duration="25890000" />
+      <workItem from="1722448718150" duration="34300000" />
+      <workItem from="1722692923103" duration="4966000" />
+      <workItem from="1722706333269" duration="5945000" />
+      <workItem from="1722756596385" duration="11061000" />
+      <workItem from="1722782560355" duration="9902000" />
+      <workItem from="1722863729483" duration="130000" />
     </task>
     <servers />
   </component>
