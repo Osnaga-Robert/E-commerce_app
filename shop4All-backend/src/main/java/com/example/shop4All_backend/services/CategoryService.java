@@ -4,6 +4,7 @@ import com.example.shop4All_backend.entities.Category;
 import com.example.shop4All_backend.entities.Product;
 import com.example.shop4All_backend.exceptions.UserException;
 import com.example.shop4All_backend.repositories.CategoryRepo;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,11 +16,11 @@ import java.util.HashSet;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+@RequiredArgsConstructor
 @Service
 public class CategoryService {
 
-    @Autowired
-    private CategoryRepo categoryRepo;
+    private final CategoryRepo categoryRepo;
 
     //add a category of products
     public Category addNewCategory(Category category) {

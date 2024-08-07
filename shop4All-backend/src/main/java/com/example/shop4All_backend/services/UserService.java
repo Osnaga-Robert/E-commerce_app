@@ -6,11 +6,13 @@ import com.example.shop4All_backend.entities.User;
 import com.example.shop4All_backend.exceptions.RegisterException;
 import com.example.shop4All_backend.repositories.CategoryRepo;
 import com.example.shop4All_backend.repositories.UserRepo;
+import com.nimbusds.jose.jwk.source.RateLimitReachedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
@@ -24,12 +26,12 @@ public class UserService {
     @Autowired
     private CategoryRepo categoryRepo;
 
+    final String passwordRegex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*])[A-Za-z\\d!@#$%^&*]{8,}$";
+    final String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+
     //seller registration
     public User registerNewSeller(User seller) {
-        validateAllCredentialsSeller(seller);
-        validateEmail(seller.getUserEmail());
-        validatePassword(seller.getUserPassword());
-
+        validateCredentials(seller, Role.SELLER);
         Optional<User> existingUser = userRepo.findByUserEmail(seller.getUserEmail());
         if (existingUser.isPresent()) {
             throw new RegisterException("User with this email already exists");
@@ -43,9 +45,7 @@ public class UserService {
 
     //buyer registration
     public User registerBuyer(User buyer) {
-        validateAllCredentialsBuyer(buyer);
-        validateEmail(buyer.getUserEmail());
-        validatePassword(buyer.getUserPassword());
+        validateCredentials(buyer, Role.BUYER);
 
         Optional<User> existingUser = userRepo.findByUserEmail(buyer.getUserEmail());
         if (existingUser.isPresent()) {
@@ -97,49 +97,43 @@ public class UserService {
 
     //pattern to validate the email format
     private void validateEmail(String email) {
-        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
         Pattern pattern = Pattern.compile(emailRegex);
-        if (!pattern.matcher(email).matches()) {
-            throw new RegisterException("Invalid email format");
-        }
+        Matcher matcher = pattern.matcher(email);
+        if (matcher.matches())
+            return;
+        throw new RegisterException("Invalid email format");
     }
 
     //pattern to validate the password format
     private void validatePassword(String password) {
-        if (password.length() < 8) {
-            throw new RegisterException("Password must be at least 8 characters long");
-        }
-        if (!password.matches(".*[A-Z].*")) {
-            throw new RegisterException("Password must contain at least one uppercase letter");
-        }
-        if (!password.matches(".*[a-z].*")) {
-            throw new RegisterException("Password must contain at least one lowercase letter");
-        }
-        if (!password.matches(".*\\d.*")) {
-            throw new RegisterException("Password must contain at least one digit");
-        }
-        if (!password.matches(".*[!@#$%^&*].*")) {
-            throw new RegisterException("Password must contain at least one special character (!@#$%^&*)");
+        Pattern pattern = Pattern.compile(passwordRegex);
+        Matcher matcher = pattern.matcher(password);
+        if (!matcher.matches()) {
+            throw new RegisterException("Your password should be at least 8 characters " +
+                    "long and contain at least one digit, one upperrcase letter, one lowercase letter " +
+                    "and one special character(!@#$%^&*)");
         }
     }
 
-    //check the essential credentials for a seller account
-    private void validateAllCredentialsSeller(User seller) {
-        if (seller.getUserCompanyDesciption() == null || seller.getUserCompanyName() == null ||
-                seller.getUserFirstName() == null || seller.getUserLastName() == null ||
-                seller.getUserEmail() == null || seller.getUserPassword() == null ||
-                seller.getUserFirstName().isEmpty() || seller.getUserLastName().isEmpty() ||
-                seller.getUserEmail().isEmpty() || seller.getUserPassword().isEmpty() ||
-                seller.getUserCompanyName().isEmpty() || seller.getUserCompanyDesciption().isEmpty()) {
-            throw new RegisterException("All credentials are required");
+    private <T extends User> void validateCredentials(T user, Role role) {
+        if (role == Role.SELLER) {
+            if (user.getUserCompanyDesciption() == null || user.getUserCompanyName() == null ||
+                    user.getUserFirstName() == null || user.getUserLastName() == null ||
+                    user.getUserEmail() == null || user.getUserPassword() == null ||
+                    user.getUserFirstName().isEmpty() || user.getUserLastName().isEmpty() ||
+                    user.getUserEmail().isEmpty() || user.getUserPassword().isEmpty() ||
+                    user.getUserCompanyName().isEmpty() || user.getUserCompanyDesciption().isEmpty()) {
+                throw new RegisterException("All credentials are required for a seller");
+            }
+        } else if (role == Role.BUYER) {
+            if (user.getUserFirstName() == null || user.getUserLastName() == null ||
+                    user.getUserEmail() == null || user.getUserPassword() == null ||
+                    user.getUserFirstName().isEmpty() || user.getUserLastName().isEmpty() ||
+                    user.getUserEmail().isEmpty() || user.getUserPassword().isEmpty()) {
+                throw new RegisterException("All credentials are required for a buyer");
+            }
         }
-    }
-
-    //check the essential credentials for a buyer account
-    private void validateAllCredentialsBuyer(User seller) {
-        if (seller.getUserFirstName() == null || seller.getUserLastName() == null ||
-                seller.getUserFirstName().isEmpty() || seller.getUserLastName().isEmpty()) {
-            throw new RegisterException("All credentials are required");
-        }
+        validateEmail(user.getUserEmail());
+        validatePassword(user.getUserPassword());
     }
 }
