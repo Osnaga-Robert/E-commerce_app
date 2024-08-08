@@ -1,14 +1,18 @@
 package com.example.shop4All_backend.services;
 
+import com.example.shop4All_backend.entities.Category;
 import com.example.shop4All_backend.entities.Role;
 import com.example.shop4All_backend.entities.User;
-import com.example.shop4All_backend.exceptions.RequestException;
+import com.example.shop4All_backend.exceptions.RegisterException;
+import com.example.shop4All_backend.repositories.CategoryRepo;
 import com.example.shop4All_backend.repositories.UserRepo;
+import com.nimbusds.jose.jwk.source.RateLimitReachedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
@@ -19,15 +23,18 @@ public class UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private CategoryRepo categoryRepo;
+
+    final String passwordRegex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*])[A-Za-z\\d!@#$%^&*]{8,}$";
+    final String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
 
     //seller registration
     public User registerNewSeller(User seller) {
-        validateEmail(seller.getUserEmail());
-        validatePassword(seller.getUserPassword());
-
+        validateCredentials(seller, Role.SELLER);
         Optional<User> existingUser = userRepo.findByUserEmail(seller.getUserEmail());
         if (existingUser.isPresent()) {
-            throw new RequestException("User with this email already exists");
+            throw new RegisterException("User with this email already exists");
         }
         seller.setRole(Role.SELLER);
         seller.setUserIsValid(false);
@@ -37,13 +44,12 @@ public class UserService {
     }
 
     //buyer registration
-    public User registernewBuyer(User buyer) {
-        validateEmail(buyer.getUserEmail());
-        validatePassword(buyer.getUserPassword());
+    public User registerBuyer(User buyer) {
+        validateCredentials(buyer, Role.BUYER);
 
         Optional<User> existingUser = userRepo.findByUserEmail(buyer.getUserEmail());
         if (existingUser.isPresent()) {
-            throw new RequestException("User with this email already exists");
+            throw new RegisterException("User with this email already exists");
         }
         buyer.setRole(Role.BUYER);
         buyer.setUserPassword(getEncodedPassword(buyer.getUserPassword()));
@@ -53,8 +59,8 @@ public class UserService {
 
     //activate seller's account
     public boolean activateAccount(String email) {
-        User seller = userRepo.findByUserEmail(email).orElseThrow(() -> new RequestException("User not found"));
-        if (seller.isUserIsValid() == false) {
+        User seller = userRepo.findByUserEmail(email).orElseThrow(() -> new RegisterException("User not found"));
+        if (!seller.isUserIsValid()) {
             seller.setUserIsValid(true);
             userRepo.save(seller);
             return true;
@@ -76,36 +82,58 @@ public class UserService {
         sellerUser.setUserPassword(getEncodedPassword("seller"));
         sellerUser.setRole(Role.SELLER);
         sellerUser.setUserIsValid(true);
+        sellerUser.setUserCompanyName("COMPANY2024");
         userRepo.save(sellerUser);
+
+        Category category = new Category();
+        category.setCategoryName("categoryName1");
+        category.setCategoryDescription("categoryDesc1");
+        categoryRepo.save(category);
     }
 
     public String getEncodedPassword(String password) {
         return passwordEncoder.encode(password);
     }
 
+    //pattern to validate the email format
     private void validateEmail(String email) {
-        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
         Pattern pattern = Pattern.compile(emailRegex);
-        if (!pattern.matcher(email).matches()) {
-            throw new RequestException("Invalid email format");
+        Matcher matcher = pattern.matcher(email);
+        if (matcher.matches())
+            return;
+        throw new RegisterException("Invalid email format");
+    }
+
+    //pattern to validate the password format
+    private void validatePassword(String password) {
+        Pattern pattern = Pattern.compile(passwordRegex);
+        Matcher matcher = pattern.matcher(password);
+        if (!matcher.matches()) {
+            throw new RegisterException("Your password should be at least 8 characters " +
+                    "long and contain at least one digit, one upperrcase letter, one lowercase letter " +
+                    "and one special character(!@#$%^&*)");
         }
     }
 
-    private void validatePassword(String password) {
-        if (password.length() < 8) {
-            throw new RequestException("Password must be at least 8 characters long");
+    private <T extends User> void validateCredentials(T user, Role role) {
+        if (role == Role.SELLER) {
+            if (user.getUserCompanyDesciption() == null || user.getUserCompanyName() == null ||
+                    user.getUserFirstName() == null || user.getUserLastName() == null ||
+                    user.getUserEmail() == null || user.getUserPassword() == null ||
+                    user.getUserFirstName().isEmpty() || user.getUserLastName().isEmpty() ||
+                    user.getUserEmail().isEmpty() || user.getUserPassword().isEmpty() ||
+                    user.getUserCompanyName().isEmpty() || user.getUserCompanyDesciption().isEmpty()) {
+                throw new RegisterException("All credentials are required for a seller");
+            }
+        } else if (role == Role.BUYER) {
+            if (user.getUserFirstName() == null || user.getUserLastName() == null ||
+                    user.getUserEmail() == null || user.getUserPassword() == null ||
+                    user.getUserFirstName().isEmpty() || user.getUserLastName().isEmpty() ||
+                    user.getUserEmail().isEmpty() || user.getUserPassword().isEmpty()) {
+                throw new RegisterException("All credentials are required for a buyer");
+            }
         }
-        if (!password.matches(".*[A-Z].*")) {
-            throw new RequestException("Password must contain at least one uppercase letter");
-        }
-        if (!password.matches(".*[a-z].*")) {
-            throw new RequestException("Password must contain at least one lowercase letter");
-        }
-        if (!password.matches(".*\\d.*")) {
-            throw new RequestException("Password must contain at least one digit");
-        }
-        if (!password.matches(".*[!@#$%^&*].*")) {
-            throw new RequestException("Password must contain at least one special character (!@#$%^&*)");
-        }
+        validateEmail(user.getUserEmail());
+        validatePassword(user.getUserPassword());
     }
 }

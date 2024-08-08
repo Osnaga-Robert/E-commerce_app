@@ -4,7 +4,7 @@ import com.example.shop4All_backend.dtos.JwtRequest;
 import com.example.shop4All_backend.dtos.JwtResponse;
 import com.example.shop4All_backend.entities.Role;
 import com.example.shop4All_backend.entities.User;
-import com.example.shop4All_backend.exceptions.RequestException;
+import com.example.shop4All_backend.exceptions.LogInException;
 import com.example.shop4All_backend.repositories.UserRepo;
 import com.example.shop4All_backend.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +36,7 @@ public class JwtService implements UserDetailsService {
     private AuthenticationManager authenticationManager;
 
     // Create JWT token for authenticated user
-    public JwtResponse createJwtToken(JwtRequest jwtRequest) {
+    public JwtResponse createJwtToken(JwtRequest jwtRequest) throws LogInException {
         String userEmail = jwtRequest.getUserEmail();
         String userPassword = jwtRequest.getUserPassword();
         authenticate(userEmail, userPassword);
@@ -45,14 +45,12 @@ public class JwtService implements UserDetailsService {
         Optional<User> userOptional = userRepo.findByUserEmail(userEmail);
         if (userOptional.isPresent()) {
             user = userOptional.get();
-        }
-        else{
-            System.out.println("---------");
+        } else {
             throw new UsernameNotFoundException("User not found");
         }
 
         if (user.getRole() == Role.SELLER && !user.isUserIsValid())
-            throw new RequestException("Account was not validate by the admin");
+            throw new LogInException("Account was not validate by the admin");
 
         final UserDetails userDetails = loadUserByUsername(userEmail);
         String newGeneratedToken = jwtUtil.generateToken(userDetails);
@@ -69,7 +67,7 @@ public class JwtService implements UserDetailsService {
                     user.getUserEmail(), user.getUserPassword(), getAuthorities(user)
             );
         } else {
-            throw new RequestException("User not found");
+            throw new LogInException("User not found");
         }
     }
 
@@ -82,18 +80,15 @@ public class JwtService implements UserDetailsService {
     }
 
     // Authenticate user credentials
-    private void authenticate(String userEmail, String userPassword){
+    private void authenticate(String userEmail, String userPassword) throws LogInException {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userEmail, userPassword));
         } catch (DisabledException e) {
-            System.out.println("1");
-            throw new RequestException("User is disabled");
+            throw new LogInException("User is disabled");
         } catch (BadCredentialsException e) {
-            System.out.println("2");
-            throw new RequestException("Bad credentials for user");
+            throw new LogInException("Bad credentials for user");
         } catch (AuthenticationException e) {
-            System.out.println("3");
-            throw new RequestException("Authentication failed");
+            throw new LogInException("Authentication failed");
         }
     }
 }

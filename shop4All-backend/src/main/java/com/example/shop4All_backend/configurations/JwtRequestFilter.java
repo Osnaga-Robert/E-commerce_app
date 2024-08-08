@@ -1,6 +1,6 @@
 package com.example.shop4All_backend.configurations;
 
-import com.example.shop4All_backend.exceptions.RequestException;
+import com.example.shop4All_backend.exceptions.LogInException;
 import com.example.shop4All_backend.services.JwtService;
 import com.example.shop4All_backend.util.JwtUtil;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -44,12 +44,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             try {
                 userEmail = jwtUtil.getUserEmailFromToken(jwtToken);
             } catch (IllegalArgumentException e) {
-                throw new RequestException("Invalid JWT");
+                throw new LogInException("Invalid JWT");
             } catch (ExpiredJwtException e) {
-                throw new RequestException("Jwt token expired");
+                throw new LogInException("Jwt token expired");
             }
-        } else if(header != null) {
-            throw new RequestException("Jwt token doesn't start with Bearer ");
+        } else if (header != null) {
+            throw new LogInException("Jwt token doesn't start with Bearer ");
         }
 
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
