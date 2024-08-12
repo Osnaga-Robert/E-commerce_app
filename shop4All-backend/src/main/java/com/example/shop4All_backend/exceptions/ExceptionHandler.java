@@ -46,5 +46,17 @@ public class ExceptionHandler {
         );
         return new ResponseEntity<>(customException, HttpStatus.BAD_REQUEST);
     }
+
+    //handler for ProductException
+    @org.springframework.web.bind.annotation.ExceptionHandler(value = {ProductException.class})
+    public ResponseEntity<Object> handleProductException(ProductException e) {
+        //create a custom exception
+        CustomException customException = new CustomException(
+                e.getMessage(),
+                HttpStatus.BAD_REQUEST,
+                ZonedDateTime.now()
+        );
+        return new ResponseEntity<>(customException, HttpStatus.BAD_REQUEST);
+    }
 }
 
