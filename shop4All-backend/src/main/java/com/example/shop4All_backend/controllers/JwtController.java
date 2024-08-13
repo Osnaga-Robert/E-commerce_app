@@ -3,6 +3,7 @@ package com.example.shop4All_backend.controllers;
 import com.example.shop4All_backend.dtos.JwtRequest;
 import com.example.shop4All_backend.dtos.JwtResponse;
 import com.example.shop4All_backend.services.JwtService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +17,10 @@ import javax.security.auth.login.LoginException;
 
 @RestController
 @CrossOrigin
+@RequiredArgsConstructor
 public class JwtController {
 
-    @Autowired
-    private JwtService jwtService;
+    private final JwtService jwtService;
 
     // Handle POST requests to /authenticate to create a JWT token
     @PostMapping("/authenticate")

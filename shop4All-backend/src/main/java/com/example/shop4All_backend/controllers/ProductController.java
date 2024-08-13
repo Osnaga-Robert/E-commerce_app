@@ -6,6 +6,7 @@ import com.example.shop4All_backend.exceptions.ProductException;
 import com.example.shop4All_backend.exceptions.UserException;
 import com.example.shop4All_backend.services.CategoryService;
 import com.example.shop4All_backend.services.ProductService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,13 +19,11 @@ import java.io.IOException;
 import java.util.*;
 
 @RestController
+@RequiredArgsConstructor
 public class ProductController {
 
-    @Autowired
-    private ProductService productService;
-
-    @Autowired
-    private CategoryService categoryService;
+    private final ProductService productService;
+    private final CategoryService categoryService;
 
     // Handle POST requests to /product/add to add a new product
     @PostMapping(value = {"/product/add"}, consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})

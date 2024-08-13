@@ -5,6 +5,7 @@ import com.example.shop4All_backend.exceptions.ProductException;
 import com.example.shop4All_backend.exceptions.UserException;
 import com.example.shop4All_backend.repositories.ProductRepo;
 import com.example.shop4All_backend.repositories.UserRepo;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,17 +17,16 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class ProductService {
 
-    @Autowired
-    private ProductRepo productRepo;
-
-    @Autowired
-    private UserRepo userRepo;
+    private final ProductRepo productRepo;
+    private final UserRepo userRepo;
 
     //add a product
     public Product addNewProduct(Product product) {
-        validateCredentials(product);
+        if (!validateCredentials(product))
+            throw new ProductException("Invalid credentials");
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         product.setCompanySeller(userRepo.findByUserEmail(userDetails.getUsername()).get().getUserCompanyName());
         return productRepo.save(product);
@@ -85,11 +85,11 @@ public class ProductService {
     public void checkDiscount(Product product) {
         LocalDate today = LocalDate.now();
         if (product.getProductFromDiscounted().isBefore(today)) {
-            throw new ProductException("Your start date is before today.");
+            throw new ProductException("Your start date (" + product.getProductFromDiscounted() + ") is before today (" +  today +") .");
         } else if (product.getProductFromDiscounted().isEqual(product.getProductToDiscounted())) {
-            throw new ProductException("Start date and end date are the same.");
+            throw new ProductException("Start date (" + product.getProductFromDiscounted() + ") and end date (" + product.getProductToDiscounted() + ") are the same.");
         } else if (!product.getProductFromDiscounted().isBefore(product.getProductToDiscounted())) {
-            throw new ProductException("Your start date is not before the end date.");
+            throw new ProductException("Your start (" + product.getProductFromDiscounted() + ") date is not before the end date (" + product.getProductToDiscounted() + ").");
         }
 
         if (product.getProductDiscounted() <= 0 || product.getProductDiscounted() > 100) {
@@ -107,11 +107,12 @@ public class ProductService {
     }
 
     //check the product's fields
-    private void validateCredentials(Product product) {
+    private boolean validateCredentials(Product product) {
         if (product.getProductDescription() == null || product.getProductDescription().isEmpty() ||
                 product.getProductName() == null || product.getProductName().isEmpty() ||
                 product.getProductPrice() == 0 || product.getProductPrice() < 0 ||
                 product.getProductQuantity() == 0 || product.getProductQuantity() < 0)
-            throw new ProductException("Product fields cannot be empty or negative.");
+            return false;
+        return true;
     }
 }

@@ -2,6 +2,7 @@ package com.example.shop4All_backend.controllers;
 
 import com.example.shop4All_backend.entities.Category;
 import com.example.shop4All_backend.services.CategoryService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 public class CategoryController {
 
-    @Autowired
-    private CategoryService categoryService;
+    private final CategoryService categoryService;
 
     // Handle POST requests to /categoty/add to add a new category for products
     @PostMapping("category/add")
