@@ -16,8 +16,9 @@ import java.util.HashSet;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-@RequiredArgsConstructor
+
 @Service
+@RequiredArgsConstructor
 public class CategoryService {
 
     private final CategoryRepo categoryRepo;

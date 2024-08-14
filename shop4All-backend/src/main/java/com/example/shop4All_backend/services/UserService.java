@@ -1,30 +1,32 @@
 package com.example.shop4All_backend.services;
 
 import com.example.shop4All_backend.entities.Category;
+import com.example.shop4All_backend.entities.Product;
 import com.example.shop4All_backend.entities.Role;
 import com.example.shop4All_backend.entities.User;
 import com.example.shop4All_backend.exceptions.RegisterException;
 import com.example.shop4All_backend.repositories.CategoryRepo;
+import com.example.shop4All_backend.repositories.ProductRepo;
 import com.example.shop4All_backend.repositories.UserRepo;
 import com.nimbusds.jose.jwk.source.RateLimitReachedException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
-    @Autowired
-    private UserRepo userRepo;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    @Autowired
-    private CategoryRepo categoryRepo;
+    private final UserRepo userRepo;
+    private final PasswordEncoder passwordEncoder;
+    private final CategoryRepo categoryRepo;
+    private final ProductRepo productRepo;
 
     final String passwordRegex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*])[A-Za-z\\d!@#$%^&*]{8,}$";
     final String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
@@ -89,6 +91,22 @@ public class UserService {
         category.setCategoryName("categoryName1");
         category.setCategoryDescription("categoryDesc1");
         categoryRepo.save(category);
+
+        Product product1 = new Product();
+        product1.setProductName("Product1");
+        product1.setCompanySeller("CompanySeller1");
+        product1.setProductDiscounted(10.0);
+        product1.setProductFromDiscounted(LocalDate.of(2024, 8, 7));
+        product1.setProductToDiscounted(LocalDate.of(2024, 8, 9));
+        productRepo.save(product1);
+
+        Product product2 = new Product();
+        product2.setProductName("Product2");
+        product2.setCompanySeller("CompanySeller2");
+        product2.setProductDiscounted(10.0);
+        product2.setProductFromDiscounted(LocalDate.of(2024, 8, 7));
+        product2.setProductToDiscounted(LocalDate.of(2024, 8, 8));
+        productRepo.save(product2);
     }
 
     public String getEncodedPassword(String password) {
@@ -115,6 +133,7 @@ public class UserService {
         }
     }
 
+    //check the user's fields
     private <T extends User> void validateCredentials(T user, Role role) {
         if (role == Role.SELLER) {
             if (user.getUserCompanyDesciption() == null || user.getUserCompanyName() == null ||
