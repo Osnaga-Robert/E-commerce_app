@@ -1,0 +1,21 @@
+.custom-container {
+  max-width: 500px;
+  padding: 20px;
+  text-align: center;
+}
+
+.custom-hover-button {
+  border-color: #42BFDD;
+}
+
+.custom-hover-button:hover {
+  background-color: #FF66B3;
+  border-color: #FF66B3;
+  color: white;
+}
+
+.custom-button {
+  background-color: #BBE6E4;
+  border-color: #BBE6E4;
+  color: white;
+}

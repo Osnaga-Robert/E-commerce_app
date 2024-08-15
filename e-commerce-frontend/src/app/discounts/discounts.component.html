@@ -1,0 +1,69 @@
+<div class="discounts-container">
+  <h1>Discounts</h1>
+  <div class="discounts-content">
+    <div class="discounts-form">
+      <div class="form-group">
+        <div *ngIf="successMessage" class="message success">{{ successMessage }}</div>
+        <div *ngIf="errorMessage" class="message error">{{ errorMessage }}</div>
+        <label>Select product/category</label>
+        <ng-select [items]="products" bindLabel="productName" placeholder="Select from here"
+          [(ngModel)]="selectedProduct" [searchable]="true"></ng-select>
+      </div>
+      <div class="form-group">
+        <label>Reduced by</label>
+        <input type="number" [(ngModel)]="discountPercentage" placeholder="____ %" />
+      </div>
+      <div class="form-group">
+        <label>From</label>
+        <input type="date" [(ngModel)]="fromDate" />
+      </div>
+      <div class="form-group">
+        <label>To</label>
+        <input type="date" [(ngModel)]="toDate" />
+      </div>
+      <button class="add-button" (click)="addlistDiscount()">Add to list</button>
+    </div>
+    <div class="product-prepared">
+      <h3>Products to be discounted</h3>
+      <ul>
+        <li *ngFor="let product of appliedDiscounts">
+          <span>{{ product.productId }} </span>
+          <span>{{ product.productName }} </span>
+          <span>{{ product.productDiscounted }}% </span>
+          <span>{{ product.productFromDiscounted }} </span>
+          <span>{{ product.productToDiscounted }} </span>
+          <button class="delete-button" (click)="deleteDiscount(product)">Delete discount</button>
+        </li>
+      </ul>
+      <button class="apply-button" (click)="applyDiscounts()">Apply Discounts</button>
+    </div>
+  </div>
+  <div class="product-discounts">
+    <h2>Products</h2>
+    <ul>
+      <li *ngFor="let product of discountedProducts">
+        <span>{{ product.productId }}</span>
+        <span>{{ product.productName }}</span>
+        <span>{{ product.productDiscounted }}%</span>
+        <span>{{ product.productFromDiscounted }}</span>
+        <span>{{ product.productToDiscounted }}</span>
+        <button class="delete-button" (click)="deleteProductDiscount(product)">Delete discount</button>
+        <button class="extend-button" (click)="openExtendOfferModal(product)">Extend offer</button>
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="isExtendOfferModalOpen" class="modal">
+    <div class="modal-content">
+      <span class="close" (click)="closeExtendOfferModal()">&times;</span>
+      <h2>Extend Offer</h2>
+      <div *ngIf="extendErrorMessage" class="message error">{{ extendErrorMessage }}</div>
+      <form (ngSubmit)="updateOffer()">
+        <label>From</label>
+        <input type="date" [(ngModel)]="extendOfferFromDate" name="fromDate" required />
+        <label>To</label>
+        <input type="date" [(ngModel)]="extendOfferToDate" name="toDate" required />
+        <button type="submit">Update Offer</button>
+      </form>
+    </div>
+  </div>
+</div>

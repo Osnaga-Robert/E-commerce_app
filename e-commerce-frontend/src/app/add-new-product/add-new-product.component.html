@@ -1,0 +1,66 @@
+<div class="container mt-5">
+    <div class="card">
+        <div *ngIf="errorMessage" class="alert alert-danger">
+            {{ errorMessage }}
+        </div>
+        <div class="row" style="padding-left: 10px;">
+            <div class="col-6" style="padding: 10px;">
+                <form #productForm="ngForm" (ngSubmit)="addProduct(productForm)">
+                    <br>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Product Name</mat-label>
+                        <input matInput placeholder="Product Name" [(ngModel)]="product.productName" name="productName">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Product Description</mat-label>
+                        <input matInput placeholder="Product Description" [(ngModel)]="product.productDescription"
+                            name="productDescription">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Product Quantity</mat-label>
+                        <input matInput placeholder="Product Quantity" [(ngModel)]="product.productQuantity"
+                            name="productQuantity">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Product price</mat-label>
+                        <input matInput placeholder="Product price" [(ngModel)]="product.productPrice"
+                            name="productPrice">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Category</mat-label>
+                        <mat-select [(ngModel)]="category" name="category">
+                            <mat-option *ngFor="let category of categories" [value]="category">
+                                {{ category.categoryName }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <div align="end">
+                        <button mat-stroked-button color="primary"
+                            class="btn btn-outline-primary me-2 custom-hover-button">Clear</button>
+                        <button type="submit" *ngIf="isNewProduct" mat-stroked-button color="primary"
+                            class="btn btn-outline-primary custom-hover-button">Add Product</button>
+                        <button type="submit" *ngIf="!isNewProduct" mat-stroked-button color="primary"
+                            class="btn btn-outline-primary custom-hover-button">Update Product</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-6" style="padding-top: 30px;">
+                <div>
+                    <input type="file" multiple value="select" #selectFile (change)="onFileSelected($event)">
+                </div>
+                <div class="mt-5">
+                    <div class="row">
+                        <mat-grid-list cols="4" rowHeight="1:1">
+                            <mat-grid-tile *ngFor="let file of product.productImages; let i = index">
+                                <div style="position: relative;">
+                                    <span class="btn-remove-image" (click)="removeImages(i)">x</span>
+                                    <img [src]="file.url" width="100px" height="100px">
+                                </div>
+                            </mat-grid-tile>
+                        </mat-grid-list>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
