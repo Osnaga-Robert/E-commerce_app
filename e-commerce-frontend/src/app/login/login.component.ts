@@ -7,42 +7,48 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
 
   errorMessage: string = '';
 
-  constructor(private userService: UserService,
+  constructor(
+    private userService: UserService,
     private userAuthService: UserAuthService,
     private router: Router
-  ) {
+  ) { }
 
+  ngOnInit(): void {
+    console.log('LoginComponent initialized');
   }
-  ngOnInit(): void { }
 
   //handle login request
   login(loginForm: NgForm) {
+    console.log('Login attempt with form value:', loginForm.value);
     this.errorMessage = '';
     this.userService.login(loginForm.value).subscribe({
       next: (response: any) => {
-        console.log("Login Success");
+        console.log('Login Success:', response);
         this.userAuthService.setRoles(response.user.role.toString());
         this.userAuthService.setToken(response.jwtToken);
-        console.log(this.userAuthService.getRoles());
-        console.log(this.userAuthService.getToken());
+        console.log('User roles:', this.userAuthService.getRoles());
+        console.log('Token:', this.userAuthService.getToken());
+        
         const role = response.user.role.toString();
         if (role === 'ADMIN') {
-          console.log("Admin");
+          console.log('Redirecting to Admin page');
           this.router.navigate(['/admin']);
         } else if (role === 'SELLER') {
+          console.log('Redirecting to Seller page');
           this.router.navigate(['/seller']);
-        }
-        else {
+        } else {
+          console.log('Redirecting to Buyer page');
           this.router.navigate(['/buyer']);
         }
       },
       error: (error: any) => {
+        console.log('Login Error:', error);
         this.errorMessage = error.error.message;
       }
     });
@@ -50,11 +56,13 @@ export class LoginComponent implements OnInit {
 
   //go to the seller's page
   registerSeller() {
+    console.log('Navigating to Register Seller page');
     this.router.navigate(['/register-seller']);
   }
 
   //go to the buyer's page
   registerBuyer() {
+    console.log('Navigating to Register Buyer page');
     this.router.navigate(['/register-buyer']);
   }
 }

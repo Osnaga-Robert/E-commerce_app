@@ -1,18 +1,22 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UserAuthService } from './user-auth.service';
+import { ApiConfigService } from '../api-config.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  PATH_OF_API = 'https://localhost:8080';
+  private readonly PATH_OF_API: string;
 
   requestHeaders = new HttpHeaders(
     { 'No-Auth': 'True' }
   );
-  constructor(private httpClient: HttpClient, private userAuthService: UserAuthService) {
+
+  
+  constructor(private httpClient: HttpClient, private userAuthService: UserAuthService, private apiConfigService: ApiConfigService) {
+    this.PATH_OF_API = this.apiConfigService.API_BASE_URL;
   }
 
   //send a login request with user credentials
@@ -21,17 +25,17 @@ export class UserService {
   }
 
   //get data for users with the 'SELLER' role
-  public forSeller() {
+  public getDataForSeller() {
     return this.httpClient.get(this.PATH_OF_API + "/forSeller", { responseType: 'text' });
   }
 
   //get data for users with the 'BUYER' role
-  public forBuyer() {
+  public getDataForBuyer() {
     return this.httpClient.get(this.PATH_OF_API + "/forBuyer", { responseType: 'text' });
   }
 
   //get data for users with 'ADMIN' role
-  public forAdmin() {
+  public getDataForAdmin() {
     return this.httpClient.get(this.PATH_OF_API + "/forAdmin", { responseType: 'text' });
   }
 

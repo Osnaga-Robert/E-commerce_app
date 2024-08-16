@@ -9,14 +9,14 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./register-buyer.component.css']
 })
 export class RegisterBuyerComponent implements OnInit {
+
   passwordMismatch: boolean = false;
   repeatPasswordEmpty: boolean = false;
   errorMessage: string = '';
 
   constructor(private userService: UserService, private router: Router) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   //handle buyer registration
   register(registerForm: NgForm) {

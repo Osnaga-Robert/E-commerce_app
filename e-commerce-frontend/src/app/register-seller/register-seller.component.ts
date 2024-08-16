@@ -9,14 +9,14 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./register-seller.component.css']  // Corrected styleUrls property name
 })
 export class RegisterSellerComponent implements OnInit {
+
   passwordMismatch: boolean = false;
   repeatPasswordEmpty: boolean = false;
   errorMessage: string = '';
 
   constructor(private userService: UserService, private router: Router) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   //handle seller registration
   register(registerForm: NgForm) {

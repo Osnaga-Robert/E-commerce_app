@@ -1,57 +1,70 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../_services/product.service';
 import { Product } from '../_model/product.model';
-import { map } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { ImageProcessingService } from '../image-processing.service';
 import { Router } from '@angular/router';
 import { Category } from '../_model/category.model';
-import { response } from 'express';
-import { error } from 'console';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  
   products: Product[] = [];
   categories: Category[] = [];
 
-  constructor(private productService: ProductService, private imageProcessingService : ImageProcessingService, private router: Router) { }
+  constructor(
+    private productService: ProductService, 
+    private imageProcessingService: ImageProcessingService, 
+    private router: Router
+  ) { }
 
-  //fetch all prroducts and categories.
+  //fetch all products and categories
   ngOnInit(): void {
+    console.log('HomeComponent initialized');
     this.getAllProducts();
     this.getAllCategories();
   }
 
   //get all categories
   getAllCategories() {
+    console.log('Fetching categories');
     this.productService.getCategories().subscribe({
-      next:(response : any)=> {
+      next: (response: any) => {
+        console.log('Categories fetched:', response);
         this.categories = response;
       },
-      error:(error : any) => {
-        console.log(error);
+      error: (error: any) => {
+        console.log('Error fetching categories:', error);
       }
-    })
+    });
   }
 
   //navigate to the product details page for the selected product
   showProductDetails(productId: number) {
-    this.router.navigate(['/productViewDetails',{productId: productId}]);
+    console.log('Navigating to product details for product ID:', productId);
+    this.router.navigate(['/productViewDetails', { productId: productId }]);
   }
 
   //get all products
   public getAllProducts() {
-    this.productService.getAllProducts().pipe(map((x : Product[], index) => x.map((product: Product) => this.imageProcessingService.createImages(product)))).subscribe(
-      (data) => {
-        this.products = data;
-        console.log(data);
-      },
-      (error) => {
-        console.log(error)
+    console.log('Fetching products');
+    this.productService.getAllProducts()
+      .pipe(map((products: Product[]) => {
+        console.log('Processing images for products');
+        return products.map((product: Product) => this.imageProcessingService.createImages(product));
+      }))
+      .subscribe({
+        next: (data) => {
+          console.log('Products fetched and processed:', data);
+          this.products = data;
+        },
+        error: (error) => {
+          console.log('Error fetching products:', error);
+        }
       });
   }
-
 }

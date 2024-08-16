@@ -9,18 +9,24 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProductViewDetailsComponent implements OnInit {
 
-  constructor(private activatedRoute: ActivatedRoute) { }
-
   descriptionOpen = false;
   reviewOpen = false;
   product: Product | any = null;
   currentIndex = 0;
 
+  constructor(private activatedRoute: ActivatedRoute) { }
+
   //get the product details
   ngOnInit(): void {
     this.product = this.activatedRoute.snapshot.data['product'];
-    if (this.product && this.product.productImages.length) {
-      this.currentIndex = 0;
+    if (this.product) {
+      console.log('Product details:', this.product);
+      if (this.product.productImages.length) {
+        this.currentIndex = 0;
+        console.log('Initial image index set to:', this.currentIndex);
+      }
+    } else {
+      console.log('No product data found');
     }
   }
 
@@ -41,10 +47,12 @@ export class ProductViewDetailsComponent implements OnInit {
   //get the description of the product
   toggleDescription() {
     this.descriptionOpen = !this.descriptionOpen;
+    console.log('Description panel toggled, now open:', this.descriptionOpen);
   }
 
   //get the reviews of the product
   toggleReview() {
     this.reviewOpen = !this.reviewOpen;
+    console.log('Review panel toggled, now open:', this.reviewOpen);
   }
 }

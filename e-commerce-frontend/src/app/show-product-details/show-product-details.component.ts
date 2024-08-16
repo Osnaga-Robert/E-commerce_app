@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./show-product-details.component.css']
 })
 export class ShowProductDetailsComponent implements OnInit {
+  
   displayedColumns: string[] = ['productDetails', 'actions'];
   productDetails: Product[] = [];
 
@@ -22,11 +23,11 @@ export class ShowProductDetailsComponent implements OnInit {
   public getAllProducts() {
     this.productServe.getAllCompanyProducts().subscribe(
       data => {
-        console.log(data);
+        console.log("All products: " + data);
         this.productDetails = data;
       },
       error => {
-        console.log(error);
+        console.log("Error getAllProducts: " + error);
       }
     );
   }
@@ -38,14 +39,13 @@ export class ShowProductDetailsComponent implements OnInit {
 
   //delete a product
   deleteProduct(element: any) {
-    console.log(element.productId);
     this.productServe.deleteProduct(element.productId).subscribe(
       data => {
-        console.log(data);
+        console.log("Deleted " + data);
         this.getAllProducts();
       },
       error => {
-        console.log(error);
+        console.log("Error at delete a product: " + error);
       }
     );
   }

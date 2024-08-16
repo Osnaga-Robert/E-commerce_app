@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../_model/product.model';
 import { ProductService } from '../_services/product.service';
+import { ExtendOffer } from '../_model/extend-offer.model';
 
 @Component({
   selector: 'app-discounts',
@@ -32,33 +33,37 @@ export class DiscountsComponent implements OnInit {
   successMessage: string = '';
 
   isExtendOfferModalOpen: boolean = false;
-  extendOfferProduct: Product | null = null;
-  extendOfferFromDate: string = '';
-  extendOfferToDate: string = '';
-  extendErrorMessage: string = '';
+  extendOffer: ExtendOffer = {
+    extendOfferProduct: null,
+    extendOfferFromDate: '',
+    extendOfferToDate: '',
+    extendErrorMessage: ''
+  };
 
   constructor(private productService: ProductService) { }
 
-  //load the products
   ngOnInit(): void {
+    console.log('DiscountsComponent initialized');
     this.loadProducts();
   }
 
-  //get all products and filters based on discount
   loadProducts(): void {
+    console.log('Loading products');
     this.productService.getAllCompanyProducts().subscribe({
       next: (response: any) => {
+        console.log('Products fetched:', response);
         this.products = response.filter((product: Product) => product.productDiscounted === 0);
         this.discountedProducts = response.filter((product: Product) => product.productDiscounted !== 0);
       },
       error: (error: any) => {
-        console.log(error);
+        console.log('Error fetching products:', error);
+        this.errorMessage = 'Failed to load products.';
       }
     });
   }
 
-  //add a product to the discount list
   addlistDiscount() {
+    console.log('Adding discount');
     this.errorMessage = '';
     this.successMessage = '';
     if (this.selectedProduct && this.discountPercentage != null && this.fromDate && this.toDate) {
@@ -67,12 +72,14 @@ export class DiscountsComponent implements OnInit {
       this.selectedProduct.productToDiscounted = this.toDate;
       this.productService.checkProductDiscount(this.selectedProduct).subscribe({
         next: (response: any) => {
+          console.log('Discount added successfully:', response);
           this.successMessage = response.message;
           this.appliedDiscounts.push(this.selectedProduct);
           this.products = this.products.filter(product => product.productId !== this.selectedProduct.productId);
           this.resetForm();
         },
         error: (error: any) => {
+          console.log('Error adding discount:', error);
           this.errorMessage = error.error.message;
         }
       });
@@ -81,86 +88,90 @@ export class DiscountsComponent implements OnInit {
     }
   }
 
-  //apply the discounts to the selected products
   applyDiscounts() {
+    console.log('Applying discounts');
     for (let product of this.appliedDiscounts) {
       this.productService.setDiscount(product).subscribe({
         next: (response: any) => {
+          console.log('Discount applied successfully:', response);
           this.successMessage = response.message;
           this.discountedProducts.push(product);
           this.appliedDiscounts = this.appliedDiscounts.filter(appliedDiscount => appliedDiscount.productId !== product.productId);
         },
         error: (error: any) => {
+          console.log('Error applying discount:', error);
           this.errorMessage = error.error.message;
         }
       });
     }
   }
 
-  //remove an applied discount from the discount list
   deleteDiscount(product: Product) {
+    console.log('Deleting discount for product:', product);
     this.appliedDiscounts = this.appliedDiscounts.filter(appliedDiscount => appliedDiscount.productId !== product.productId);
     this.products.push(product);
     this.successMessage = 'Discount removed successfully';
     this.loadProducts();
   }
 
-  //removes an applied discount from a product
   deleteProductDiscount(product: Product) {
+    console.log('Removing product discount for product ID:', product.productId);
     this.productService.removeDiscount(product.productId).subscribe({
       next: (response: any) => {
-        console.log(response);
+        console.log('Product discount removed successfully:', response);
         this.successMessage = response.message;
         this.loadProducts();
       },
       error: (error: any) => {
-        console.log(error);
+        console.log('Error removing product discount:', error);
         this.errorMessage = error.error.message;
       }
     });
   }
 
-  //initialize the extending of a discount
   openExtendOfferModal(product: Product) {
-    this.extendErrorMessage = '';
+    console.log('Opening extend offer modal for product:', product);
+    this.extendOffer.extendErrorMessage = '';
     this.isExtendOfferModalOpen = true;
-    this.extendOfferProduct = product;
-    this.extendOfferFromDate = product.productFromDiscounted;
-    this.extendOfferToDate = product.productToDiscounted;
+    this.extendOffer.extendOfferProduct = product;
+    this.extendOffer.extendOfferFromDate = product.productFromDiscounted;
+    this.extendOffer.extendOfferToDate = product.productToDiscounted;
   }
 
-  //close the extend disount panel
   closeExtendOfferModal() {
+    console.log('Closing extend offer modal');
     this.isExtendOfferModalOpen = false;
   }
 
-  //update the discount
   updateOffer() {
-    this.extendErrorMessage = '';
-    if (this.extendOfferProduct) {
-      const fromDate = this.extendOfferProduct.productFromDiscounted;
-      const toDate = this.extendOfferProduct.productToDiscounted;
-      this.extendOfferProduct.productFromDiscounted = this.extendOfferFromDate;
-      this.extendOfferProduct.productToDiscounted = this.extendOfferToDate;
+    console.log('Updating extend offer');
+    this.extendOffer.extendErrorMessage = '';
+    if (this.extendOffer.extendOfferProduct) {
+      const fromDate = this.extendOffer.extendOfferProduct.productFromDiscounted;
+      const toDate = this.extendOffer.extendOfferProduct.productToDiscounted;
+      this.extendOffer.extendOfferProduct.productFromDiscounted = this.extendOffer.extendOfferFromDate;
+      this.extendOffer.extendOfferProduct.productToDiscounted = this.extendOffer.extendOfferToDate;
 
-      this.productService.setDiscount(this.extendOfferProduct).subscribe({
+      this.productService.setDiscount(this.extendOffer.extendOfferProduct).subscribe({
         next: (response: any) => {
+          console.log('Offer extended successfully:', response);
           this.loadProducts();
           this.closeExtendOfferModal();
         },
         error: (error: any) => {
-          if (this.extendOfferProduct) {
-            this.extendOfferProduct.productFromDiscounted = fromDate;
-            this.extendOfferProduct.productToDiscounted = toDate;
+          console.log('Error extending offer:', error);
+          if (this.extendOffer.extendOfferProduct) {
+            this.extendOffer.extendOfferProduct.productFromDiscounted = fromDate;
+            this.extendOffer.extendOfferProduct.productToDiscounted = toDate;
           }
-          this.extendErrorMessage = "Failed to extend offer. Please try again.";
+          this.extendOffer.extendErrorMessage = "Failed to extend offer. Please try again.";
         }
       });
     }
   }
 
-  //reset the discount form fileds
   private resetForm() {
+    console.log('Resetting form');
     this.selectedProduct = {
       productId: 0,
       productName: '',

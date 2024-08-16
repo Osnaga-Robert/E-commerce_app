@@ -9,16 +9,18 @@ import { UserService } from '../_services/user.service';
 export class SellerComponent implements OnInit {
 
   message: string = '';
+
   constructor(private userService: UserService) { }
+  
   ngOnInit(): void {
     this.forSeller();
   }
 
   //get the message from the seller's page
   forSeller() {
-    this.userService.forSeller().subscribe({
+    this.userService.getDataForSeller().subscribe({
       next: (response: any) => {
-        console.log(response);
+        console.log("Message: " + response);
         this.message = response;
       },
       error: (error: any) => {

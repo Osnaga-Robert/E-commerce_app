@@ -4,26 +4,30 @@ import { UserService } from '../_services/user.service';
 @Component({
   selector: 'app-buyer',
   templateUrl: './buyer.component.html',
-  styleUrl: './buyer.component.css'
+  styleUrls: ['./buyer.component.css']
 })
 export class BuyerComponent implements OnInit{
 
   message: string = '';
+
   constructor(private userService: UserService) { }
+  
   ngOnInit(): void {
+    console.log('BuyerComponent initialized');
     this.forBuyer();
   }
 
   //get the message from the buyer's page
   forBuyer(){
-    this.userService.forBuyer().subscribe({
+    console.log('Fetching data for buyer');
+    this.userService.getDataForBuyer().subscribe({
       next: (response: any) => {
-        console.log(response);
+        console.log('Received response:', response);
         this.message = response;
       },
       error: (error: any) => {
-        console.log(error);
+        console.log('Error occurred:', error);
       }
-  });
+    });
   }
 }

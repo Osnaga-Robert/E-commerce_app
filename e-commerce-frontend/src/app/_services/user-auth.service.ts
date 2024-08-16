@@ -11,7 +11,7 @@ export class UserAuthService {
     localStorage.setItem('role', roles);
   }
 
-  //get use rro;es from local storage
+  //get user roles from local storage
   public getRoles(): string {
     return localStorage.getItem('role') || '';
   }

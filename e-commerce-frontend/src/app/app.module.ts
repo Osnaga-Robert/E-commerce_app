@@ -47,7 +47,7 @@ import { ProductViewDetailsComponent } from './product-view-details/product-view
     AddNewProductComponent,
     ShowProductDetailsComponent,
     DiscountsComponent,
-    ProductViewDetailsComponent
+    ProductViewDetailsComponent,
   ],
   imports: [
     BrowserModule,
