@@ -1,0 +1,11 @@
+.custom-button {
+    background-color: #BBE6E4;
+    border-color: #BBE6E4;
+    color: black;
+}
+
+.delete-button:hover {
+    background-color: #FF6666;
+    border-color: #FF6666;
+    color: black;
+}

@@ -47,4 +47,9 @@ export class HeaderComponent implements OnInit {
   public isSeller() {
     return this.userAuthService.isSeller();
   }
+
+  //check if the use is a 'SELLER'
+  public isBuyer() {
+    return this.userAuthService.isBuyer();
+  }
 }

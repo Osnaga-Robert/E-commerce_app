@@ -40,7 +40,20 @@ public class ProductController {
     }
 
     //Handle GET request to /product/getByCompanyName to get all products sold by a seller
+    @GetMapping(value = {"/product/getAll"})
+    public ResponseEntity<List<Product>> getAllProducts(@RequestParam(defaultValue = "0") int pageNumber) {
+        return new ResponseEntity<>(productService.getAllProducts(pageNumber), HttpStatus.OK);
+    }
+
+    //Handle GET request to /product/getByCompanyName to get all products sold by a seller
     @GetMapping(value = {"/product/getByCompanyName"})
+    @PreAuthorize("hasRole('SELLER')")
+    public ResponseEntity<List<Product>> getAllProductsByCompany(@RequestParam(defaultValue = "0") int pageNumber) {
+        return new ResponseEntity<>(productService.getAllProductsByCompany(pageNumber), HttpStatus.OK);
+    }
+
+    //Handle GET request to /product/getByCompanyName to get all products sold by a seller
+    @GetMapping(value = {"/product/getAllByCompanyName"})
     @PreAuthorize("hasRole('SELLER')")
     public ResponseEntity<List<Product>> getAllProductsByCompany() {
         return new ResponseEntity<>(productService.getAllProductsByCompany(), HttpStatus.OK);
@@ -48,7 +61,6 @@ public class ProductController {
 
     //Handle GET request to /product/getById/{productId} to get a product based on productId
     @GetMapping("/product/getById/{productId}")
-    @PreAuthorize("hasRole('SELLER')")
     public ResponseEntity<Product> getProductById(@PathVariable("productId") Integer productId) {
         return new ResponseEntity<>(productService.getProductById(productId), HttpStatus.OK);
     }
@@ -60,7 +72,7 @@ public class ProductController {
         return new ResponseEntity<>(productService.deleteProduct(productId), HttpStatus.OK);
     }
 
-    //HANDLE POST request to /product/checkDiscount to check the fields of a discount
+    //Handle POST request to /product/checkDiscount to check the fields of a discount
     @PostMapping(value = {"/product/checkDiscount"})
     @PreAuthorize("hasRole('SELLER')")
     public ResponseEntity<Map<String, String>> checkDiscount(@RequestBody Product product) {
@@ -82,6 +94,13 @@ public class ProductController {
     @PreAuthorize("hasRole('SELLER')")
     public ResponseEntity<Product> deleteDiscount(@PathVariable("productId") Integer productId) {
         return new ResponseEntity<>(productService.deleteDiscount(productId), HttpStatus.ACCEPTED);
+    }
+
+    //Handle GET request to /getProductDetails/{isSingleProductCheckout}/{productId} to get product details based on checkout type(cart or single product checkout)
+    @PreAuthorize("hasRole('BUYER')")
+    @GetMapping({"/getProductDetails/{isSingleProductCheckout}/{productId}"})
+    public ResponseEntity<List<Product>> getProductDetails(@PathVariable(name = "isSingleProductCheckout") boolean isSingleProductCheckout, @PathVariable(name = "productId") Integer productId) {
+        return new ResponseEntity<>(productService.getProductDetails(isSingleProductCheckout, productId), HttpStatus.CREATED);
     }
 
     //format images to store in products object

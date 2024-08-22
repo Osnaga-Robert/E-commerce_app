@@ -1,12 +1,19 @@
 package com.example.shop4All_backend.services;
 
+import com.example.shop4All_backend.configurations.JwtRequestFilter;
 import com.example.shop4All_backend.entities.Product;
+import com.example.shop4All_backend.entities.User;
+import com.example.shop4All_backend.entities.Cart;
 import com.example.shop4All_backend.exceptions.ProductException;
 import com.example.shop4All_backend.exceptions.UserException;
+import com.example.shop4All_backend.repositories.CartRepo;
 import com.example.shop4All_backend.repositories.ProductRepo;
 import com.example.shop4All_backend.repositories.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -15,6 +22,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +30,7 @@ public class ProductService {
 
     private final ProductRepo productRepo;
     private final UserRepo userRepo;
+    private final CartRepo cartRepo;
 
     //add a product
     public Product addNewProduct(Product product) {
@@ -41,7 +50,24 @@ public class ProductService {
         throw new ProductException("Product not found");
     }
 
+    //get all products using pagination
+    public List<Product> getAllProducts(int pageNumber) {
+        Pageable pageable = PageRequest.of(pageNumber, 10);
+        Page<Product> productPage = (Page<Product>) productRepo.findAll(pageable);
+        return productPage.getContent();
+    }
+
     //returned products that are only sold by the logged seller
+    public List<Product> getAllProductsByCompany(int pageNumber) {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String companySeller = userRepo.findByUserEmail(userDetails.getUsername()).get().getUserCompanyName();
+
+        Pageable pageable = PageRequest.of(pageNumber, 10);
+        Page<Product> productPage = (Page<Product>) productRepo.findByCompanySeller(companySeller, pageable);
+        return productPage.getContent();
+    }
+
+    //get all products based on company
     public List<Product> getAllProductsByCompany() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String companySeller = userRepo.findByUserEmail(userDetails.getUsername()).get().getUserCompanyName();
@@ -104,6 +130,25 @@ public class ProductService {
             return optionalProduct.get();
         }
         throw new ProductException("Product not found");
+    }
+
+    //get all products from a cart or get a product that buyer want to buy directly
+    public List<Product> getProductDetails(boolean isSingleProductCheckout, Integer productId) {
+        if(isSingleProductCheckout && productId != 0){
+            List<Product> products = new ArrayList<>();
+            Product product = productRepo.findById(productId).get();
+            products.add(product);
+            return products;
+        }
+        else{
+            String buyerEmail = JwtRequestFilter.CURRENT_USER;
+            User buyer = userRepo.findByUserEmail(buyerEmail).get();
+            List<Cart> carts = cartRepo.findByUser(buyer);
+            List<Product> products = new ArrayList<>();
+            for(Cart cart : carts)
+                products.add((Product) cart.getProduct().toArray()[0]);
+            return products;
+        }
     }
 
     //check the product's fields

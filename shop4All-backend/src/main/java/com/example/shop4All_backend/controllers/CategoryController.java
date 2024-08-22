@@ -20,15 +20,15 @@ public class CategoryController {
 
     private final CategoryService categoryService;
 
-    // Handle POST requests to /categoty/add to add a new category for products
-    @PostMapping("category/add")
+    // Handle POST request to /category/add to add a new category for products
+    @PostMapping("/category/add")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Category> addCategory(@RequestBody Category category) {
         return new ResponseEntity<>(categoryService.addNewCategory(category), HttpStatus.CREATED);
     }
 
-    @GetMapping("category/getAll")
-    @PreAuthorize("hasRole('SELLER')")
+    // Handle GET request to /category/getAll to get all categories
+    @GetMapping("/category/getAll")
     public ResponseEntity<List<Category>> getAllCategories() {
         return new ResponseEntity<>(categoryService.getAllCategories(), HttpStatus.OK);
     }

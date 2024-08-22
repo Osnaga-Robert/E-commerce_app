@@ -1,27 +1,33 @@
-<table mat-table [dataSource]="productDetails" class="mat-elevation-z8 full-width-table custom-table">
-  <ng-container matColumnDef="productDetails">
-    <th mat-header-cell *matHeaderCellDef class="left-aligned"> Product Details </th>
-    <td mat-cell *matCellDef="let element">
-      <div class="product-details">
-        <div><strong>Id:</strong> {{element.productId}}</div>
-        <div><strong>Name:</strong> {{element.productName}}</div>
-        <div><strong>Price:</strong> {{element.productPrice | currency}}</div>
-        <div><strong>Quantity:</strong> {{element.productQuantity}}</div>
-        <div><strong>Description:</strong> {{element.productDescription}}</div>
-      </div>
-    </td>
-  </ng-container>
-  <ng-container matColumnDef="actions">
-    <th mat-header-cell *matHeaderCellDef class="right-aligned"> Actions </th>
-    <td mat-cell *matCellDef="let element">
-      <div class="action-buttons">
-        <button class="btn custom-button change-characteristics-button" mat-raised-button color="accent"
-          (click)="changeCharacteristics(element)">Change Characteristics</button>
-        <button class="btn custom-button delete-button" mat-raised-button color="warn"
-          (click)="deleteProduct(element)">Delete</button>
-      </div>
-    </td>
-  </ng-container>
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+<div *ngIf="showTable">
+  <table mat-table [dataSource]="productDetails" class="mat-elevation-z8 full-width-table custom-table">
+    <ng-container matColumnDef="productDetails">
+      <th mat-header-cell *matHeaderCellDef class="left-aligned"> Product Details </th>
+      <td mat-cell *matCellDef="let element">
+        <div class="product-details">
+          <div><strong>Id:</strong> {{element.productId}}</div>
+          <div><strong>Name:</strong> {{element.productName}}</div>
+          <div><strong>Price:</strong> {{element.productPrice | currency}}</div>
+          <div><strong>Quantity:</strong> {{element.productQuantity}}</div>
+          <div><strong>Description:</strong> {{element.productDescription}}</div>
+        </div>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef class="right-aligned"> Actions </th>
+      <td mat-cell *matCellDef="let element">
+        <div class="action-buttons">
+          <button class="btn custom-button change-characteristics-button" mat-raised-button color="accent"
+            (click)="changeCharacteristics(element)">Change Characteristics</button>
+          <button class="btn custom-button delete-button" mat-raised-button color="warn"
+            (click)="deleteProduct(element)">Delete</button>
+        </div>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
+<div class="text-center mt-5" *ngIf="showLoadButton">
+  <button class="btn btn-outline-primary rounded-10 custom-hover-button-load" (click)="loadMoreProducts()"
+    type="button"> Load More</button>
+</div>

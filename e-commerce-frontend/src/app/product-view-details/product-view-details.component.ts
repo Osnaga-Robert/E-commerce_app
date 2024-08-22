@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../_model/product.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ProductService } from '../_services/product.service';
 
 @Component({
   selector: 'app-product-view-details',
@@ -14,7 +15,7 @@ export class ProductViewDetailsComponent implements OnInit {
   product: Product | any = null;
   currentIndex = 0;
 
-  constructor(private activatedRoute: ActivatedRoute) { }
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private productService: ProductService) { }
 
   //get the product details
   ngOnInit(): void {
@@ -54,5 +55,24 @@ export class ProductViewDetailsComponent implements OnInit {
   toggleReview() {
     this.reviewOpen = !this.reviewOpen;
     console.log('Review panel toggled, now open:', this.reviewOpen);
+  }
+
+  buyProduct(productId: any) {
+    this.router.navigate(['/buyProduct', {
+      isSingleProductCheckout: true, id: productId
+    }]);
+  }
+
+  //add a product to buyer's cart
+  addToCart(productId: any) {
+    this.productService.addToCart(productId).subscribe({
+      next: (data) => {
+        console.log("Added to cart");
+        console.log(data);
+      },
+      error: (error) => {
+        console.log("Error getAllProducts: " + error);
+      }
+    });
   }
 }

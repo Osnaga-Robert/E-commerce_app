@@ -87,26 +87,34 @@ public class UserService {
         sellerUser.setUserCompanyName("COMPANY2024");
         userRepo.save(sellerUser);
 
+        User buyerUser = new User();
+        buyerUser.setUserEmail("buyer@gmail.com");
+        buyerUser.setUserPassword(getEncodedPassword("buyer"));
+        buyerUser.setRole(Role.BUYER);
+        buyerUser.setUserIsValid(true);
+        userRepo.save(buyerUser);
+
         Category category = new Category();
         category.setCategoryName("categoryName1");
         category.setCategoryDescription("categoryDesc1");
         categoryRepo.save(category);
 
-        Product product1 = new Product();
-        product1.setProductName("Product1");
-        product1.setCompanySeller("CompanySeller1");
-        product1.setProductDiscounted(10.0);
-        product1.setProductFromDiscounted(LocalDate.of(2024, 8, 7));
-        product1.setProductToDiscounted(LocalDate.of(2024, 8, 9));
-        productRepo.save(product1);
-
-        Product product2 = new Product();
-        product2.setProductName("Product2");
-        product2.setCompanySeller("CompanySeller2");
-        product2.setProductDiscounted(10.0);
-        product2.setProductFromDiscounted(LocalDate.of(2024, 8, 7));
-        product2.setProductToDiscounted(LocalDate.of(2024, 8, 8));
-        productRepo.save(product2);
+//        Product product1 = new Product();
+//        product1.setProductName("Product1");
+//        product1.setCompanySeller("CompanySeller1");
+//        product1.setProductPrice(10.2);
+//        product1.setProductDiscounted(10.0);
+//        product1.setProductFromDiscounted(LocalDate.of(2024, 8, 7));
+//        product1.setProductToDiscounted(LocalDate.of(2024, 8, 9));
+//        productRepo.save(product1);
+//
+//        Product product2 = new Product();
+//        product2.setProductName("Product2");
+//        product2.setCompanySeller("CompanySeller2");
+//        product2.setProductDiscounted(10.0);
+//        product2.setProductFromDiscounted(LocalDate.of(2024, 8, 7));
+//        product2.setProductToDiscounted(LocalDate.of(2024, 8, 8));
+//        productRepo.save(product2);
     }
 
     public String getEncodedPassword(String password) {

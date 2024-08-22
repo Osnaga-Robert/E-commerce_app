@@ -45,7 +45,7 @@ public class WebSecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 // Configure authorization rules for different endpoints
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/registerNewSeller", "/registerNewBuyer", "/authenticate", "/login", "/").permitAll();
+                    auth.requestMatchers("/registerNewSeller", "/registerNewBuyer", "/authenticate", "/login", "/", "/product/getAll", "/product/getById/**", "category/getAll").permitAll();
                     auth.anyRequest().authenticated();
                 })
                 .exceptionHandling((exceptions) -> exceptions

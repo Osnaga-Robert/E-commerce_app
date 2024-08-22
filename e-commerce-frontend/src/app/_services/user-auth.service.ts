@@ -43,4 +43,12 @@ export class UserAuthService {
     }
     return false;
   }
+
+  //check if the logged-in user has a 'BUYER' role
+  public isBuyer(): boolean {
+    if (this.getRoles().toString() === "BUYER") {
+      return true;
+    }
+    return false;
+  }
 }

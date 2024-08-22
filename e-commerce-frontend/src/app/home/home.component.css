@@ -97,6 +97,12 @@ mat-grid-tile {
     color: white;
 }
 
+.custom-hover-button-load:hover {
+    background-color: #42BFDD;
+    border-color: #42BFDD;
+    color: white;
+}
+
 .custom-add-to-cart-button {
     border-color: #42BFDD;
 }

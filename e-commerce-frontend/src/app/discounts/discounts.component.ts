@@ -49,7 +49,7 @@ export class DiscountsComponent implements OnInit {
 
   loadProducts(): void {
     console.log('Loading products');
-    this.productService.getAllCompanyProducts().subscribe({
+    this.productService.getAllByCompanyProducts().subscribe({
       next: (response: any) => {
         console.log('Products fetched:', response);
         this.products = response.filter((product: Product) => product.productDiscounted === 0);

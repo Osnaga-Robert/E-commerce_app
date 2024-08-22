@@ -9,27 +9,36 @@ import { Router } from '@angular/router';
   styleUrls: ['./show-product-details.component.css']
 })
 export class ShowProductDetailsComponent implements OnInit {
-  
+
   displayedColumns: string[] = ['productDetails', 'actions'];
   productDetails: Product[] = [];
+  pageNumber: number = 0;
+  showLoadButton = true;
+  showTable = false;
 
   constructor(private productServe: ProductService, private router: Router) { }
 
   ngOnInit(): void {
+    this.pageNumber = 0;
     this.getAllProducts();
   }
 
   //get all products based on the seller
   public getAllProducts() {
-    this.productServe.getAllCompanyProducts().subscribe(
-      data => {
-        console.log("All products: " + data);
-        this.productDetails = data;
+    this.showTable = false;
+    this.productServe.getPaginationAllCompanyProducts(this.pageNumber).subscribe({
+      next: (data) => {
+        if (data.length != 10)
+          this.showLoadButton = false;
+        console.log(data);
+        data.forEach(p => this.productDetails.push(p));
+        this.showTable = true;
+        console.log(this.productDetails);
       },
-      error => {
+      error: (error) => {
         console.log("Error getAllProducts: " + error);
       }
-    );
+    });
   }
 
   //change characteristics of a product
@@ -48,6 +57,12 @@ export class ShowProductDetailsComponent implements OnInit {
         console.log("Error at delete a product: " + error);
       }
     );
+  }
+
+  //load more products based on pagination
+  public loadMoreProducts() {
+    this.pageNumber++;
+    this.getAllProducts();
   }
 
 }
