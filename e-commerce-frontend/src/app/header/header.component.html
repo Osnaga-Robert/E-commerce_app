@@ -1,0 +1,60 @@
+<nav class="navbar navbar-expand-lg custom-navbar">
+  <div class="container-fluid">
+    <a class="navbar-brand btn" (click)="navigateToDashboard()"
+      style="color: #42BFDD; font-family: 'Irish Grover', sans-serif">Shop4All</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item" *ngIf="roleMatch(['ADMIN'])">
+          <a class="nav-link" routerLink="/admin">Admin Dashboard</a>
+        </li>
+        <li class="nav-item" *ngIf="roleMatch(['SELLER'])">
+          <a class="nav-link" routerLink="/seller">Seller Dashboard</a>
+        </li>
+        <li class="nav-item" *ngIf="roleMatch(['BUYER'])">
+          <a class="nav-link" routerLink="/buyer">Buyer Dashboard</a>
+        </li>
+      </ul>
+      <form class="d-flex mx-auto search-form" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-light" type="submit">
+          <i class="fas fa-search"></i>
+        </button>
+      </form>
+      <div class="d-flex">
+        <button *ngIf="!isLoggedIn()" class="btn btn-outline-light" type="button" routerLink="/login">
+          <i class="fas fa-sign-in-alt"></i>
+        </button>
+        <button *ngIf="isLoggedIn()" class="btn btn-outline-light" type="button" routerLink="/logout"
+          (click)="logout()">
+          <i class="fas fa-sign-out-alt"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="d-flex">
+  <nav id="sidebarMenu" class="bg-white sidebar" *ngIf="isSeller()">
+    <div class="position-sticky">
+      <div class="list-group list-group-flush">
+        <a routerLink="/addNewProduct" class="list-group-item list-group-item-action py-2 ripple">
+          <i class="fas fa-plus fa-fw me-3"></i><span>Add Product</span>
+        </a>
+        <a routerLink="/showProductsDetails" class="list-group-item list-group-item-action py-2 ripple">
+          <i class="fas fa-cube fa-fw me-3"></i><span>Products</span>
+        </a>
+        <a routerLink="/discounts" class="list-group-item list-group-item-action py-2 ripple">
+          <i class="fas fa-percent fa-fw me-3"></i><span>Discounts</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+  <main class="flex-grow-1">
+    <div class="container-fluid mt-4">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>

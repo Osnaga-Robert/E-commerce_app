@@ -1,0 +1,38 @@
+<div class="container mt-5">
+  <div class="category-section mb-4">
+    <h2>Categories</h2>
+    <ul>
+      <li *ngFor="let category of categories">{{ category.categoryName }}</li>
+    </ul>
+  </div>
+  <h2>Products</h2>
+  <mat-grid-list cols="4" rowHeight="3:5" gutterSize="10">
+    <mat-grid-tile *ngFor="let p of products">
+      <div class="home-page-product-tile">
+        <div class="home-page-product-image">
+          <img [src]="p.productImages[0].url" alt="{{p.productName}}">
+        </div>
+        <div class="home-page-product-info">
+          <p><b>{{p.productName}}</b></p>
+          <div *ngIf="p.productDiscounted > 0; else noDiscount" class="price-container">
+            <p class="original-price">{{p.productPrice | number:'1.2-2'}} $</p>
+            <p class="discounted-price">
+              {{p.productPrice * (1 - p.productDiscounted / 100) | number:'1.2-2'}} $
+            </p>
+            <p class="discount-text">
+              Save {{p.productDiscounted}} %
+            </p>
+          </div>
+          <ng-template #noDiscount>
+            <p>{{p.productPrice | number:'1.2-2'}} $</p>
+          </ng-template>
+          <div class="button-container">
+            <button type="button" class="btn custom-hover-button" (click)="showProductDetails(p.productId)">View
+              Details</button>
+            <button type="button" class="btn custom-add-to-cart-button">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

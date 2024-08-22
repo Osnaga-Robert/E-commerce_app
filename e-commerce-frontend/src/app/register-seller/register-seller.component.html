@@ -1,0 +1,62 @@
+<div class="container mt-5">
+    <div class="card" style="padding: 20px;">
+        <div *ngIf="errorMessage" class="alert alert-danger">
+            {{ errorMessage }}
+        </div>
+        <form #registerForm="ngForm" (ngSubmit)="register(registerForm)">
+            <h3>Seller</h3>
+            <br>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input type="email" class="form-control" matInput ngModel name="userEmail" id="userEmail"
+                    placeholder="Enter email">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                    else.</small>
+            </div>
+            <br>
+            <div class="form-group">
+                <label>First Name</label>
+                <input matInput ngModel class="form-control" name="userFirstName" id="userFirstName"
+                    placeholder="Enter your first name">
+            </div>
+            <br>
+            <div class="form-group">
+                <label>Last Name</label>
+                <input matInput class="form-control" ngModel name="userLastName" id="userLastName"
+                    placeholder="Enter your last name">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="exampleInputPassword">Password</label>
+                <input type="password" class="form-control" matInput ngModel name="userPassword" id="userPassword"
+                    placeholder="Password">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="exampleInputRepeatPassword1">Repeat password</label>
+                <input type="password" class="form-control" matInput ngModel name="userRepeatPassword"
+                    id="userRepeatPassword" placeholder="Password">
+            </div>
+            <div *ngIf="repeatPasswordEmpty" class="alert alert-danger">
+                Repeated password is required!
+            </div>
+            <div *ngIf="passwordMismatch" class="alert alert-danger">
+                Passwords do not match!
+            </div>
+            <br>
+            <div class="form-group">
+                <label>Company Name</label>
+                <input matInput ngModel class="form-control" name="userCompanyName" id="userCompanyName"
+                    placeholder="Enter the company name">
+            </div>
+            <br>
+            <div class="form-group">
+                <label>Products to sell</label>
+                <input matInput ngModel class="form-control" name="userCompanyDesciption" id="userCompanyDesciption"
+                    placeholder="A short description about your products">
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+    </div>
+</div>
