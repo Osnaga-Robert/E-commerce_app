@@ -7,6 +7,8 @@ import com.example.shop4All_backend.exceptions.UserException;
 import com.example.shop4All_backend.services.CategoryService;
 import com.example.shop4All_backend.services.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,24 +26,32 @@ public class ProductController {
 
     private final ProductService productService;
     private final CategoryService categoryService;
+    private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 
     // Handle POST requests to /product/add to add a new product
     @PostMapping(value = {"/product/add"}, consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     @PreAuthorize("hasRole('SELLER')")
     public ResponseEntity<Product> addNewProduct(@RequestPart(value = "product", required = false) Product product,
                                                  @RequestPart(value = "imageFile", required = false) MultipartFile[] file) {
-        if (file == null || file[0].getContentType() == null || file[0].getContentType().isEmpty())
+
+        if (file == null || file[0].getContentType() == null || file[0].getContentType().isEmpty()) {
+            logger.error("Invalid image file");
             throw new ProductException("File is empty");
+        }
         Set<Image> images = uploadImage(file);
-        if (!categoryService.checkCategory(product))
+        if (!categoryService.checkCategory(product)){
+            logger.error("Invalid category");
             throw new ProductException("Category does not exist");
+        }
         product.setProductImages(images);
         return new ResponseEntity<>(productService.addNewProduct(product), HttpStatus.CREATED);
     }
 
     //Handle GET request to /product/getByCompanyName to get all products sold by a seller
     @GetMapping(value = {"/product/getAll"})
+    @PreAuthorize("!hasRole('SELLER') and !hasRole('ADMIN')")
     public ResponseEntity<List<Product>> getAllProducts(@RequestParam(defaultValue = "0") int pageNumber) {
+        logger.info("Get all products");
         return new ResponseEntity<>(productService.getAllProducts(pageNumber), HttpStatus.OK);
     }
 
@@ -49,6 +59,7 @@ public class ProductController {
     @GetMapping(value = {"/product/getByCompanyName"})
     @PreAuthorize("hasRole('SELLER')")
     public ResponseEntity<List<Product>> getAllProductsByCompany(@RequestParam(defaultValue = "0") int pageNumber) {
+        logger.info("Get all products by company with pagination");
         return new ResponseEntity<>(productService.getAllProductsByCompany(pageNumber), HttpStatus.OK);
     }
 
@@ -56,12 +67,15 @@ public class ProductController {
     @GetMapping(value = {"/product/getAllByCompanyName"})
     @PreAuthorize("hasRole('SELLER')")
     public ResponseEntity<List<Product>> getAllProductsByCompany() {
+        logger.info("Get all products by company");
         return new ResponseEntity<>(productService.getAllProductsByCompany(), HttpStatus.OK);
     }
 
     //Handle GET request to /product/getById/{productId} to get a product based on productId
     @GetMapping("/product/getById/{productId}")
+    @PreAuthorize("!hasRole('SELLER') and !hasRole('ADMIN')")
     public ResponseEntity<Product> getProductById(@PathVariable("productId") Integer productId) {
+        logger.info("Get product by id {}", productId);
         return new ResponseEntity<>(productService.getProductById(productId), HttpStatus.OK);
     }
 
@@ -69,6 +83,7 @@ public class ProductController {
     @DeleteMapping(value = {"/product/delete/{productId}"})
     @PreAuthorize("hasRole('SELLER')")
     public ResponseEntity<Product> deleteProduct(@PathVariable("productId") Integer productId) {
+        logger.info("Delete product by id {}", productId);
         return new ResponseEntity<>(productService.deleteProduct(productId), HttpStatus.OK);
     }
 
@@ -76,6 +91,7 @@ public class ProductController {
     @PostMapping(value = {"/product/checkDiscount"})
     @PreAuthorize("hasRole('SELLER')")
     public ResponseEntity<Map<String, String>> checkDiscount(@RequestBody Product product) {
+        logger.info("Check discount");
         productService.checkDiscount(product);
         Map<String, String> response = new HashMap<>();
         response.put("message", "Product added to list");
@@ -86,6 +102,7 @@ public class ProductController {
     @PostMapping(value = {"/product/setDiscount"})
     @PreAuthorize("hasRole('SELLER')")
     public ResponseEntity<Product> setDiscount(@RequestBody Product product) {
+        logger.info("Set discount");
         return new ResponseEntity<>(productService.setDiscount(product), HttpStatus.CREATED);
     }
 
@@ -93,6 +110,7 @@ public class ProductController {
     @DeleteMapping(value = {"/product/deleteDiscount/{productId}"})
     @PreAuthorize("hasRole('SELLER')")
     public ResponseEntity<Product> deleteDiscount(@PathVariable("productId") Integer productId) {
+        logger.info("Delete discount");
         return new ResponseEntity<>(productService.deleteDiscount(productId), HttpStatus.ACCEPTED);
     }
 
@@ -100,6 +118,7 @@ public class ProductController {
     @PreAuthorize("hasRole('BUYER')")
     @GetMapping({"/getProductDetails/{isSingleProductCheckout}/{productId}"})
     public ResponseEntity<List<Product>> getProductDetails(@PathVariable(name = "isSingleProductCheckout") boolean isSingleProductCheckout, @PathVariable(name = "productId") Integer productId) {
+        logger.info("Get product details");
         return new ResponseEntity<>(productService.getProductDetails(isSingleProductCheckout, productId), HttpStatus.CREATED);
     }
 

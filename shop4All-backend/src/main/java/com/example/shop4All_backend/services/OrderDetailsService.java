@@ -1,12 +1,15 @@
 package com.example.shop4All_backend.services;
 
 import com.example.shop4All_backend.configurations.JwtRequestFilter;
+import com.example.shop4All_backend.controllers.CartController;
 import com.example.shop4All_backend.entities.*;
 import com.example.shop4All_backend.repositories.CartRepo;
 import com.example.shop4All_backend.repositories.OrderDetailsRepo;
 import com.example.shop4All_backend.repositories.ProductRepo;
 import com.example.shop4All_backend.repositories.UserRepo;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +23,7 @@ public class OrderDetailsService {
     private final UserRepo userRepo;
     private final CartRepo cartRepo;
     private static final String ORDER_PLACED = "Placed";
+    private static final Logger logger = LoggerFactory.getLogger(OrderDetailsService.class);
 
 
     //place an order
@@ -32,13 +36,15 @@ public class OrderDetailsService {
         for (OrderProductQuantity orderProductQuantity : productQuantityList) {
             Product product = productRepo.findById(orderProductQuantity.getProductId()).get();
 
-            orderDetails.setOrderFullName(orderInput.getFullName());
-            orderDetails.setOrderFullAddress(orderInput.getFullAddress());
-            orderDetails.setOrderContactNumber(orderInput.getContactNumber());
-            orderDetails.setOrderStatus(ORDER_PLACED);
-            orderDetails.setOrderAmount(product.getProductPrice() * (1 - product.getProductDiscounted() / 100) * orderProductQuantity.getQuantity());
-            orderDetails.setProduct(product);
-            orderDetails.setUser(user);
+            orderDetails = OrderDetails.builder()
+                    .orderFullName(orderInput.getFullName())
+                    .orderFullAddress(orderInput.getFullAddress())
+                    .orderContactNumber(orderInput.getContactNumber())
+                    .orderStatus(ORDER_PLACED)
+                    .orderAmount(product.getProductPrice() * (1 - product.getProductDiscounted() / 100) * orderProductQuantity.getQuantity())
+                    .product(product)
+                    .user(user)
+                    .build();
         }
 
         if (!isSingleProductCheckout) {
@@ -46,6 +52,7 @@ public class OrderDetailsService {
             cartRepo.deleteAll(cart);
         }
 
+        logger.info("Order placed");
         return orderDetailsRepo.save(orderDetails);
     }
 }

@@ -10,6 +10,6 @@ import java.util.Optional;
 
 public interface ProductRepo extends CrudRepository<Product, Integer> {
     Optional<Product> findByProductName(String productName);
-    Object findAll(Pageable pageable);
+    Page<Product> findAll(Pageable pageable);
     Page<Product> findByCompanySeller(String companySeller, Pageable pageable);
 }

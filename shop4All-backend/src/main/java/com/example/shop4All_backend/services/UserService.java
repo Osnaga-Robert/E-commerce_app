@@ -10,6 +10,8 @@ import com.example.shop4All_backend.repositories.ProductRepo;
 import com.example.shop4All_backend.repositories.UserRepo;
 import com.nimbusds.jose.jwk.source.RateLimitReachedException;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -30,18 +32,21 @@ public class UserService {
 
     final String passwordRegex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*])[A-Za-z\\d!@#$%^&*]{8,}$";
     final String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     //seller registration
     public User registerNewSeller(User seller) {
         validateCredentials(seller, Role.SELLER);
         Optional<User> existingUser = userRepo.findByUserEmail(seller.getUserEmail());
         if (existingUser.isPresent()) {
+            logger.error("User already exists");
             throw new RegisterException("User with this email already exists");
         }
         seller.setRole(Role.SELLER);
         seller.setUserIsValid(false);
 
         seller.setUserPassword(getEncodedPassword(seller.getUserPassword()));
+        logger.info("New seller: " + seller);
         return userRepo.save(seller);
     }
 
@@ -51,11 +56,13 @@ public class UserService {
 
         Optional<User> existingUser = userRepo.findByUserEmail(buyer.getUserEmail());
         if (existingUser.isPresent()) {
+            logger.error("User already exists");
             throw new RegisterException("User with this email already exists");
         }
         buyer.setRole(Role.BUYER);
         buyer.setUserPassword(getEncodedPassword(buyer.getUserPassword()));
 
+        logger.info("New buyer: " + buyer);
         return userRepo.save(buyer);
     }
 
@@ -65,8 +72,10 @@ public class UserService {
         if (!seller.isUserIsValid()) {
             seller.setUserIsValid(true);
             userRepo.save(seller);
+            logger.info("User activated");
             return true;
         }
+        logger.info("User refused");
         return false;
     }
 
@@ -127,6 +136,7 @@ public class UserService {
         Matcher matcher = pattern.matcher(email);
         if (matcher.matches())
             return;
+        logger.error("Invalid email");
         throw new RegisterException("Invalid email format");
     }
 
@@ -135,6 +145,7 @@ public class UserService {
         Pattern pattern = Pattern.compile(passwordRegex);
         Matcher matcher = pattern.matcher(password);
         if (!matcher.matches()) {
+            logger.error("Invalid password");
             throw new RegisterException("Your password should be at least 8 characters " +
                     "long and contain at least one digit, one upperrcase letter, one lowercase letter " +
                     "and one special character(!@#$%^&*)");
@@ -150,6 +161,7 @@ public class UserService {
                     user.getUserFirstName().isEmpty() || user.getUserLastName().isEmpty() ||
                     user.getUserEmail().isEmpty() || user.getUserPassword().isEmpty() ||
                     user.getUserCompanyName().isEmpty() || user.getUserCompanyDesciption().isEmpty()) {
+                logger.error("Invalid credentials");
                 throw new RegisterException("All credentials are required for a seller");
             }
         } else if (role == Role.BUYER) {
@@ -157,6 +169,7 @@ public class UserService {
                     user.getUserEmail() == null || user.getUserPassword() == null ||
                     user.getUserFirstName().isEmpty() || user.getUserLastName().isEmpty() ||
                     user.getUserEmail().isEmpty() || user.getUserPassword().isEmpty()) {
+                logger.error("Invalid credentials");
                 throw new RegisterException("All credentials are required for a buyer");
             }
         }

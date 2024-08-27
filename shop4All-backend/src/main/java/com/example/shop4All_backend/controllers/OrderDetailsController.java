@@ -6,6 +6,8 @@ import com.example.shop4All_backend.services.OrderDetailsService;
 import com.example.shop4All_backend.services.ProductService;
 import groovy.transform.AutoImplement;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -22,11 +24,13 @@ public class OrderDetailsController {
 
     @Autowired
     private final OrderDetailsService orderDetailsService;
+    private static final Logger logger = LoggerFactory.getLogger(OrderDetailsController.class);
 
     // Handle POST request to /placeOrder/{isSingleProductCheckout} to place the buyer's order
     @PreAuthorize("hasRole('BUYER')")
     @PostMapping("/placeOrder/{isSingleProductCheckout}")
     public ResponseEntity<OrderDetails> placeOrder(@PathVariable(name = "isSingleProductCheckout") boolean isSingleProductCheckout, @RequestBody OrderInput orderInput) {
+        logger.info("Order placed");
         return new ResponseEntity<>(orderDetailsService.placeOrder(isSingleProductCheckout, orderInput), HttpStatus.CREATED);
     }
 }

@@ -3,6 +3,8 @@ package com.example.shop4All_backend.controllers;
 import com.example.shop4All_backend.entities.Category;
 import com.example.shop4All_backend.services.CategoryService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,17 +21,21 @@ import java.util.List;
 public class CategoryController {
 
     private final CategoryService categoryService;
+    private static final Logger logger = LoggerFactory.getLogger(CategoryController.class);
 
     // Handle POST request to /category/add to add a new category for products
     @PostMapping("/category/add")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Category> addCategory(@RequestBody Category category) {
+        logger.info("Adding category: {}", category);
         return new ResponseEntity<>(categoryService.addNewCategory(category), HttpStatus.CREATED);
     }
 
     // Handle GET request to /category/getAll to get all categories
     @GetMapping("/category/getAll")
+    @PreAuthorize("!hasRole('ADMIN')")
     public ResponseEntity<List<Category>> getAllCategories() {
+        logger.info("Getting all categories");
         return new ResponseEntity<>(categoryService.getAllCategories(), HttpStatus.OK);
     }
 
