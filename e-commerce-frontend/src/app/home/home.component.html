@@ -35,4 +35,8 @@
       </div>
     </mat-grid-tile>
   </mat-grid-list>
+  <div class="text-center mt-5" *ngIf="showLoadButton">
+    <button class="btn btn-outline-primary rounded-10 custom-hover-button-load" (click)="loadMoreProducts()"
+      type="button"> Load More</button>
+  </div>
 </div>

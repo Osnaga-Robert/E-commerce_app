@@ -12,18 +12,21 @@ import { Category } from '../_model/category.model';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  
+
   products: Product[] = [];
   categories: Category[] = [];
+  pageNumber: number = 0;
+  showLoadButton = true;
 
   constructor(
-    private productService: ProductService, 
-    private imageProcessingService: ImageProcessingService, 
+    private productService: ProductService,
+    private imageProcessingService: ImageProcessingService,
     private router: Router
   ) { }
 
   //fetch all products and categories
   ngOnInit(): void {
+    this.pageNumber = 0;
     console.log('HomeComponent initialized');
     this.getAllProducts();
     this.getAllCategories();
@@ -52,19 +55,27 @@ export class HomeComponent implements OnInit {
   //get all products
   public getAllProducts() {
     console.log('Fetching products');
-    this.productService.getAllProducts()
+    this.productService.getAllProducts(this.pageNumber)
       .pipe(map((products: Product[]) => {
         console.log('Processing images for products');
         return products.map((product: Product) => this.imageProcessingService.createImages(product));
       }))
       .subscribe({
         next: (data) => {
+          if (data.length != 10)
+            this.showLoadButton = false;
           console.log('Products fetched and processed:', data);
-          this.products = data;
+          data.forEach(p => this.products.push(p));
         },
         error: (error) => {
           console.log('Error fetching products:', error);
         }
       });
+  }
+
+  //load moe products based on pagination
+  public loadMoreProducts() {
+    this.pageNumber++;
+    this.getAllProducts();
   }
 }

@@ -31,6 +31,9 @@ import { MatTableModule } from '@angular/material/table';
 import { ProductResolveService } from './product-resolve.service';
 import { DiscountsComponent } from './discounts/discounts.component';
 import { ProductViewDetailsComponent } from './product-view-details/product-view-details.component';
+import { BuyProductComponent } from './buy-product/buy-product.component';
+import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +51,9 @@ import { ProductViewDetailsComponent } from './product-view-details/product-view
     ShowProductDetailsComponent,
     DiscountsComponent,
     ProductViewDetailsComponent,
+    BuyProductComponent,
+    OrderConfirmationComponent,
+    CartComponent,
   ],
   imports: [
     BrowserModule,

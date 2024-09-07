@@ -21,6 +21,7 @@ import java.io.IOException;
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
+    public static String CURRENT_USER = "";
     @Autowired
     private JwtUtil jwtUtil;
 
@@ -43,6 +44,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
             try {
                 userEmail = jwtUtil.getUserEmailFromToken(jwtToken);
+                CURRENT_USER = userEmail;
             } catch (IllegalArgumentException e) {
                 throw new LogInException("Invalid JWT");
             } catch (ExpiredJwtException e) {

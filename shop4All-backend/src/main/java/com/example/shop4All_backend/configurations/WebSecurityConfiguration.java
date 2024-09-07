@@ -44,10 +44,11 @@ public class WebSecurityConfiguration {
                 // Disable CSRF protection
                 .csrf(AbstractHttpConfigurer::disable)
                 // Configure authorization rules for different endpoints
-                .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/registerNewSeller", "/registerNewBuyer", "/authenticate", "/login", "/").permitAll();
-                    auth.anyRequest().authenticated();
-                })
+                    .authorizeHttpRequests(auth -> {
+                        auth.requestMatchers("/registerNewSeller", "/registerNewBuyer", "/authenticate", "/login", "/").permitAll();
+                        auth.requestMatchers("/product/getAll", "/product/getById/**", "category/getAll").permitAll();
+                        auth.anyRequest().authenticated();
+                    })
                 .exceptionHandling((exceptions) -> exceptions
                         .authenticationEntryPoint(jwtAuthentificationEntryPoint)
                 )

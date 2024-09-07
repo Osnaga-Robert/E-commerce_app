@@ -28,6 +28,9 @@
         <button *ngIf="!isLoggedIn()" class="btn btn-outline-light" type="button" routerLink="/login">
           <i class="fas fa-sign-in-alt"></i>
         </button>
+        <button *ngIf="isBuyer()" class="btn btn-outline-light" type="button" routerLink="/cart">
+          <i class="fas fa-shopping-cart"></i>
+        </button>
         <button *ngIf="isLoggedIn()" class="btn btn-outline-light" type="button" routerLink="/logout"
           (click)="logout()">
           <i class="fas fa-sign-out-alt"></i>

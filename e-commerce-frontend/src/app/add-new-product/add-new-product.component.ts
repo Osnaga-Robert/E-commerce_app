@@ -34,7 +34,7 @@ export class AddNewProductComponent implements OnInit {
     categoryDescription: ''
   };
   categories: Category[] = [];
-  
+
   constructor(private productService: ProductService, private sanitizer: DomSanitizer, private activatedRoute: ActivatedRoute) { }
 
   //get available product(if we update a product) and get all categories
@@ -48,7 +48,7 @@ export class AddNewProductComponent implements OnInit {
     } else {
       console.log('Adding new product');
     }
-    
+
     this.productService.getCategories().subscribe({
       next: (response: any) => {
         console.log("Categories fetched:", response);
@@ -65,7 +65,7 @@ export class AddNewProductComponent implements OnInit {
     this.errorMessage = '';
     this.product.productCategory.push(this.category);
     console.log('Product to be added or updated:', this.product);
-    
+
     this.productService.addProduct(this.prepareFormData(this.product)).subscribe({
       next: (response: any) => {
         console.log('Product added or updated successfully:', response);
@@ -86,7 +86,7 @@ export class AddNewProductComponent implements OnInit {
       new Blob([JSON.stringify(product)], { type: 'application/json' })
     );
     console.log('Form data prepared for product:', formData);
-    
+
     for (let i = 0; i < product.productImages.length; i++) {
       formData.append(
         'imageFile',

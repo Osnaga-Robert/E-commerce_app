@@ -13,6 +13,10 @@ import { ShowProductDetailsComponent } from './show-product-details/show-product
 import { ProductResolveService } from './product-resolve.service';
 import { DiscountsComponent } from './discounts/discounts.component';
 import { ProductViewDetailsComponent } from './product-view-details/product-view-details.component';
+import { BuyProductComponent } from './buy-product/buy-product.component';
+import { BuyProductResolverService } from './buy-product-resolver.service';
+import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
+import { CartComponent } from './cart/cart.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -32,6 +36,13 @@ const routes: Routes = [
   { path: 'showProductsDetails', component: ShowProductDetailsComponent, canActivate: ['authGuard'], data: { roles: ['SELLER'] } },
   { path: 'discounts', component: DiscountsComponent, canActivate: ['authGuard'], data: { roles: ['SELLER'] } },
   {path: 'productViewDetails', component: ProductViewDetailsComponent, resolve: {product: ProductResolveService}},
+  {path : 'buyProduct', component: BuyProductComponent, canActivate: ['authGuard'], data: { roles: ['BUYER']},
+  resolve:{
+    productDetails: BuyProductResolverService
+  }
+},
+  {path: "orderConfirm", component: OrderConfirmationComponent, canActivate: ['authGuard'], data: { roles: ['BUYER']}},
+  {path: "cart", component:CartComponent, canActivate: ['authGuard'], data: { roles: ['BUYER']}}
 ];
 
 @NgModule({

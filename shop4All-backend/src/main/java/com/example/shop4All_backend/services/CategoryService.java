@@ -1,10 +1,13 @@
 package com.example.shop4All_backend.services;
 
+import com.example.shop4All_backend.controllers.CartController;
 import com.example.shop4All_backend.entities.Category;
 import com.example.shop4All_backend.entities.Product;
 import com.example.shop4All_backend.exceptions.UserException;
 import com.example.shop4All_backend.repositories.CategoryRepo;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,11 +25,15 @@ import java.util.stream.StreamSupport;
 public class CategoryService {
 
     private final CategoryRepo categoryRepo;
+    private static final Logger logger = LoggerFactory.getLogger(CategoryService.class);
 
     //add a category of products
     public Category addNewCategory(Category category) {
-        if (categoryRepo.findByCategoryName(category.getCategoryName()).isPresent())
+        if (categoryRepo.findByCategoryName(category.getCategoryName()).isPresent()) {
+            logger.error("Category with name {} already exists", category.getCategoryName());
             throw new UserException("Category already exists");
+        }
+        logger.info("Adding new category {}", category.getCategoryName());
         return categoryRepo.save(category);
     }
 
@@ -48,6 +55,7 @@ public class CategoryService {
     //get all categories added by admin
     public List<Category> getAllCategories() {
         Iterable<Category> categories = categoryRepo.findAll();
+        logger.info("Getting all categories");
         return StreamSupport.stream(categories.spliterator(), false)
                 .collect(Collectors.toList());
     }
