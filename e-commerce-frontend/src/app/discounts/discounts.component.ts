@@ -23,8 +23,10 @@ export class DiscountsComponent implements OnInit {
     productPrice: 0,
     productQuantity: 0,
     productCompanySeller: '',
+    isActive: false,
     productImages: [],
-    productCategory: []
+    productCategory: [],
+    productReview: []
   };
   discountPercentage: number = 0;
   fromDate: string = '';
@@ -182,8 +184,10 @@ export class DiscountsComponent implements OnInit {
       productPrice: 0,
       productQuantity: 0,
       productCompanySeller: '',
+      isActive: false,
       productImages: [],
-      productCategory: []
+      productCategory: [],
+      productReview: []
     }
     this.discountPercentage = 0;
     this.fromDate = '';

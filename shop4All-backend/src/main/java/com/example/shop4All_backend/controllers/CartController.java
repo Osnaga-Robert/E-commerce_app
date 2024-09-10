@@ -19,28 +19,25 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CartController {
 
-    private final CartService cartService;
     private static final Logger logger = LoggerFactory.getLogger(CartController.class);
+    private final CartService cartService;
 
     //Handle GET request to /cart/addProduct/{productId} to add a product to buyer's cart
-    @PreAuthorize("hasRole('BUYER')")
-    @GetMapping({"/cart/addProduct/{productId}"})
+    @GetMapping({"buyer/cart/addProduct/{productId}"})
     public ResponseEntity<Cart> addToCart(@PathVariable(name = "productId") Integer productId) {
         logger.info("Adding cart to product {}", productId);
         return new ResponseEntity<>(cartService.addToCart(productId), HttpStatus.CREATED);
     }
 
     //Handle GET request to /cart/getDetails to get all products from buyer's cart
-    @PreAuthorize("hasRole('BUYER')")
-    @GetMapping({"/cart/getDetails"})
+    @GetMapping({"buyer/cart/getDetails"})
     public ResponseEntity<List<Cart>> getCartDetails() {
         logger.info("Getting cart details");
         return new ResponseEntity<>(cartService.getCatDetails(), HttpStatus.OK);
     }
 
     //Handle GET request to /cart/deleteItem/{cartId} to delete a product from buyer's cart
-    @PreAuthorize("hasRole('BUYER')")
-    @DeleteMapping({"/cart/deleteItem/{cartId}"})
+    @DeleteMapping({"buyer/cart/deleteItem/{cartId}"})
     public ResponseEntity<Cart> deleteCart(@PathVariable(name = "cartId") Integer cartId) {
         logger.info("Deleting cart {}", cartId);
         return new ResponseEntity<>(cartService.deleteCartItem(cartId), HttpStatus.CREATED);

@@ -6,6 +6,7 @@
     </div>
     <button class="arrow-button right" (click)="nextImage()">&#8250;</button>
   </div>
+
   <div class="product-details">
     <h2>{{product.productName}}</h2>
     <p class="discounted-price">
@@ -15,6 +16,7 @@
     &nbsp;
     <button class="add-to-cart" (click)="addToCart(product.productId)">Add to cart</button>
   </div>
+
   <div class="dropdown">
     <div class="dropdown-header" (click)="toggleDescription()">
       <span>Description</span>
@@ -24,13 +26,24 @@
       <p>{{product.productDescription}}</p>
     </div>
   </div>
+
   <div class="dropdown">
     <div class="dropdown-header" (click)="toggleReview()">
       <span>Review</span>
       <span [class.rotate]="reviewOpen">▼</span>
     </div>
     <div *ngIf="reviewOpen" class="dropdown-content">
-      <p>Product reviews go here...</p>
+      <ng-container *ngIf="product.productReviews?.length > 0; else noReviews">
+        <div *ngFor="let review of product.productReviews" class="review">
+          <p><strong>{{review.buyerName}}</strong> ({{review.buyerEmail}})</p>
+          <p>Rating: {{review.rating}}/5</p>
+          <p>{{review.comment}}</p>
+          <hr>
+        </div>
+      </ng-container>
+      <ng-template #noReviews>
+        <p>No reviews yet for this product.</p>
+      </ng-template>
     </div>
   </div>
 </div>

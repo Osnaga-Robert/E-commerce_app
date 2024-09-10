@@ -7,9 +7,8 @@ import com.example.shop4All_backend.entities.User;
 import com.example.shop4All_backend.entities.Cart;
 import com.example.shop4All_backend.exceptions.ProductException;
 import com.example.shop4All_backend.exceptions.UserException;
-import com.example.shop4All_backend.repositories.CartRepo;
-import com.example.shop4All_backend.repositories.ProductRepo;
-import com.example.shop4All_backend.repositories.UserRepo;
+import com.example.shop4All_backend.repositories.*;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -31,10 +31,12 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ProductService {
 
+    private static final Logger logger = LoggerFactory.getLogger(ProductService.class);
     private final ProductRepo productRepo;
+    private final ReviewRepo reviewRepo;
     private final UserRepo userRepo;
     private final CartRepo cartRepo;
-    private static final Logger logger = LoggerFactory.getLogger(ProductService.class);
+    private final OrderDetailsRepo orderDetailsRepo;
 
     //add a product
     public Product addNewProduct(Product product) {
@@ -44,6 +46,7 @@ public class ProductService {
         }
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         product.setCompanySeller(userRepo.findByUserEmail(userDetails.getUsername()).get().getUserCompanyName());
+        product.setActive(true);
         logger.info("Adding new product");
         return productRepo.save(product);
     }
@@ -62,7 +65,7 @@ public class ProductService {
     //get all products using pagination
     public List<Product> getAllProducts(int pageNumber) {
         Pageable pageable = PageRequest.of(pageNumber, 10);
-        Page<Product> productPage = productRepo.findAll(pageable);
+        Page<Product> productPage = productRepo.findByIsActiveTrue(pageable);
         logger.info("Getting all products from the page " + pageNumber);
         return productPage.getContent();
     }
@@ -71,7 +74,6 @@ public class ProductService {
     public List<Product> getAllProductsByCompany(int pageNumber) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String companySeller = userRepo.findByUserEmail(userDetails.getUsername()).get().getUserCompanyName();
-
         Pageable pageable = PageRequest.of(pageNumber, 10);
         Page<Product> productPage = (Page<Product>) productRepo.findByCompanySeller(companySeller, pageable);
         logger.info("Getting all products from the page " + pageNumber);
@@ -94,8 +96,11 @@ public class ProductService {
     }
 
     //delete a product from database
+    @Transactional
     public Product deleteProduct(Integer productId) {
         Product deletedProduct = productRepo.findById(productId).get();
+        cartRepo.deleteByProduct(deletedProduct);
+        orderDetailsRepo.deleteByProduct(deletedProduct);
         productRepo.deleteById(productId);
         logger.info("Deleted product with id: " + productId);
         return deletedProduct;
@@ -127,7 +132,7 @@ public class ProductService {
         LocalDate today = LocalDate.now();
         if (product.getProductFromDiscounted().isBefore(today)) {
             logger.error("Product from discounted is before today");
-            throw new ProductException("Your start date (" + product.getProductFromDiscounted() + ") is before today (" +  today +") .");
+            throw new ProductException("Your start date (" + product.getProductFromDiscounted() + ") is before today (" + today + ") .");
         } else if (product.getProductFromDiscounted().isEqual(product.getProductToDiscounted())) {
             logger.error("Product from discounted is equal to today");
             throw new ProductException("Start date (" + product.getProductFromDiscounted() + ") and end date (" + product.getProductToDiscounted() + ") are the same.");
@@ -154,21 +159,33 @@ public class ProductService {
 
     //get all products from a cart or get a product that buyer want to buy directly
     public List<Product> getProductDetails(boolean isSingleProductCheckout, Integer productId) {
-        if(isSingleProductCheckout && productId != 0){
+        if (isSingleProductCheckout && productId != 0) {
             List<Product> products = new ArrayList<>();
             Product product = productRepo.findById(productId).get();
             products.add(product);
             return products;
-        }
-        else{
+        } else {
             String buyerEmail = JwtRequestFilter.CURRENT_USER;
             User buyer = userRepo.findByUserEmail(buyerEmail).get();
             List<Cart> carts = cartRepo.findByUser(buyer);
             List<Product> products = new ArrayList<>();
-            for(Cart cart : carts)
+            for (Cart cart : carts)
                 products.add((Product) cart.getProduct().toArray()[0]);
             return products;
         }
+    }
+
+    public Product statusProduct(Integer productId) {
+        Product product = productRepo.findById(productId).get();
+        if (product.getProductQuantity() <= 0) {
+            logger.error("No stock");
+            throw new ProductException("No stock");
+        }
+        if (product.isActive())
+            product.setActive(false);
+        else
+            product.setActive(true);
+        return productRepo.save(product);
     }
 
     //check the product's fields

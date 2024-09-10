@@ -1,6 +1,29 @@
-<div class="container mt-5">
-    <div class="card text-center" style="padding: 20px;">
-        <h1> Admin page </h1>
-        <h1>{{message}}</h1>
-    </div>
-</div>
+<div>
+    <table mat-table [dataSource]="accounts" class="mat-elevation-z8 full-width-table custom-table">
+      <ng-container matColumnDef="accounts">
+        <th mat-header-cell *matHeaderCellDef class="left-aligned"> Accounts </th>
+        <td mat-cell *matCellDef="let element">
+          <div class="product-details">
+            <div><strong>Company Name:</strong> {{element.userCompanyName}}</div>
+            <div><strong>Company email:</strong> {{element.userEmail}}</div>
+            <div><strong>First Name:</strong> {{element.userFirstName}}</div>
+            <div><strong>Last Name:</strong> {{element.userLastName}}</div>
+            <div><strong>Description:</strong> {{element.userCompanyDesciption}}</div>
+          </div>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef class="right-aligned"> Actions </th>
+        <td mat-cell *matCellDef="let element">
+          <div class="action-buttons">
+            <button class="btn custom-button change-characteristics-button" mat-raised-button color="accent"
+             (click) = "accept(element.userEmail)" >Accept</button>
+            <button class="btn custom-button delete-button" mat-raised-button color="warn"
+              (click) = "decline(element.userEmail)">Decline</button>
+          </div>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>

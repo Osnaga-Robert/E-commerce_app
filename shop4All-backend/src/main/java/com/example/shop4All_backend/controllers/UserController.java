@@ -3,6 +3,7 @@ package com.example.shop4All_backend.controllers;
 import com.example.shop4All_backend.entities.User;
 import com.example.shop4All_backend.services.UserService;
 import jakarta.annotation.PostConstruct;
+import jakarta.persistence.PreRemove;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -42,32 +45,28 @@ public class UserController {
     }
 
     // Handle GET requests to /forAdmin to provide content for admins
-    @GetMapping("/forAdmin")
-    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("admin/forAdmin")
     public ResponseEntity<String> forAdmin() {
         logger.info("For admin");
         return new ResponseEntity<>("This URL is only accessible to admin", HttpStatus.OK);
     }
 
     // Handle GET requests to /forSeller to provide content for sellers
-    @GetMapping("/forSeller")
-    @PreAuthorize("hasRole('SELLER')")
+    @GetMapping("seller/forSeller")
     public ResponseEntity<String> forSeller() {
         logger.info("For seller");
         return new ResponseEntity<>("This URL is only accessible to seller", HttpStatus.OK);
     }
 
     // Handle GET requests to /forBuyer to provide content for buyers
-    @GetMapping("/forBuyer")
-    @PreAuthorize("hasRole('BUYER')")
+    @GetMapping("buyer/forBuyer")
     public ResponseEntity<String> forBuyer() {
         logger.info("For buyer");
         return new ResponseEntity<>("This URL is only accessible to buyer", HttpStatus.OK);
     }
 
     // Handle the request to activate an account of a seller
-    @PostMapping("/activateAccount")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("admin/activateAccount")
     public ResponseEntity<String> activateAccount(@RequestBody String email) {
         boolean activated = userService.activateAccount(email);
         if (activated) {
@@ -77,4 +76,17 @@ public class UserController {
         logger.error("Account not activated");
         return new ResponseEntity<>("Account not activated", HttpStatus.BAD_REQUEST);
     }
+
+    // Handle POST request to /declineAccount to decline a seller's account
+    @PostMapping("admin/declineAccount")
+    public ResponseEntity<String> declineAccount(@RequestBody String email) {
+        return new ResponseEntity<>(userService.declineAccount(email), HttpStatus.OK);
+    }
+
+    // Handle GET request to /getNonActivatedAccounts to activate a seller's account
+    @GetMapping("admin/getNonActivatedAccounts")
+    public ResponseEntity<List<User>> getNonActivatedAccounts() {
+        return new ResponseEntity<>(userService.getNonActivatedAccounts(), HttpStatus.OK);
+    }
+
 }

@@ -9,6 +9,7 @@ import com.example.shop4All_backend.repositories.CategoryRepo;
 import com.example.shop4All_backend.repositories.ProductRepo;
 import com.example.shop4All_backend.repositories.UserRepo;
 import com.nimbusds.jose.jwk.source.RateLimitReachedException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +18,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -29,10 +32,11 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final CategoryRepo categoryRepo;
     private final ProductRepo productRepo;
+    private final EmailService emailService;
 
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
     final String passwordRegex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*])[A-Za-z\\d!@#$%^&*]{8,}$";
     final String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
-    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     //seller registration
     public User registerNewSeller(User seller) {
@@ -44,6 +48,7 @@ public class UserService {
         }
         seller.setRole(Role.SELLER);
         seller.setUserIsValid(false);
+        emailService.sendEmail(seller.getUserEmail(), "Shop4All", "Hello to our app. You will get your response as soon as posibble");
 
         seller.setUserPassword(getEncodedPassword(seller.getUserPassword()));
         logger.info("New seller: " + seller);
@@ -61,6 +66,7 @@ public class UserService {
         }
         buyer.setRole(Role.BUYER);
         buyer.setUserPassword(getEncodedPassword(buyer.getUserPassword()));
+        emailService.sendEmail(buyer.getUserEmail(), "Shop4All", "Hello to our app");
 
         logger.info("New buyer: " + buyer);
         return userRepo.save(buyer);
@@ -73,57 +79,16 @@ public class UserService {
             seller.setUserIsValid(true);
             userRepo.save(seller);
             logger.info("User activated");
+            emailService.sendEmail(seller.getUserEmail(), "Shop4All", "Your account has been aproved");
             return true;
         }
+        emailService.sendEmail(seller.getUserEmail(), "Shop4All", "Your account has been refused");
         logger.info("User refused");
         return false;
     }
 
     //demo for roles and an admin
     public void initRolesandUser() {
-        User adminUser = new User();
-        adminUser.setUserEmail("admin@gmail.com");
-        adminUser.setUserPassword(getEncodedPassword("admin"));
-        adminUser.setRole(Role.ADMIN);
-        adminUser.setUserIsValid(true);
-        userRepo.save(adminUser);
-
-        User sellerUser = new User();
-        sellerUser.setUserEmail("seller@gmail.com");
-        sellerUser.setUserPassword(getEncodedPassword("seller"));
-        sellerUser.setRole(Role.SELLER);
-        sellerUser.setUserIsValid(true);
-        sellerUser.setUserCompanyName("COMPANY2024");
-        userRepo.save(sellerUser);
-
-        User buyerUser = new User();
-        buyerUser.setUserEmail("buyer@gmail.com");
-        buyerUser.setUserPassword(getEncodedPassword("buyer"));
-        buyerUser.setRole(Role.BUYER);
-        buyerUser.setUserIsValid(true);
-        userRepo.save(buyerUser);
-
-        Category category = new Category();
-        category.setCategoryName("categoryName1");
-        category.setCategoryDescription("categoryDesc1");
-        categoryRepo.save(category);
-
-//        Product product1 = new Product();
-//        product1.setProductName("Product1");
-//        product1.setCompanySeller("CompanySeller1");
-//        product1.setProductPrice(10.2);
-//        product1.setProductDiscounted(10.0);
-//        product1.setProductFromDiscounted(LocalDate.of(2024, 8, 7));
-//        product1.setProductToDiscounted(LocalDate.of(2024, 8, 9));
-//        productRepo.save(product1);
-//
-//        Product product2 = new Product();
-//        product2.setProductName("Product2");
-//        product2.setCompanySeller("CompanySeller2");
-//        product2.setProductDiscounted(10.0);
-//        product2.setProductFromDiscounted(LocalDate.of(2024, 8, 7));
-//        product2.setProductToDiscounted(LocalDate.of(2024, 8, 8));
-//        productRepo.save(product2);
     }
 
     public String getEncodedPassword(String password) {
@@ -175,5 +140,17 @@ public class UserService {
         }
         validateEmail(user.getUserEmail());
         validatePassword(user.getUserPassword());
+    }
+
+    //get the account that are not validated by the admin
+    public List<User> getNonActivatedAccounts() {
+        return userRepo.findByUserIsValid(false);
+    }
+
+    //decline an account by admin
+    @Transactional
+    public String declineAccount(String email) {
+        userRepo.deleteByUserEmail(email);
+        return "Account deleted";
     }
 }

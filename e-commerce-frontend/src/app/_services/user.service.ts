@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UserAuthService } from './user-auth.service';
 import { ApiConfigService } from '../api-config.service';
+import { RouterOutlet } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -26,17 +27,17 @@ export class UserService {
 
   //get data for users with the 'SELLER' role
   public getDataForSeller() {
-    return this.httpClient.get(this.PATH_OF_API + "/forSeller", { responseType: 'text' });
+    return this.httpClient.get(this.PATH_OF_API + "seller/forSeller", { responseType: 'text' });
   }
 
   //get data for users with the 'BUYER' role
   public getDataForBuyer() {
-    return this.httpClient.get(this.PATH_OF_API + "/forBuyer", { responseType: 'text' });
+    return this.httpClient.get(this.PATH_OF_API + "buyer/forBuyer", { responseType: 'text' });
   }
 
   //get data for users with 'ADMIN' role
   public getDataForAdmin() {
-    return this.httpClient.get(this.PATH_OF_API + "/forAdmin", { responseType: 'text' });
+    return this.httpClient.get(this.PATH_OF_API + "admin/forAdmin", { responseType: 'text' });
   }
 
   //register a new seller
@@ -47,6 +48,18 @@ export class UserService {
   //register a new buyer
   public registerNewBuyer(registerData: any) {
     return this.httpClient.post(this.PATH_OF_API + "/registerNewBuyer", registerData);
+  }
+
+  public getNonActivatedAccounts(){
+    return this.httpClient.get(this.PATH_OF_API + "admin/getNonActivatedAccounts");
+  }
+
+  public activateAccount(email : any){
+    return this.httpClient.post(this.PATH_OF_API + "admin/activateAccount", email);
+  }
+
+  public declineAccount(email : any){
+    return this.httpClient.post(this.PATH_OF_API + "admin/declineAccount", email);
   }
 
   //check if the user's role matches any of the allowed roles

@@ -13,6 +13,7 @@ import { ProductService } from '../_services/product.service';
 export class BuyProductComponent implements OnInit {
 
   isSingleProductCheckout: string = '';
+  errorMessage: string = "";
   productDetails: Product[] = [];
   orderDetails: OrderDetails = {
     fullName: '',
@@ -25,6 +26,7 @@ export class BuyProductComponent implements OnInit {
 
   //initialize each product with a quantity
   ngOnInit(): void {
+    this.errorMessage = "";
     this.productDetails = this.activatedRoute.snapshot.data['productDetails'];
     this.isSingleProductCheckout = this.activatedRoute.snapshot.paramMap.get('isSingleProductCheckout') || '';
     this.productDetails.forEach(
@@ -45,7 +47,8 @@ export class BuyProductComponent implements OnInit {
         orderForm.reset();
         this.router.navigate(['/orderConfirm']);
       },
-      error(error: any) {
+      error: (error: any) => {
+        this.errorMessage = "Fill all the required fields";
         console.log("Error:");
         console.log(error);
       }

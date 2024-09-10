@@ -15,25 +15,26 @@ export class ShowProductDetailsComponent implements OnInit {
   pageNumber: number = 0;
   showLoadButton = true;
   showTable = false;
+  errorMessage: string = "";
 
   constructor(private productServe: ProductService, private router: Router) { }
 
   ngOnInit(): void {
+    this.errorMessage = "";
     this.pageNumber = 0;
     this.getAllProducts();
   }
 
-  //get all products based on the seller
+  // Get all products based on the seller
   public getAllProducts() {
     this.showTable = false;
     this.productServe.getPaginationAllCompanyProducts(this.pageNumber).subscribe({
       next: (data) => {
-        if (data.length != 10)
+        if (data.length != 10) {
           this.showLoadButton = false;
-        console.log(data);
+        }
         data.forEach(p => this.productDetails.push(p));
         this.showTable = true;
-        console.log(this.productDetails);
       },
       error: (error) => {
         console.log("Error getAllProducts: " + error);
@@ -41,12 +42,12 @@ export class ShowProductDetailsComponent implements OnInit {
     });
   }
 
-  //change characteristics of a product
+  // Change characteristics of a product
   changeCharacteristics(element: any) {
     this.router.navigate(['/addNewProduct', { productId: element.productId }]);
   }
 
-  //delete a product
+  // Delete a product
   deleteProduct(element: any) {
     this.productServe.deleteProduct(element.productId).subscribe(
       data => {
@@ -59,10 +60,24 @@ export class ShowProductDetailsComponent implements OnInit {
     );
   }
 
-  //load more products based on pagination
+  // Load more products based on pagination
   public loadMoreProducts() {
     this.pageNumber++;
     this.getAllProducts();
   }
 
+  // Toggle the active status of a product
+  toggleProductStatus(element: any) {
+    // Update product's active status
+    this.productServe.statusProduct(element).subscribe({
+      next: (next : any) => {
+        this.errorMessage = "Refresh the page to see the update";
+        console.log("Update done");
+      },
+      error: (error : any) => {
+        this.errorMessage = error.error.message;
+        console.log(error.error.message);
+      }
+    });
+  }
 }

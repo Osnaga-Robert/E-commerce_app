@@ -14,9 +14,6 @@
         <li class="nav-item" *ngIf="roleMatch(['SELLER'])">
           <a class="nav-link" routerLink="/seller">Seller Dashboard</a>
         </li>
-        <li class="nav-item" *ngIf="roleMatch(['BUYER'])">
-          <a class="nav-link" routerLink="/buyer">Buyer Dashboard</a>
-        </li>
       </ul>
       <form class="d-flex mx-auto search-form" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -27,6 +24,9 @@
       <div class="d-flex">
         <button *ngIf="!isLoggedIn()" class="btn btn-outline-light" type="button" routerLink="/login">
           <i class="fas fa-sign-in-alt"></i>
+        </button>
+        <button *ngIf="isBuyer()" class="btn btn-outline-light" type="button" routerLink="/myOrders">
+          <i class="fas fa-box"></i>
         </button>
         <button *ngIf="isBuyer()" class="btn btn-outline-light" type="button" routerLink="/cart">
           <i class="fas fa-shopping-cart"></i>
@@ -51,6 +51,9 @@
         </a>
         <a routerLink="/discounts" class="list-group-item list-group-item-action py-2 ripple">
           <i class="fas fa-percent fa-fw me-3"></i><span>Discounts</span>
+        </a>
+        <a routerLink="/orderInfo" class="list-group-item list-group-item-action py-2 ripple">
+          <i class="fas fa-receipt fa-fw me-3"></i><span>Orders</span>
         </a>
       </div>
     </div>

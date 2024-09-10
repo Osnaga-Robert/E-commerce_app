@@ -10,4 +10,5 @@ import java.util.Optional;
 
 public interface CartRepo extends CrudRepository<Cart, Integer> {
     public List<Cart> findByUser(User user);
+    public void deleteByProduct(Product product);
 }

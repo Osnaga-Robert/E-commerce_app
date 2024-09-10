@@ -20,12 +20,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CategoryController {
 
-    private final CategoryService categoryService;
     private static final Logger logger = LoggerFactory.getLogger(CategoryController.class);
+    private final CategoryService categoryService;
 
     // Handle POST request to /category/add to add a new category for products
-    @PostMapping("/category/add")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("admin/category/add")
     public ResponseEntity<Category> addCategory(@RequestBody Category category) {
         logger.info("Adding category: {}", category);
         return new ResponseEntity<>(categoryService.addNewCategory(category), HttpStatus.CREATED);
@@ -33,7 +32,6 @@ public class CategoryController {
 
     // Handle GET request to /category/getAll to get all categories
     @GetMapping("/category/getAll")
-    @PreAuthorize("!hasRole('ADMIN')")
     public ResponseEntity<List<Category>> getAllCategories() {
         logger.info("Getting all categories");
         return new ResponseEntity<>(categoryService.getAllCategories(), HttpStatus.OK);

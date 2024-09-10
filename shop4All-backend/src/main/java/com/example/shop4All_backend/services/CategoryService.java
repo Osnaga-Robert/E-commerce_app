@@ -1,6 +1,5 @@
 package com.example.shop4All_backend.services;
 
-import com.example.shop4All_backend.controllers.CartController;
 import com.example.shop4All_backend.entities.Category;
 import com.example.shop4All_backend.entities.Product;
 import com.example.shop4All_backend.exceptions.UserException;
@@ -8,7 +7,6 @@ import com.example.shop4All_backend.repositories.CategoryRepo;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,8 +22,8 @@ import java.util.stream.StreamSupport;
 @RequiredArgsConstructor
 public class CategoryService {
 
-    private final CategoryRepo categoryRepo;
     private static final Logger logger = LoggerFactory.getLogger(CategoryService.class);
+    private final CategoryRepo categoryRepo;
 
     //add a category of products
     public Category addNewCategory(Category category) {

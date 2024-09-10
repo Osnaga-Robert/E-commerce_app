@@ -1,0 +1,66 @@
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #BBE6E4;
+  }
+  
+  .full-width-table {
+    width: 100%;
+  }
+  
+  .product-details {
+    text-align: left;
+    color: black;
+  }
+  
+  .action-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+  }
+  
+  .mat-cell {
+    vertical-align: middle;
+    padding: 5px 0;
+  }
+  
+  .left-aligned {
+    text-align: left;
+    color: black;
+  }
+  
+  .right-aligned {
+    text-align: right;
+    color: black;
+  }
+  
+  .custom-button {
+    background-color: #BBE6E4;
+    border-color: #BBE6E4;
+    color: black;
+  }
+  
+  .add-stock-button:hover,
+  .change-characteristics-button:hover {
+    background-color: #66A3FF;
+    border-color: #66A3FF;
+    color: black;
+  }
+  
+  .delete-button:hover {
+    background-color: #FF6666;
+    border-color: #FF6666;
+    color: black;
+  }
+  
+  .custom-hover-button-load:hover {
+    background-color: #42BFDD;
+    border-color: #42BFDD;
+    color: white;
+  }
+  
+  .mat-row {
+    margin-bottom: 10px;
+  }
