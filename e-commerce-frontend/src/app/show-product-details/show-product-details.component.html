@@ -1,4 +1,7 @@
 <div *ngIf="showTable">
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
   <table mat-table [dataSource]="productDetails" class="mat-elevation-z8 full-width-table custom-table">
     <ng-container matColumnDef="productDetails">
       <th mat-header-cell *matHeaderCellDef class="left-aligned"> Product Details </th>
@@ -9,6 +12,7 @@
           <div><strong>Price:</strong> {{element.productPrice | currency}}</div>
           <div><strong>Quantity:</strong> {{element.productQuantity}}</div>
           <div><strong>Description:</strong> {{element.productDescription}}</div>
+          <div><strong>Product is active:</strong> {{element.active ? 'Yes' : 'No'}}</div>
         </div>
       </td>
     </ng-container>
@@ -20,6 +24,11 @@
             (click)="changeCharacteristics(element)">Change Characteristics</button>
           <button class="btn custom-button delete-button" mat-raised-button color="warn"
             (click)="deleteProduct(element)">Delete</button>
+          <button class="btn custom-button toggle-active-button" mat-raised-button 
+            
+            (click)="toggleProductStatus(element.productId)">
+            {{element.active ? 'Disable' : 'Enable'}}
+          </button>
         </div>
       </td>
     </ng-container>

@@ -18,7 +18,6 @@ import { UserService } from './_services/user.service';
 import { AuthInterceptor } from './_auth/auth.interceptor';
 import { RegisterSellerComponent } from './register-seller/register-seller.component';
 import { RegisterBuyerComponent } from './register-buyer/register-buyer.component';
-import { BuyerComponent } from './buyer/buyer.component';
 import { AddNewProductComponent } from './add-new-product/add-new-product.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async'
 import { MatFormFieldModule } from '@angular/material/form-field'
@@ -34,6 +33,9 @@ import { ProductViewDetailsComponent } from './product-view-details/product-view
 import { BuyProductComponent } from './buy-product/buy-product.component';
 import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
 import { CartComponent } from './cart/cart.component';
+import { MyOrdersComponent } from './my-orders/my-orders.component';
+import { OrderDetailsComponent } from './order-details/order-details.component';
+import { AddReviewComponent } from './add-review/add-review.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,6 @@ import { CartComponent } from './cart/cart.component';
     ForbiddenComponent,
     RegisterSellerComponent,
     RegisterBuyerComponent,
-    BuyerComponent,
     AddNewProductComponent,
     ShowProductDetailsComponent,
     DiscountsComponent,
@@ -54,12 +55,15 @@ import { CartComponent } from './cart/cart.component';
     BuyProductComponent,
     OrderConfirmationComponent,
     CartComponent,
+    MyOrdersComponent,
+    OrderDetailsComponent,
+    AddReviewComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule,  // Add HttpClientModule here
+    HttpClientModule,
     RouterModule,
     MatFormFieldModule,
     MatInputModule,

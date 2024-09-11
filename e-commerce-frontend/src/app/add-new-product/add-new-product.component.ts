@@ -26,8 +26,10 @@ export class AddNewProductComponent implements OnInit {
     productPrice: 0,
     productQuantity: 0,
     productCompanySeller: '',
+    isActive: false,
     productImages: [],
-    productCategory: []
+    productCategory: [],
+    productReview: []
   }
   category: Category = {
     categoryName: '',

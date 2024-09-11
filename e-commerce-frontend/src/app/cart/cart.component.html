@@ -1,4 +1,7 @@
 <div class="container mt-5">
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
   <div align="right" class="mb-3 ">
     <button (click)="checkout()" mat-raised-button
       class="btn btn-outline-primary rounded-10 custom-hover-button">Checkout</button>

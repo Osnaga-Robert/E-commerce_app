@@ -1,7 +1,6 @@
 package com.example.shop4All_backend.services;
 
 import com.example.shop4All_backend.configurations.JwtRequestFilter;
-import com.example.shop4All_backend.controllers.CartController;
 import com.example.shop4All_backend.entities.Cart;
 import com.example.shop4All_backend.exceptions.ProductException;
 import com.example.shop4All_backend.repositories.CartRepo;
@@ -24,10 +23,10 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CartService {
 
+    private static final Logger logger = LoggerFactory.getLogger(CartService.class);
     private final CartRepo cartRepo;
     private final ProductRepo productRepo;
     private final UserRepo userRepo;
-    private static final Logger logger = LoggerFactory.getLogger(CartService.class);
 
     //add a product to buyer's cart
     public Cart addToCart(Integer productId) {
@@ -39,10 +38,9 @@ public class CartService {
 
         List<Cart> cartList = cartRepo.findByUser(buyer);
         boolean productExistsInCart = cartList.stream()
-                .anyMatch(cart -> cart.getProduct().stream()
-                        .anyMatch(p -> p.getProductId().equals(productId)));
+                .anyMatch(cart -> cart.getProduct().iterator().next().getProductId() == productId);
 
-        if (productExistsInCart){
+        if (productExistsInCart) {
             logger.error("Product already exists in cart.");
             throw new ProductException("Product already exists in cart");
         }

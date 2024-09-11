@@ -14,11 +14,13 @@ export class CartComponent implements OnInit {
 
   displayedColumns: string[] = ['Name', 'Price', 'DiscountedPrice', 'Action'];
   cartDetails = [];
+  errorMessage: string = "";
 
   constructor(private productService: ProductService, private router: Router) { }
 
   //initialize cart details
   ngOnInit(): void {
+    this.errorMessage = "";
     this.getCartDetails();
   }
 
@@ -38,9 +40,16 @@ export class CartComponent implements OnInit {
 
   //buy the products
   checkout() {
-    this.router.navigate(['/buyProduct', {
-      isSingleProductCheckout: false, id: 0
-    }]);
+    if(this.cartDetails.length == 0){
+      this.errorMessage = "No items"
+    }
+    else{
+      this.errorMessage = "";
+      this.router.navigate(['/buyProduct', {
+        isSingleProductCheckout: false, id: 0
+      }]);
+    }
+   
   }
 
   //delete a product from a cart
@@ -54,6 +63,7 @@ export class CartComponent implements OnInit {
       error: (error: any) => {
         console.log("Error");
         console.log(error);
+        this.getCartDetails();
       }
     });
   }

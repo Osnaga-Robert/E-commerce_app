@@ -1,6 +1,5 @@
 package com.example.shop4All_backend.exceptions;
 
-import com.example.shop4All_backend.entities.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

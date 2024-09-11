@@ -5,14 +5,49 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e15411d5-a823-4260-912e-5737099bfb13" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../e-commerce-frontend/src/app/_model/product.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../e-commerce-frontend/src/app/_model/product.model.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../e-commerce-frontend/src/app/_services/product.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../e-commerce-frontend/src/app/_services/product.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../e-commerce-frontend/src/app/_services/user.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../e-commerce-frontend/src/app/_services/user.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../e-commerce-frontend/src/app/add-new-product/add-new-product.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../e-commerce-frontend/src/app/add-new-product/add-new-product.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../e-commerce-frontend/src/app/admin/admin.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/../e-commerce-frontend/src/app/admin/admin.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../e-commerce-frontend/src/app/admin/admin.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../e-commerce-frontend/src/app/admin/admin.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../e-commerce-frontend/src/app/admin/admin.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../e-commerce-frontend/src/app/admin/admin.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../e-commerce-frontend/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../e-commerce-frontend/src/app/app-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../e-commerce-frontend/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../e-commerce-frontend/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../e-commerce-frontend/src/app/buy-product/buy-product.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../e-commerce-frontend/src/app/buy-product/buy-product.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../e-commerce-frontend/src/app/buy-product/buy-product.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../e-commerce-frontend/src/app/buy-product/buy-product.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../e-commerce-frontend/src/app/buyer/buyer.component.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../e-commerce-frontend/src/app/buyer/buyer.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../e-commerce-frontend/src/app/buyer/buyer.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../e-commerce-frontend/src/app/buyer/buyer.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../e-commerce-frontend/src/app/cart/cart.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../e-commerce-frontend/src/app/cart/cart.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../e-commerce-frontend/src/app/cart/cart.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../e-commerce-frontend/src/app/cart/cart.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../e-commerce-frontend/src/app/discounts/discounts.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../e-commerce-frontend/src/app/discounts/discounts.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../e-commerce-frontend/src/app/header/header.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../e-commerce-frontend/src/app/header/header.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../e-commerce-frontend/src/app/login/login.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../e-commerce-frontend/src/app/login/login.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../e-commerce-frontend/src/app/product-resolve.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../e-commerce-frontend/src/app/product-resolve.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../e-commerce-frontend/src/app/product-view-details/product-view-details.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../e-commerce-frontend/src/app/product-view-details/product-view-details.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../e-commerce-frontend/src/app/show-product-details/show-product-details.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../e-commerce-frontend/src/app/show-product-details/show-product-details.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../e-commerce-frontend/src/app/show-product-details/show-product-details.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../e-commerce-frontend/src/app/show-product-details/show-product-details.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/Shop4AllBackendApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/Shop4AllBackendApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/configurations/WebSecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/configurations/WebSecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/controllers/CartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/controllers/CartController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/controllers/CategoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/controllers/CategoryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/controllers/OrderDetailsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/controllers/OrderDetailsController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/controllers/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/controllers/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/controllers/UserController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/entities/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/entities/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/exceptions/ExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/exceptions/ExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/repositories/CartRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/repositories/CartRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/repositories/OrderDetailsRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/repositories/OrderDetailsRepo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/repositories/ProductRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/repositories/ProductRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/repositories/UserRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/repositories/UserRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/services/CartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/services/CartService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/services/CategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/services/CategoryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/services/OrderDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/services/OrderDetailsService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/services/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/services/ProductService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/services/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -154,7 +189,25 @@
       <workItem from="1723106354291" duration="4073000" />
       <workItem from="1723188171453" duration="11298000" />
       <workItem from="1723291399929" duration="2906000" />
-      <workItem from="1723300636974" duration="19148000" />
+      <workItem from="1723300636974" duration="19816000" />
+      <workItem from="1723486652177" duration="14563000" />
+      <workItem from="1723708901824" duration="412000" />
+      <workItem from="1723817885146" duration="580000" />
+      <workItem from="1723991777765" duration="852000" />
+      <workItem from="1724074889888" duration="7890000" />
+      <workItem from="1724227457471" duration="17238000" />
+      <workItem from="1724311413061" duration="9044000" />
+      <workItem from="1724355136282" duration="528000" />
+      <workItem from="1724697575017" duration="8040000" />
+      <workItem from="1724708039755" duration="40000" />
+      <workItem from="1724829827721" duration="815000" />
+      <workItem from="1724874501757" duration="6599000" />
+      <workItem from="1725644792871" duration="1513000" />
+      <workItem from="1725714121622" duration="10717000" />
+      <workItem from="1725781134960" duration="1463000" />
+      <workItem from="1725783143644" duration="20521000" />
+      <workItem from="1725914546814" duration="4194000" />
+      <workItem from="1725955041332" duration="2804000" />
     </task>
     <servers />
   </component>
@@ -186,5 +239,26 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/controllers/UserController.java</url>
+          <line>25</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/controllers/ProductController.java</url>
+          <line>56</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/shop4All_backend/services/ProductService.java</url>
+          <line>104</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

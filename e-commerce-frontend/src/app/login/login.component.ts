@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/seller']);
         } else {
           console.log('Redirecting to Buyer page');
-          this.router.navigate(['/buyer']);
+          this.router.navigate(['/home']);
         }
       },
       error: (error: any) => {

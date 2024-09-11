@@ -24,6 +24,7 @@ public class Product {
     private Double productPrice;
     private Integer productQuantity;
     private String companySeller;
+    private boolean isActive;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "product_images",
             joinColumns = {
@@ -44,4 +45,10 @@ public class Product {
             }
     )
     private Set<Category> productCategory;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "product_reviews",  // Name of the join table
+            joinColumns = @JoinColumn(name = "product_id"),  // Foreign key in the join table referring to the Product
+            inverseJoinColumns = @JoinColumn(name = "review_id")  // Foreign key in the join table referring to the Review
+    )
+    private Set<Review> productReviews;
 }
