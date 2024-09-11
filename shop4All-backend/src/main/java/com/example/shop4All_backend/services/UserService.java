@@ -1,24 +1,17 @@
 package com.example.shop4All_backend.services;
 
-import com.example.shop4All_backend.entities.Category;
-import com.example.shop4All_backend.entities.Product;
 import com.example.shop4All_backend.entities.Role;
 import com.example.shop4All_backend.entities.User;
 import com.example.shop4All_backend.exceptions.RegisterException;
 import com.example.shop4All_backend.repositories.CategoryRepo;
 import com.example.shop4All_backend.repositories.ProductRepo;
 import com.example.shop4All_backend.repositories.UserRepo;
-import com.nimbusds.jose.jwk.source.RateLimitReachedException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;

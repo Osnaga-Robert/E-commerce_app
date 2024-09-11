@@ -15,64 +15,65 @@ export class UserService {
     { 'No-Auth': 'True' }
   );
 
-  
   constructor(private httpClient: HttpClient, private userAuthService: UserAuthService, private apiConfigService: ApiConfigService) {
     this.PATH_OF_API = this.apiConfigService.API_BASE_URL;
   }
 
   //send a login request with user credentials
   public login(loginData: any) {
-    return this.httpClient.post(this.PATH_OF_API + "/authenticate", loginData, { headers: this.requestHeaders });
+    return this.httpClient.post(`${this.PATH_OF_API}/authenticate`, loginData, { headers: this.requestHeaders });
   }
 
   //get data for users with the 'SELLER' role
   public getDataForSeller() {
-    return this.httpClient.get(this.PATH_OF_API + "seller/forSeller", { responseType: 'text' });
+    return this.httpClient.get(`${this.PATH_OF_API}/seller/forSeller`, { responseType: 'json' });
   }
 
   //get data for users with the 'BUYER' role
   public getDataForBuyer() {
-    return this.httpClient.get(this.PATH_OF_API + "buyer/forBuyer", { responseType: 'text' });
+    return this.httpClient.get(`${this.PATH_OF_API}/buyer/forBuyer`, { responseType: 'json' });
   }
 
   //get data for users with 'ADMIN' role
   public getDataForAdmin() {
-    return this.httpClient.get(this.PATH_OF_API + "admin/forAdmin", { responseType: 'text' });
+    return this.httpClient.get(`${this.PATH_OF_API}/admin/forAdmin`, { responseType: 'json' });
   }
 
   //register a new seller
   public registerNewSeller(registerData: any) {
-    return this.httpClient.post(this.PATH_OF_API + "/registerNewSeller", registerData);
+    return this.httpClient.post(`${this.PATH_OF_API}/registerNewSeller`, registerData);
   }
 
   //register a new buyer
   public registerNewBuyer(registerData: any) {
-    return this.httpClient.post(this.PATH_OF_API + "/registerNewBuyer", registerData);
+    return this.httpClient.post(`${this.PATH_OF_API}/registerNewBuyer`, registerData);
   }
 
-  public getNonActivatedAccounts(){
-    return this.httpClient.get(this.PATH_OF_API + "admin/getNonActivatedAccounts");
+  //get non-activated accounts
+  public getNonActivatedAccounts() {
+    return this.httpClient.get(`${this.PATH_OF_API}/admin/getNonActivatedAccounts`);
   }
 
-  public activateAccount(email : any){
-    return this.httpClient.post(this.PATH_OF_API + "admin/activateAccount", email);
+  //activate an account
+  public activateAccount(email: any) {
+    return this.httpClient.post(`${this.PATH_OF_API}/admin/activateAccount`, email);
   }
 
-  public declineAccount(email : any){
-    return this.httpClient.post(this.PATH_OF_API + "admin/declineAccount", email);
+  //decline an account
+  public declineAccount(email: any) {
+    return this.httpClient.post(`${this.PATH_OF_API}/admin/declineAccount`, email);
   }
 
   //check if the user's role matches any of the allowed roles
   public roleMatch(allowedRoles: string[]): boolean {
-    var isMatch = false;
+    let isMatch = false;
     const userRoles: any = this.userAuthService.getRoles();
     if (userRoles != null && userRoles) {
       for (let j = 0; j < allowedRoles.length; j++) {
         if (userRoles === allowedRoles[j]) {
           isMatch = true;
           return isMatch;
-        }
-        else {
+        } else {
           return isMatch;
         }
       }

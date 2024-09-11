@@ -25,6 +25,7 @@ export class AddReviewComponent implements OnInit{
     });
   }
 
+  //submit a review
   submitReview() {
     if (this.reviewText && this.rating) {
       

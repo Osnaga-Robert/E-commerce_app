@@ -1,31 +1,25 @@
 package com.example.shop4All_backend.services;
 
 import com.example.shop4All_backend.configurations.JwtRequestFilter;
-import com.example.shop4All_backend.controllers.CartController;
 import com.example.shop4All_backend.entities.Product;
 import com.example.shop4All_backend.entities.User;
 import com.example.shop4All_backend.entities.Cart;
 import com.example.shop4All_backend.exceptions.ProductException;
-import com.example.shop4All_backend.exceptions.UserException;
 import com.example.shop4All_backend.repositories.*;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor

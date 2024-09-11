@@ -18,6 +18,7 @@ export class OrderDetailsComponent {
   displayedColumns=["Id","ProductName","Name", "Address", "Contact No.", "Price", "Status","ChangeStatus"];
   myOrderDetails: MyOrderDetails[] = [];
 
+  //get seller's orders
   getOrderDetails(){
     this.productService.getAllOrders().subscribe({
       next: (data : MyOrderDetails[]) => {
@@ -30,6 +31,7 @@ export class OrderDetailsComponent {
     });
   }
 
+  //mark an order as delivered
   markAsDelivered(element : any){
     this.productService.markDelivered(element).subscribe({
       next: (data) => {

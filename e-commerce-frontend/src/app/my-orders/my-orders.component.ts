@@ -19,6 +19,7 @@ export class MyOrdersComponent implements OnInit {
     this.getOrderDetails();
   }
 
+  //get buyer's orders
   getOrderDetails() {
     this.productService.getMyOrders().subscribe({
       next: (data: MyOrderDetails[]) => {
@@ -30,6 +31,7 @@ export class MyOrdersComponent implements OnInit {
     });
   }
 
+  //add a review to a product
   addReview(order: any) {
     // Logic for adding a review goes here
     console.log('Add review for:', order.product);

@@ -1,7 +1,6 @@
 package com.example.shop4All_backend.services;
 
 import com.example.shop4All_backend.configurations.JwtRequestFilter;
-import com.example.shop4All_backend.controllers.CartController;
 import com.example.shop4All_backend.entities.Cart;
 import com.example.shop4All_backend.exceptions.ProductException;
 import com.example.shop4All_backend.repositories.CartRepo;

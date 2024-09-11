@@ -10,7 +10,7 @@ import { error } from 'console';
 })
 export class AdminComponent implements OnInit {
   
-  // Sincronizează coloanele cu cele din template-ul HTML
+  //table's columns from HTML
   displayedColumns = ['accounts', 'actions'];
   accounts: Object[] = [];
 
@@ -36,6 +36,7 @@ export class AdminComponent implements OnInit {
     });
   }
 
+  //accept a seller
   accept(email: any){
     this.userService.activateAccount(email).subscribe({
       next: (response: any) => {
@@ -50,6 +51,7 @@ export class AdminComponent implements OnInit {
     });
   }
 
+  //decline a seller
   decline(email: any){
     this.userService.declineAccount(email).subscribe({
       next: (response: any) => {

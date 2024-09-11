@@ -2,14 +2,12 @@ package com.example.shop4All_backend.controllers;
 
 import com.example.shop4All_backend.entities.Product;
 import com.example.shop4All_backend.entities.Review;
-import com.example.shop4All_backend.services.ProductService;
 import com.example.shop4All_backend.services.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

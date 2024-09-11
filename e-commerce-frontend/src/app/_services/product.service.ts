@@ -21,51 +21,52 @@ export class ProductService {
 
   //fetch all categories
   getCategories(): Observable<Category[]> {
-    return this.httpClient.get<Category[]>(this.PATH_OF_API + "/category/getAll");
+    return this.httpClient.get<Category[]>(`${this.PATH_OF_API}/category/getAll`);
   }
 
   //add new product
   public addProduct(product: FormData) {
-    return this.httpClient.post<Product>(this.PATH_OF_API + "/seller/product/add", product);
+    return this.httpClient.post<Product>(`${this.PATH_OF_API}/seller/product/add`, product);
   }
 
-  //fetch all products associated with a company
+  //fetch all products associated with a company based on page number
   public getPaginationAllCompanyProducts(pageNumber : number): Observable<Product[]> {
-    return this.httpClient.get<Product[]>(this.PATH_OF_API + "/seller/product/getByCompanyName?pageNumber=" + pageNumber);
+    return this.httpClient.get<Product[]>(`${this.PATH_OF_API}/seller/product/getByCompanyName?pageNumber=${pageNumber}`);
   }
 
+  //fetch all porducts asociated with a company
   public getAllByCompanyProducts(): Observable<Product[]> {
-    return this.httpClient.get<Product[]>(this.PATH_OF_API + "/seller/product/getAllByCompanyName");
+    return this.httpClient.get<Product[]>(`${this.PATH_OF_API}/seller/product/getAllByCompanyName`);
   }
 
   //delete a product by Id
   public deleteProduct(productId: number) {
-    return this.httpClient.delete(this.PATH_OF_API + "/seller/product/delete/" + productId);
+    return this.httpClient.delete(`${this.PATH_OF_API}/seller/product/delete/${productId}`);
   }
 
   //fetch all products
   public getAllProducts(pageNumber : number): Observable<Product[]> {
-    return this.httpClient.get<Product[]>(this.PATH_OF_API + "/product/getAll?pageNumber=" + pageNumber);
+    return this.httpClient.get<Product[]>(`${this.PATH_OF_API}/product/getAll?pageNumber=${pageNumber}`);
   }
 
   //get a product by Id
   public getProductById(productId: number): Observable<Product> {
-    return this.httpClient.get<Product>(this.PATH_OF_API + "/product/getById/" + productId);
+    return this.httpClient.get<Product>(`${this.PATH_OF_API}/product/getById/${productId}`);
   }
 
   //check if a discount is eligible for a discount
   public checkProductDiscount(product: Product): Observable<String> {
-    return this.httpClient.post<String>(this.PATH_OF_API + "/seller/product/checkDiscount", product);
+    return this.httpClient.post<String>(`${this.PATH_OF_API}/seller/product/checkDiscount`, product);
   }
 
   //set a discount on a product
   public setDiscount(product: Product): Observable<String> {
-    return this.httpClient.post<String>(this.PATH_OF_API + "/seller/product/setDiscount", product);
+    return this.httpClient.post<String>(`${this.PATH_OF_API}/seller/product/setDiscount`, product);
   }
 
   //remove a discount from a product by Id
   public removeDiscount(productId: number) {
-    return this.httpClient.delete(this.PATH_OF_API + "/seller/product/deleteDiscount/" + productId);
+    return this.httpClient.delete(`${this.PATH_OF_API}/seller/product/deleteDiscount/${productId}`);
   }
 
   //get all products based on buyer's cart
@@ -75,17 +76,17 @@ export class ProductService {
 
   //place an order
   public placeOrder(orderDetails : OrderDetails, isCartCheckout : any){
-    return this.httpClient.post(this.PATH_OF_API+ "/buyer/placeOrder/" + isCartCheckout, orderDetails);
+    return this.httpClient.post(`${this.PATH_OF_API}/buyer/placeOrder/${isCartCheckout}`, orderDetails);
   }
 
   //add a product to cart
   public addToCart(productId: any){
-    return this.httpClient.get(`${this.PATH_OF_API}/buyer/cart/addProduct/${productId}`)
+    return this.httpClient.get(`${this.PATH_OF_API}/buyer/cart/addProduct/${productId}`);
   }
 
   //get cart details
   public getCart(){
-    return this.httpClient.get(`${this.PATH_OF_API}/buyerr/cart/getDetails`);
+    return this.httpClient.get(`${this.PATH_OF_API}/buyer/cart/getDetails`);
   }
 
   //delete a product from a cart
@@ -93,26 +94,32 @@ export class ProductService {
     return this.httpClient.delete(`${this.PATH_OF_API}/buyer/cart/deleteItem/${cartId}`);
   }
 
+  //get the orders of a buyer
   public getMyOrders(): Observable<MyOrderDetails[]>{
     return this.httpClient.get<MyOrderDetails[]>(`${this.PATH_OF_API}/buyer/order/getAll`);
   }
 
+  //get the orders of a seller
   public getAllOrders(): Observable<MyOrderDetails[]>{
     return this.httpClient.get<MyOrderDetails[]>(`${this.PATH_OF_API}/seller/order/getAllSeller`);
   }
 
+  //mark an order as deliveed
   public markDelivered(orderId : number){
     return this.httpClient.get(`${this.PATH_OF_API}/seller/order/delivered/${orderId}`);
   }
 
+  //add a review to a product
   public addReview(productId: number, review: Review){
     return this.httpClient.post(`${this.PATH_OF_API}/buyer/review/add/${productId}`, review);
   }
 
+  //get all reviews of a product
   public getReviews(productId: number){
     return this.httpClient.get(`${this.PATH_OF_API}/review/get/${productId}`);
   }
 
+  //change the status of a product(visible or disable)
   public statusProduct(productId: number){
     return this.httpClient.post(`${this.PATH_OF_API}/seller/product/statusProduct/${productId}`,{});
   }
