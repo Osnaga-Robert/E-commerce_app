@@ -25,6 +25,7 @@ public class Product {
     private Integer productQuantity;
     private String companySeller;
     private boolean isActive;
+    private Integer views;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "product_images",
             joinColumns = {
@@ -35,7 +36,7 @@ public class Product {
             }
     )
     private Set<Image> productImages;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(name = "product_category",
             joinColumns = {
                     @JoinColumn(name = "product_id")

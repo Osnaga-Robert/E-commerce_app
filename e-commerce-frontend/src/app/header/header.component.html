@@ -15,12 +15,6 @@
           <a class="nav-link" routerLink="/seller">Seller Dashboard</a>
         </li>
       </ul>
-      <form class="d-flex mx-auto search-form" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-light" type="submit">
-          <i class="fas fa-search"></i>
-        </button>
-      </form>
       <div class="d-flex">
         <button *ngIf="!isLoggedIn()" class="btn btn-outline-light" type="button" routerLink="/login">
           <i class="fas fa-sign-in-alt"></i>
@@ -51,6 +45,9 @@
         </a>
         <a routerLink="/discounts" class="list-group-item list-group-item-action py-2 ripple">
           <i class="fas fa-percent fa-fw me-3"></i><span>Discounts</span>
+        </a>
+        <a routerLink="/charts" class="list-group-item list-group-item-action py-2 ripple">
+          <i class="fas fa-chart-bar fa-fw me-3"></i><span>Charts</span>
         </a>
         <a routerLink="/orderInfo" class="list-group-item list-group-item-action py-2 ripple">
           <i class="fas fa-receipt fa-fw me-3"></i><span>Orders</span>

@@ -13,6 +13,7 @@ export interface Product {
     productQuantity: number;
     productCompanySeller: string;
     isActive: boolean;
+    views: number;
     productImages: FileHandle[];
     productCategory: Category[];
     productReview: Review[];

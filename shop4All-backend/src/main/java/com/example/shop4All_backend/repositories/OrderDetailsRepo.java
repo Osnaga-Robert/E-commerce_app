@@ -11,4 +11,5 @@ public interface OrderDetailsRepo extends CrudRepository<OrderDetails, Integer> 
     public List<OrderDetails> findByUser(User user);
     public List<OrderDetails> findByProduct(Product product);
     public void deleteByProduct(Product product);
+    public List<OrderDetails> findByProductAndUser(Product product, User user);
 }

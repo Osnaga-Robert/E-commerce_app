@@ -64,6 +64,31 @@ export class UserService {
     return this.httpClient.post(`${this.PATH_OF_API}/admin/declineAccount`, email);
   }
 
+  //get the main chart information
+  public mainChart(){
+    return this.httpClient.get(`${this.PATH_OF_API}/seller/chart/main`);
+  }
+
+  //get the total sales based on a period
+  public getTotalSales(period: string){
+    return this.httpClient.get(`${this.PATH_OF_API}/seller/chart/totalSales/${period}`)
+  }
+
+  //get total visitors
+  public getTotalVisitors(){
+    return this.httpClient.get(`${this.PATH_OF_API}/seller/chart/totalVisitors`)
+  }
+
+  //get total orders based on a period
+  public getTotalOrder(period: string){
+    return this.httpClient.get(`${this.PATH_OF_API}/seller/chart/totalOrders/${period}`)
+  }
+
+  //get the best sold products based on a period
+  public getTopProducts(period: string){
+    return this.httpClient.get(`${this.PATH_OF_API}/seller/chart/topProducts/${period}`)
+  }
+
   //check if the user's role matches any of the allowed roles
   public roleMatch(allowedRoles: string[]): boolean {
     let isMatch = false;

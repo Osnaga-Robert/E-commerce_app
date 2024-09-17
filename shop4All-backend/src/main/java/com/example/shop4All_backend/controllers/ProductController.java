@@ -65,6 +65,12 @@ public class ProductController {
         return new ResponseEntity<>(productService.getAllProductsByCompany(pageNumber), HttpStatus.OK);
     }
 
+    @GetMapping(value =  {"/product/getByCategory/{categoryName}"})
+    public ResponseEntity<List<Product>> getProductByCategory(@PathVariable("categoryName") String categoryName, @RequestParam(defaultValue = "0") int pageNumber) {
+        logger.info("Get all products by category with pagination");
+        return new ResponseEntity<>(productService.getProductsByCategory(categoryName, pageNumber), HttpStatus.OK);
+    }
+
     //Handle GET request to /product/getByCompanyName to get all products sold by a seller
     @GetMapping(value = {"seller/product/getAllByCompanyName"})
     public ResponseEntity<List<Product>> getAllProductsByCompany() {
@@ -77,6 +83,12 @@ public class ProductController {
     public ResponseEntity<Product> getProductById(@PathVariable("productId") Integer productId) {
         logger.info("Get product by id {}", productId);
         return new ResponseEntity<>(productService.getProductById(productId), HttpStatus.OK);
+    }
+
+    @PostMapping("/product/addView/{productId}")
+    public ResponseEntity<Product> addView(@PathVariable("productId") Integer productId) {
+        logger.info("Add view with id {}", productId);
+        return new ResponseEntity<>(productService.addView(productId), HttpStatus.OK);
     }
 
     //Handle DELETE request to /product/delete/{productId} to delete a product based on productId

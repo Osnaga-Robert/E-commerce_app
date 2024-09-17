@@ -29,8 +29,12 @@
             <td mat-cell *matCellDef="let element"> {{element.orderStatus}} </td>
         </ng-container>
         <ng-container matColumnDef="ChangeStatus">
-            <th mat-header-cell *matHeaderCellDef> Change status </th>
-            <td mat-cell *matCellDef="let element"> <button *ngIf="element.orderStatus == 'Placed' " mat-raised-button (click)="markAsDelivered(element.orderId)"> Mark as delivered</button> </td>
+            <th mat-header-cell *matHeaderCellDef> Change Status </th>
+            <td mat-cell *matCellDef="let element">
+              <button *ngIf="element.orderStatus == 'Placed'" mat-raised-button class="btn btn-outline-primary rounded-10 custom-mark-delivered-button" (click)="markAsDelivered(element.orderId)">
+                Mark as delivered
+              </button>
+            </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

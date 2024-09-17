@@ -2,7 +2,11 @@
   <div class="category-section mb-4">
     <h2>Categories</h2>
     <ul>
-      <li *ngFor="let category of categories">{{ category.categoryName }}</li>
+      <li *ngFor="let category of categories">
+        <button type="button" class="btn btn-primary" (click)="filterProductsByCategory(category.categoryName)">
+          {{ category.categoryName }}
+        </button>
+      </li>
     </ul>
   </div>
   <h2>Products</h2>
@@ -29,7 +33,6 @@
           <div class="button-container">
             <button type="button" class="btn custom-hover-button" (click)="showProductDetails(p.productId)">View
               Details</button>
-            <button type="button" class="btn custom-add-to-cart-button">Add to Cart</button>
           </div>
         </div>
       </div>

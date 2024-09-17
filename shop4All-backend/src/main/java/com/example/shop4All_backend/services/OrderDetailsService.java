@@ -1,7 +1,6 @@
 package com.example.shop4All_backend.services;
 
 import com.example.shop4All_backend.configurations.JwtRequestFilter;
-import com.example.shop4All_backend.controllers.CartController;
 import com.example.shop4All_backend.entities.*;
 import com.example.shop4All_backend.exceptions.ProductException;
 import com.example.shop4All_backend.exceptions.UserException;
@@ -10,12 +9,11 @@ import com.example.shop4All_backend.repositories.OrderDetailsRepo;
 import com.example.shop4All_backend.repositories.ProductRepo;
 import com.example.shop4All_backend.repositories.UserRepo;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.query.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,6 +54,9 @@ public class OrderDetailsService {
                     .orderContactNumber(orderInput.getContactNumber())
                     .orderStatus(ORDER_PLACED)
                     .orderAmount(product.getProductPrice() * (1 - product.getProductDiscounted() / 100) * orderProductQuantity.getQuantity())
+                    .orderPrice(product.getProductPrice() * (1 - product.getProductDiscounted() / 100))
+                    .orderQuantity(orderProductQuantity.getQuantity())
+                    .orderDate(LocalDate.now())
                     .product(product)
                     .user(user)
                     .build();
@@ -103,7 +104,7 @@ public class OrderDetailsService {
         User user = userRepo.findByUserEmail(currentUser).get();
 
         List<OrderDetails> allOrdersSeller = new ArrayList<>();
-        String userCompanyName = user.getUserCompanyName(); // Get the current user's company name
+        String userCompanyName = user.getUserCompanyName();
 
         orderDetailsRepo.findAll().forEach(orderDetails -> {
             if (orderDetails.getProduct().getCompanySeller().equals(userCompanyName)) {

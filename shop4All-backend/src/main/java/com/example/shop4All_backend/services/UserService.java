@@ -1,9 +1,9 @@
 package com.example.shop4All_backend.services;
 
-import com.example.shop4All_backend.entities.Role;
-import com.example.shop4All_backend.entities.User;
+import com.example.shop4All_backend.entities.*;
 import com.example.shop4All_backend.exceptions.RegisterException;
 import com.example.shop4All_backend.repositories.CategoryRepo;
+import com.example.shop4All_backend.repositories.OrderDetailsRepo;
 import com.example.shop4All_backend.repositories.ProductRepo;
 import com.example.shop4All_backend.repositories.UserRepo;
 import jakarta.transaction.Transactional;
@@ -12,8 +12,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import java.util.List;
-import java.util.Optional;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,6 +36,7 @@ public class UserService {
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
     final String passwordRegex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*])[A-Za-z\\d!@#$%^&*]{8,}$";
     final String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+    private final OrderDetailsRepo orderDetailsRepo;
 
     //seller registration
     public User registerNewSeller(User seller) {
@@ -82,7 +89,181 @@ public class UserService {
 
     //demo for roles and an admin
     public void initRolesandUser() {
+        Path SamsungImage1 = Paths.get("Samsung1.jpg");
+        Path SamsungImage2 = Paths.get("Samsung2.webp");
+        Path IphoneImage1 = Paths.get("Iphone1.jpeg");
+        Path IphoneImage2 = Paths.get("Iphone2.jpeg");
+
+        Category samsung = new Category();
+        samsung.setCategoryDescription("SAMSUNG");
+        samsung.setCategoryName("SAMSUNG");
+        categoryRepo.save(samsung);
+
+        Category apple = new Category();
+        apple.setCategoryDescription("APPLE");
+        apple.setCategoryName("APPLE");
+        categoryRepo.save(apple);
+
+        Category huawei = new Category();
+        huawei.setCategoryDescription("HUAWEI");
+        huawei.setCategoryName("HUAWEI");
+        categoryRepo.save(huawei);
+
+        User seller1 = new User();
+        seller1.setUserEmail("seller1@gmail.com");
+        seller1.setUserPassword(getEncodedPassword("seller"));
+        seller1.setRole(Role.SELLER);
+        seller1.setUserIsValid(true);
+        seller1.setUserCompanyName("SAMSUNG");
+        userRepo.save(seller1);
+
+        User seller2 = new User();
+        seller2.setUserEmail("seller2@gmail.com");
+        seller2.setUserPassword(getEncodedPassword("seller"));
+        seller2.setRole(Role.SELLER);
+        seller2.setUserIsValid(true);
+        seller2.setUserCompanyName("APPLE");
+        userRepo.save(seller2);
+
+        User buyer1 = new User();
+        buyer1.setUserEmail("buyer1@gmail.com");
+        buyer1.setUserPassword(getEncodedPassword("buyer"));
+        buyer1.setRole(Role.BUYER);
+        buyer1.setUserIsValid(true);
+        userRepo.save(buyer1);
+
+        User buyer2 = new User();
+        buyer2.setUserEmail("buyer2@gmail.com");
+        buyer2.setUserPassword(getEncodedPassword("buyer"));
+        buyer2.setRole(Role.BUYER);
+        buyer2.setUserIsValid(true);
+        userRepo.save(buyer2);
+
+        User admin = new User();
+        admin.setUserEmail("admin@gmail.com");
+        admin.setUserPassword(getEncodedPassword("admin"));
+        admin.setRole(Role.ADMIN);
+        admin.setUserIsValid(true);
+        userRepo.save(admin);
+
+        Random random = new Random();
+
+        for (int i = 1; i <= 100; i++) {
+            Product product = new Product();
+
+            product.setProductPrice(Math.round(random.nextDouble() * 1000 * 100) / 100.0);
+            product.setProductQuantity(Math.abs(random.nextInt(1000)));
+            product.setActive(true);
+            product.setViews(Math.abs(random.nextInt(1000)));
+            product.setProductDiscounted(0.0);
+
+            int rand = Math.abs(random.nextInt() % 2);
+            if(rand == 0) {
+                product.setProductName("Samsung Galaxy S" + i);
+                product.setProductDescription("This is a phone created by SAMSUNG");
+                product.setCompanySeller("SAMSUNG");
+                HashSet<Category> categories = new HashSet<>();
+                categories.add(samsung);
+                product.setProductCategory(categories);
+
+                Set<Image> images = new HashSet<>();
+                try {
+                    byte[] imageBytes1 = Files.readAllBytes(SamsungImage1);
+                    byte[] imageBytes2 = Files.readAllBytes(SamsungImage2);
+
+                    Image image1 = new Image();
+                    image1.setName("image_" + i + "_1.jpg");
+                    image1.setType("image/jpeg");
+                    image1.setImageByte(imageBytes1);
+
+                    Image image2 = new Image();
+                    image2.setName("image_" + i + "_2.jpg");
+                    image2.setType("image/jpeg");
+                    image2.setImageByte(imageBytes2);
+
+                    images.add(image1);
+                    images.add(image2);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                product.setProductImages(images);
+                productRepo.save(product);
+            }
+            else{
+                product.setProductName("Iphone " + i);
+                product.setProductDescription("This is a phone created by APPLE");
+                product.setCompanySeller("APPLE");
+                HashSet<Category> categories = new HashSet<>();
+                categories.add(apple);
+                product.setProductCategory(categories);
+
+                Set<Image> images = new HashSet<>();
+                try {
+                    byte[] imageBytes1 = Files.readAllBytes(IphoneImage1);
+                    byte[] imageBytes2 = Files.readAllBytes(IphoneImage2);
+
+                    Image image1 = new Image();
+                    image1.setName("image_" + i + "_1.jpg");
+                    image1.setType("image/jpeg");
+                    image1.setImageByte(imageBytes1);
+
+                    Image image2 = new Image();
+                    image2.setName("image_" + i + "_2.jpg");
+                    image2.setType("image/jpeg");
+                    image2.setImageByte(imageBytes2);
+
+                    images.add(image1);
+                    images.add(image2);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                product.setProductImages(images);
+                productRepo.save(product);
+            }
+        }
+
+        LocalDate startDate = LocalDate.of(LocalDate.now().getYear(), 1, 1);
+
+        // Get today's date
+        LocalDate endDate = LocalDate.now();
+
+        // Calculate the number of days between the start date and today
+        long daysBetween = ChronoUnit.DAYS.between(startDate, endDate);
+
+        for(int i = 1 ; i <= 200 ; i++){
+            OrderDetails orderDetails = new OrderDetails();
+            orderDetails.setOrderFullName("Order " + i);
+            orderDetails.setOrderFullAddress("Address " + i);
+            orderDetails.setOrderContactNumber("Contact " + i);
+            int rand = Math.abs(random.nextInt() % 2);
+            if(rand == 0) {
+                orderDetails.setOrderStatus("Placed");
+            }
+            else{
+                orderDetails.setOrderStatus("Delivered");
+            }
+            rand = Math.abs(random.nextInt() % 100) + 1;
+            Product product = productRepo.findById(rand).get();
+            orderDetails.setProduct(product);
+            orderDetails.setOrderPrice(product.getProductPrice());
+            orderDetails.setOrderQuantity((random.nextInt() % 3) + 1);
+            orderDetails.setOrderAmount(product.getProductPrice() * orderDetails.getOrderQuantity());
+            long randomDays = ThreadLocalRandom.current().nextLong(0, daysBetween + 1);
+            LocalDate randomDate = startDate.plusDays(randomDays);
+            orderDetails.setOrderDate(randomDate);
+            rand = Math.abs(random.nextInt() % 2);
+            if(rand == 0) {
+                orderDetails.setUser(buyer1);
+            }
+            else{
+                orderDetails.setUser(buyer2);
+            }
+            orderDetailsRepo.save(orderDetails);
+        }
     }
+
 
     public String getEncodedPassword(String password) {
         return passwordEncoder.encode(password);
