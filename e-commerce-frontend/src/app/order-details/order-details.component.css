@@ -1,0 +1,11 @@
+.custom-mark-delivered-button {
+    border-color: #42BFDD;
+    color: white;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+
+.custom-mark-delivered-button:hover {
+    background-color: #FF66B3;
+    border-color: #FF66B3;
+    color: white;
+}

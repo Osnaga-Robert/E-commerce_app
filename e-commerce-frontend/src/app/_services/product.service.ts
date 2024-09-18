@@ -12,7 +12,7 @@ import { Review } from '../_model/review.model';
   providedIn: 'root'
 })
 export class ProductService {
-
+  
   private readonly PATH_OF_API: string;
 
   constructor(private httpClient: HttpClient, private apiConfigService: ApiConfigService) {
@@ -49,6 +49,11 @@ export class ProductService {
     return this.httpClient.get<Product[]>(`${this.PATH_OF_API}/product/getAll?pageNumber=${pageNumber}`);
   }
 
+  //get a page of products based on category
+  getProductsByCategory(categoryName: string, pageNumber: number) {
+    return this.httpClient.get<Product[]>(`${this.PATH_OF_API}/product/getByCategory/${categoryName}?pageNumber=${pageNumber}`);
+  }
+
   //get a product by Id
   public getProductById(productId: number): Observable<Product> {
     return this.httpClient.get<Product>(`${this.PATH_OF_API}/product/getById/${productId}`);
@@ -57,6 +62,11 @@ export class ProductService {
   //check if a discount is eligible for a discount
   public checkProductDiscount(product: Product): Observable<String> {
     return this.httpClient.post<String>(`${this.PATH_OF_API}/seller/product/checkDiscount`, product);
+  }
+
+  //add a view to a product
+  public addView(productId : number): Observable<Product>{
+    return this.httpClient.post<Product>(`${this.PATH_OF_API}/product/addView/${productId}`, {});
   }
 
   //set a discount on a product

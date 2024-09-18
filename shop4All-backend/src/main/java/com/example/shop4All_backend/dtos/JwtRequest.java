@@ -1,5 +1,8 @@
 package com.example.shop4All_backend.dtos;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public class JwtRequest {
 
     private String userEmail;

@@ -1,6 +1,32 @@
-<div class="container mt-5">
-    <div class="card text-center" style="padding: 20px;">
-        <h1> Seller page </h1>
-        <h1>{{message}}</h1>
+<div>
+    <div class="summary">
+      <div class="box total-sales">
+        <h3>Total Sales</h3>
+        <p>${{ totalSales }}</p>
+      </div>
+      <div class="box sales-week">
+        <h3>Sales this Week</h3>
+        <p>${{ salesWeek }}</p>
+      </div>
+      <div class="box customers-week">
+        <h3>Customers this Week</h3>
+        <p>{{ totalViewsWeek }}</p>
+      </div>
     </div>
-</div>
+    <div class="chart">
+      <canvas baseChart
+              [data]="barChartData"
+              [type]="barChartType"
+              [options]="barChartOptions">
+      </canvas>
+    </div>
+    <div class="top-products">
+      <h3>Top Products Sold</h3>
+      <ul>
+        <li *ngFor="let product of topProducts">
+          <span>{{ product.name }}</span> <span>{{ product.sold }} units</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  

@@ -52,6 +52,9 @@ export class ShowProductDetailsComponent implements OnInit {
     this.productServe.deleteProduct(element.productId).subscribe(
       data => {
         console.log("Deleted " + data);
+        this.errorMessage = "";
+        this.pageNumber = 0;
+        this.productDetails = [];
         this.getAllProducts();
       },
       error => {
@@ -68,10 +71,12 @@ export class ShowProductDetailsComponent implements OnInit {
 
   // Toggle the active status of a product
   toggleProductStatus(element: any) {
-    // Update product's active status
     this.productServe.statusProduct(element).subscribe({
       next: (next : any) => {
-        this.errorMessage = "Refresh the page to see the update";
+        this.errorMessage = "";
+        this.pageNumber = 0;
+        this.productDetails = [];
+        this.getAllProducts();
         console.log("Update done");
       },
       error: (error : any) => {

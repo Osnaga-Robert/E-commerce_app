@@ -5,6 +5,8 @@ import { map } from 'rxjs/operators';
 import { ImageProcessingService } from '../image-processing.service';
 import { Router } from '@angular/router';
 import { Category } from '../_model/category.model';
+import { response } from 'express';
+import { error } from 'console';
 
 @Component({
   selector: 'app-home',
@@ -17,6 +19,7 @@ export class HomeComponent implements OnInit {
   categories: Category[] = [];
   pageNumber: number = 0;
   showLoadButton = true;
+  selectedCategory: string | null = null;
 
   constructor(
     private productService: ProductService,
@@ -24,7 +27,6 @@ export class HomeComponent implements OnInit {
     private router: Router
   ) { }
 
-  //fetch all products and categories
   ngOnInit(): void {
     this.pageNumber = 0;
     console.log('HomeComponent initialized');
@@ -48,13 +50,20 @@ export class HomeComponent implements OnInit {
 
   //navigate to the product details page for the selected product
   showProductDetails(productId: number) {
-    console.log('Navigating to product details for product ID:', productId);
-    this.router.navigate(['/productViewDetails', { productId: productId }]);
+    this.productService.addView(productId).subscribe({
+      next: (response: any) => {
+        console.log('Navigating to product details for product ID:', productId);
+        this.router.navigate(['/productViewDetails', { productId: productId }]);
+      },
+      error: (error : any) => {
+        console.log(error);
+      }
+    });
   }
 
   //get all products
   public getAllProducts() {
-    console.log('Fetching products');
+    console.log('Fetching all products');
     this.productService.getAllProducts(this.pageNumber)
       .pipe(map((products: Product[]) => {
         console.log('Processing images for products');
@@ -62,10 +71,9 @@ export class HomeComponent implements OnInit {
       }))
       .subscribe({
         next: (data) => {
-          if (data.length != 10)
-            this.showLoadButton = false;
+          if (data.length != 10) this.showLoadButton = false;
           console.log('Products fetched and processed:', data);
-          data.forEach(p => this.products.push(p));
+          this.products.push(...data);
         },
         error: (error) => {
           console.log('Error fetching products:', error);
@@ -76,6 +84,40 @@ export class HomeComponent implements OnInit {
   //load moe products based on pagination
   public loadMoreProducts() {
     this.pageNumber++;
-    this.getAllProducts();
+    if (this.selectedCategory) {
+      this.filterProductsByCategory(this.selectedCategory, false);
+    } else {
+      this.getAllProducts();
+    }
+  }
+
+  //filter products by category and reset pagination
+  filterProductsByCategory(categoryName: string, resetProducts: boolean = true) {
+    console.log('Filtering products by category:', categoryName);
+    this.selectedCategory = categoryName;
+    this.pageNumber = resetProducts ? 0 : this.pageNumber;
+
+    if (resetProducts) {
+      this.products = [];
+    }
+
+    this.productService.getProductsByCategory(categoryName, this.pageNumber)
+      .pipe(map((products: Product[]) => {
+        return products.map((product: Product) => this.imageProcessingService.createImages(product));
+      }))
+      .subscribe({
+        next: (data: any) => {
+          if (data.length != 10) {
+            this.showLoadButton = false;
+          } else {
+            this.showLoadButton = true;
+          }
+          console.log('Filtered products fetched:', data);
+          this.products.push(...data);
+        },
+        error: (error: any) => {
+          console.log('Error fetching products for category:', error);
+        }
+      });
   }
 }

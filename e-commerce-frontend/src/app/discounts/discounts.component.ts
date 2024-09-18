@@ -24,6 +24,7 @@ export class DiscountsComponent implements OnInit {
     productQuantity: 0,
     productCompanySeller: '',
     isActive: false,
+    views: 0,
     productImages: [],
     productCategory: [],
     productReview: []
@@ -49,6 +50,7 @@ export class DiscountsComponent implements OnInit {
     this.loadProducts();
   }
 
+  //load all seller's products
   loadProducts(): void {
     console.log('Loading products');
     this.productService.getAllByCompanyProducts().subscribe({
@@ -64,6 +66,7 @@ export class DiscountsComponent implements OnInit {
     });
   }
 
+  //add a discount to the list
   addlistDiscount() {
     console.log('Adding discount');
     this.errorMessage = '';
@@ -90,6 +93,7 @@ export class DiscountsComponent implements OnInit {
     }
   }
 
+  //apply the discount from the list
   applyDiscounts() {
     console.log('Applying discounts');
     for (let product of this.appliedDiscounts) {
@@ -108,6 +112,7 @@ export class DiscountsComponent implements OnInit {
     }
   }
 
+  //delete a discount from the list
   deleteDiscount(product: Product) {
     console.log('Deleting discount for product:', product);
     this.appliedDiscounts = this.appliedDiscounts.filter(appliedDiscount => appliedDiscount.productId !== product.productId);
@@ -116,6 +121,7 @@ export class DiscountsComponent implements OnInit {
     this.loadProducts();
   }
 
+  //delete a discount
   deleteProductDiscount(product: Product) {
     console.log('Removing product discount for product ID:', product.productId);
     this.productService.removeDiscount(product.productId).subscribe({
@@ -145,6 +151,7 @@ export class DiscountsComponent implements OnInit {
     this.isExtendOfferModalOpen = false;
   }
 
+  //update an offer
   updateOffer() {
     console.log('Updating extend offer');
     this.extendOffer.extendErrorMessage = '';
@@ -185,6 +192,7 @@ export class DiscountsComponent implements OnInit {
       productQuantity: 0,
       productCompanySeller: '',
       isActive: false,
+      views: 0,
       productImages: [],
       productCategory: [],
       productReview: []

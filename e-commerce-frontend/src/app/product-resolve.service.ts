@@ -36,6 +36,7 @@ export class ProductResolveService implements Resolve<Product> {
       productQuantity: 0,
       productCompanySeller: '',
       isActive: false,
+      views: 0,
       productImages: [],
       productCategory: [],
       productReview: []

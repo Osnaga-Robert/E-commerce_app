@@ -2,6 +2,7 @@ package com.example.shop4All_backend.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -19,6 +20,9 @@ public class OrderDetails {
     private String orderContactNumber;
     private String orderStatus;
     private Double orderAmount;
+    private Double orderPrice;
+    private Integer orderQuantity;
+    private LocalDate orderDate;
     @ManyToOne
     private Product product;
     @ManyToOne

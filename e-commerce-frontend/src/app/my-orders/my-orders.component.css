@@ -1,0 +1,11 @@
+.custom-add-review-button {
+    color: white;
+    border-color: #42BFDD;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+
+.custom-add-review-button:hover {
+    background-color: #42BFDD;
+    border-color: #42BFDD;
+    color: white;
+}

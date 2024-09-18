@@ -1,6 +1,7 @@
 package com.example.shop4All_backend.services;
 
 import com.example.shop4All_backend.configurations.JwtRequestFilter;
+import com.example.shop4All_backend.entities.Category;
 import com.example.shop4All_backend.entities.Product;
 import com.example.shop4All_backend.entities.User;
 import com.example.shop4All_backend.entities.Cart;
@@ -31,6 +32,7 @@ public class ProductService {
     private final UserRepo userRepo;
     private final CartRepo cartRepo;
     private final OrderDetailsRepo orderDetailsRepo;
+    private final CategoryRepo categoryRepo;
 
     //add a product
     public Product addNewProduct(Product product) {
@@ -54,6 +56,15 @@ public class ProductService {
         }
         logger.error("No product found with id: " + productId);
         throw new ProductException("Product not found");
+    }
+
+    //get a page of a product's list based on a category
+    public List<Product> getProductsByCategory(String categoryName, int pageNumber) {
+        Pageable pageable = PageRequest.of(pageNumber, 10);
+        Category category = categoryRepo.findByCategoryName(categoryName).get();
+        Page<Product> productPage = productRepo.findByIsActiveTrueAndProductCategory(pageable, category);
+        logger.info("Found " + productPage.getTotalElements() + " products");
+        return productPage.getContent();
     }
 
     //get all products using pagination
@@ -169,6 +180,7 @@ public class ProductService {
         }
     }
 
+    //set the status of a product (active or inactive)
     public Product statusProduct(Integer productId) {
         Product product = productRepo.findById(productId).get();
         if (product.getProductQuantity() <= 0) {
@@ -179,6 +191,12 @@ public class ProductService {
             product.setActive(false);
         else
             product.setActive(true);
+        return productRepo.save(product);
+    }
+
+    public Product addView(Integer productId) {
+        Product product = productRepo.findById(productId).get();
+        product.setViews(product.getViews() + 1);
         return productRepo.save(product);
     }
 

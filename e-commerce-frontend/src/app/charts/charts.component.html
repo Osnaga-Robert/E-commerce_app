@@ -1,0 +1,56 @@
+<div class="dashboard-container">
+  <div class="summary">
+    <div class="box">
+      <h3>Total Sales</h3>
+      <label for="totalSalesPeriod">Select Period:</label>
+      <select id="totalSalesPeriod" (change)="onTotalSalesPeriodChange($event)">
+        <option value="week">Week</option>
+        <option value="month" selected>Month</option>
+        <option value="year">Year</option>
+      </select>
+      <canvas baseChart
+              [data]="totalSalesData"
+              [type]="'bar'"
+              [options]="chartOptions">
+      </canvas>
+    </div>
+    <div class="box">
+      <h3>Top Visitors</h3>
+      <canvas baseChart
+              [data]="topVisitorsData"
+              [type]="'bar'"
+              [options]="chartOptions">
+      </canvas>
+    </div>
+  </div>
+  <div class="summary">
+    <div class="box">
+      <h3>Total Orders</h3>
+      <label for="totalOrdersPeriod">Select Period:</label>
+      <select id="totalOrdersPeriod" (change)="onTotalOrdersPeriodChange($event)">
+        <option value="week">Week</option>
+        <option value="month" selected>Month</option>
+        <option value="year">Year</option>
+      </select>
+      <canvas baseChart
+              [data]="totalOrdersData"
+              [type]="'bar'"
+              [options]="chartOptions">
+      </canvas>
+    </div>
+    <div class="box">
+      <h3>Top Products Sold</h3>
+      <label for="topProductsPeriod">Select Period:</label>
+      <select id="topProductsPeriod" (change)="onTopProductsPeriodChange($event)">
+        <option value="week">Week</option>
+        <option value="month" selected>Month</option>
+        <option value="year">Year</option>
+      </select>
+      <ul>
+        <li *ngFor="let product of topProducts">
+          <span>{{ product.name }}</span> <span>{{ product.sold }} units</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
